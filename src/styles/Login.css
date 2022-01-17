@@ -1,0 +1,42 @@
+.login {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  background-color: rgb(255, 255, 255);
+}
+
+.login div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login img {
+  height: 200px;
+  object-fit: contain;
+  margin-bottom: 30px;
+}
+
+.login__loginBtn,
+.login__codeBtn {
+  width: 200px !important;
+  height: 50px !important;
+  color: whitesmoke !important;
+  background-color: aquamarine !important;
+  font-weight: 900 !important;
+  border: none !important;
+  outline: none !important;
+}
+
+.login__codeBtn {
+    margin-top: 50px !important;
+    background-color: purple !important;
+  }
+
+.login__loginBtn:focus,
+.login__codeBtn:focus {
+  outline: 7px solid pink !important;
+  outline-offset: 4px;
+}
+
+
