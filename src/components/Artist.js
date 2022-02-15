@@ -27,6 +27,7 @@ function Artist() {
     spotifyAPI
       .getArtist(artistID)
       .then((data) => {
+        console.log(data)
         setArtist(data);
         return spotifyAPI.getArtistTopTracks(artistID, "CA");
       })

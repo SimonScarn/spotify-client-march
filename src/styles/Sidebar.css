@@ -105,3 +105,21 @@
   background: #eee;
   color: black;
 }
+
+.sidebar_toolbar {
+  padding: .1em;
+  text-align: center;
+  border: none;
+  border-radius: 1rem;
+  transition: background .3s ease-in-out
+
+}
+
+.sidebar_toolbar:hover {
+  background: lightgrey;
+  color: black;
+}
+
+.icon__sidebar:hover {
+  color: #6b0f1a !important;
+}

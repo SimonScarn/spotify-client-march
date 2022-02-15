@@ -37,6 +37,9 @@ function Library() {
         });
         break;
       case "episodes":
+        spotifyAPI.getMySavedShows().then((data) => {
+          console.log(data.items)
+        });
         break;
       case undefined:
         history.push("/collection/playlists");

@@ -1,8 +1,11 @@
 import "../styles/ListItem.css";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
+import axios from "axios";
 import { spotifyAPI } from "../spotify";
+import { GlobalContext } from "./../GlobalContext";
 
 function ListItem({ item, itemID }) {
+  const { userInfo, dispatch } = useContext(GlobalContext);
   const [open, setOpen] = useState(false);
 
   function hidePlaylistModal() {
@@ -15,13 +18,23 @@ function ListItem({ item, itemID }) {
   }
 
   function addToPlaylist() {
-
+    console.log("coming soon with server", item.id, "tracki :", itemID);
+    /*
+ axios.post("/playlist", {
+      refreshToken: userInfo.accessToken
+    })
+    .then(res => console.log('res from serwa: ', res))
+*/
+/* 
     spotifyAPI
-      .addTracksToPlaylist({ playlistId: item.id, uris: [itemID] })
+      .addTracksToPlaylist("0XzyX3lmmcEpFRI9m7MAUs", [
+        "spotify:track:0iVh9CMOrKNobLkwHaxHCK",
+      ])
+
       .then(() => {
-        console.log("coming soon with server")
+        console.log("coming soon with server");
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err)); */
   }
 
   return (

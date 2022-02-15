@@ -47,6 +47,8 @@
 }
 
 
+
+
 .playlist__recommendedRefreshBtn {
   width: 200px;
   margin-top: 1.5rem !important;
@@ -55,4 +57,8 @@
   border-radius: 10px !important;
   color: white !important;
   background: #6b0f1a !important;
+}
+
+.playlist__tracks {
+  margin-bottom: 3rem;
 }

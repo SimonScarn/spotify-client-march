@@ -44,12 +44,6 @@ export default function Player({ code }) {
     });
   }, [accessToken]);
 
-  useEffect(() => {
-    if (code !== "custom") {
-      apiRequest.put("/status");
-    }
-  }, []);
-
   return (
     <HashRouter>
       <div className="player">

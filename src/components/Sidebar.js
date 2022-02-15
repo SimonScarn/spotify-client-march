@@ -2,6 +2,7 @@ import "../styles/Sidebar.css";
 import { useContext, useState, useEffect } from "react";
 import { GlobalContext } from "../GlobalContext";
 import { NavLink, Link } from "react-router-dom";
+
 import SidebarOption from "./SidebarOption";
 import Home from "@material-ui/icons/Home";
 import Search from "@material-ui/icons/Search";
@@ -11,6 +12,7 @@ import Favorite from "@material-ui/icons/Favorite";
 import EqualizerIcon from "@material-ui/icons/Equalizer";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import AddIcon from "@material-ui/icons/Add";
+import { IconButton } from "@material-ui/core";
 
 export default function Sidebar() {
   const { userInfo, dispatch } = useContext(GlobalContext);
@@ -34,14 +36,15 @@ export default function Sidebar() {
     }
   }, [query]);
 
-
-
-  function addSong() {
-    console.log("coming soon");
+  function addSong(e) {
+    e.preventDefault();
+    console.log("coming soon", e);
   }
 
-  function togglePlaylist(id) {
+  function togglePlaylist(e, id) {
+    e.preventDefault();
     dispatch({ type: "SET_PLAYER_TRACK", payload: [`spotify:playlist:${id}`] });
+    console.log(id)
   }
 
   return (
@@ -99,16 +102,14 @@ export default function Sidebar() {
                 style={{ cursor: "default" }}
                 className="sidebar__navLink"
               >
-                <div
-                  className="sidebar__playlist"
-                  key={playlist.id}
-                >
+                <div className="sidebar__playlist" key={playlist.id}>
                   <p style={{ margin: "0", padding: "0" }}>{playlist.name}</p>
-                  <div>
+                  <div className="sidebar_toolbar">
                     <AddIcon className="icon__sidebar" onClick={addSong} />
+
                     <PlayArrowIcon
                       className="icon__sidebar"
-                      onClick={() => togglePlaylist(playlist.id)}
+                      onClick={(e) => togglePlaylist(e, playlist.id)}
                     />
                   </div>
                 </div>

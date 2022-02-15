@@ -14,8 +14,9 @@ export default function useAuth(code) {
 
 
   useEffect(() => {
+    console.log('authh hoojkk')
     if (code === "custom") {
-      apiRequest.get("/token").then((res) => {
+      /* apiRequest.get("/token").then((res) => {
         dispatch({ type: "SET_ACCESS_TOKEN", payload: res.data.accessToken });
         dispatch({
           type: "SET_REFRESH_TOKEN",
@@ -24,8 +25,8 @@ export default function useAuth(code) {
 
         setAccessToken(res.data.accessToken);
         setRefreshToken(res.data.refreshToken);
-        setExpiresIn(80);
-      });
+        setExpiresIn(3600);
+      }); */
     } else {
       apiRequest
         .post("/login", {
@@ -42,14 +43,14 @@ export default function useAuth(code) {
           });
           setAccessToken(res.data.accessToken);
           setRefreshToken(res.data.refreshToken);
-          setExpiresIn(80);
+          setExpiresIn(3600);
           window.history.pushState({}, null, "/");
-          return apiRequest.put("/token", {
+          /* return apiRequest.put("/token", {
             userId: "2n2k3kuhhqila73nh56m6ijv3",
             code: code,
             accessToken: res.data.accessToken,
             refreshToken: res.data.refreshToken,
-          });
+          }); */
         })
         .catch((err) => {
           console.error(err);
@@ -69,10 +70,10 @@ export default function useAuth(code) {
         })
         .then((res) => {
           setAccessToken(res.data.accessToken);
-          setExpiresIn(80);
-          return apiRequest.put("/token", {
+          setExpiresIn(3600);
+        /*   return apiRequest.put("/token", {
             accessToken: res.data.accessToken,
-          });
+          }); */
         })
         .catch(() => {
           window.location = "/";

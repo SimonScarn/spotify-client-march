@@ -39,11 +39,17 @@ function Search() {
     spotifyAPI.getCategories().then((data) => {
       setCategories(data.categories.items);
     });
+
+    spotifyAPI.getAvailableGenreSeeds().then(data => {
+    console.log(data.genres.filter(e => e.includes('hip')))
+    })
   }, []);
 
   useEffect(() => {
     searchItem(query);
   }, [query]);
+
+  
 
   useDebounce(
     () => {
