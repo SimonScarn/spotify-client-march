@@ -47,16 +47,27 @@
 }
 
 
-
+.playlist__recommendedToolbar {
+  display: grid;
+  place-items: center;
+}
 
 .playlist__recommendedRefreshBtn {
-  width: 200px;
+  width: 96%;
   margin-top: 1.5rem !important;
-  margin-left: 60% !important;
   padding: 0.75em 1em !important;
   border-radius: 10px !important;
   color: white !important;
   background: #6b0f1a !important;
+  font-size: 18px !important;
+  letter-spacing: 3px !important;
+  transition: all .5s ease-in-out !important;
+}
+
+.playlist__recommendedRefreshBtn:hover {
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  outline: 2px solid rgb(164, 109, 200);
+  color: rgb(164, 109, 200) !important;
 }
 
 .playlist__tracks {

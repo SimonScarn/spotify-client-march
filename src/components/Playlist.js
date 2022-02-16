@@ -2,7 +2,14 @@ import "../styles/Playlist.css";
 import { useState, useEffect, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 import { spotifyAPI } from "../spotify";
-import { addToPlaylist, getRecommendations } from "../utils/playlist";
+import {
+  addToPlaylist,
+  getRecommendations,
+  getPlaylistData,
+  //!-------------
+  getPlaylist,
+  getPlaylistTracks,
+} from "../utils/playlist";
 
 import TopHeader from "./TopHeader";
 import SongRow from "./SongRow";
@@ -13,30 +20,44 @@ import defaultImgSrc from "../assets/defaultimgsrc.png";
 
 function Playlist() {
   const location = useLocation();
+
   const [playlist, setPlaylist] = useState();
   const [tracks, setTracks] = useState([]);
   const [randomTracks, setRandomTracks] = useState([]);
   const [recommendedTracks, setRecommendedTracks] = useState([]);
 
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
 
   useEffect(() => {
     const playlistID = location.pathname.split("/")[2];
+    setTimeout(() => {
+      getPlaylistData(playlistID).then((data) => {
+        setPlaylist(data.playlist);
 
-    spotifyAPI.getPlaylist(playlistID).then((data) => {
-      setPlaylist(data);
-    });
-    spotifyAPI.getPlaylistTracks(playlistID).then((data) => {
-      console.log('setting tracks', data.items)
-      setTracks(data.items);
-    });
+        const newState = data.tracks.map((e, idx) => {
+          return { ...e, id: idx + 1 };
+        });
+        setTracks(newState);
+      });
+    }, 1500);
   }, [location, count]);
 
-
+  //? if prevTracks.length != tracks.length dont run it
   useEffect(() => {
-    //? ---------------------
-    getRecommendations(tracks, setRecommendedTracks);
+    console.log('gettin rekoms')
+    getRecommendations(tracks).then((data) => {
+      setRecommendedTracks(data);
+    });
   }, [location]);
+
+
+
+
+  function refreshRecommendations() {
+    getRecommendations(tracks).then((data) => {
+      setRecommendedTracks(data);
+    });
+  }
 
   return (
     <div className="playlist">
@@ -66,9 +87,11 @@ function Playlist() {
       </div>
       <hr />
       <div className="playlist__tracks">
-        {tracks.map((item) => {
-          return <SongRow key={item.track.id} song={item.track} />;
-        })}
+        {tracks
+          .sort((a, b) => (a.id > b.id ? 1 : -1))
+          .map((item) => {
+            return <SongRow key={item.id} id={item.id} song={item.track} />;
+          })}
       </div>
       <hr />
       <h3 style={{ marginLeft: "5%", fontSize: "30px" }}>Recommended: </h3>
@@ -85,12 +108,14 @@ function Playlist() {
             />
           );
         })}
-        <Button
-          className="playlist__recommendedRefreshBtn"
-          onClick={() => getRecommendations(tracks, setRecommendedTracks)}
-        >
-          Refresh
-        </Button>
+        <div className="playlist__recommendedToolbar">
+          <Button
+            className="playlist__recommendedRefreshBtn"
+            onClick={refreshRecommendations}
+          >
+            Refresh
+          </Button>
+        </div>
       </div>
     </div>
   );

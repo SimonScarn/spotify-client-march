@@ -3,15 +3,22 @@
   grid-template-columns: 50px 75px 3fr .25fr 1fr;
   position: relative;
   z-index: 1;
+  width: 92%;
+  margin: auto;
+  margin-bottom: 2px;
   padding: 0.5em 1em;
   padding-right: 3em;
-  background-image: linear-gradient(315deg, #000000 0%, #414141 74%);
+  background-image: linear-gradient(315deg, #000000 0%, #141414 74%);
 
 }
 
-/* .songRow > * {
+.songRow:hover {
+  background-image: linear-gradient(55deg, #000000 0%, #202020 74%);
+}
+
+ .songRow > * {
   outline: 2px solid limegreen;
-} */
+} 
 
 .songRow:before {
   content: "";

@@ -14,23 +14,30 @@ import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import LibraryAddIcon from "@material-ui/icons/LibraryAdd";
 import AudiotrackIcon from "@material-ui/icons/Audiotrack";
 
-function SongRow({ song, recommended, playlistId, checkboxState, checkboxOnChange, addToPlaylist, setCount  }) {
+function SongRow({
+  id,
+  song,
+  recommended,
+  playlistId,
+  checkboxState,
+  checkboxOnChange,
+  addToPlaylist,
+  setCount,
+}) {
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
   const [favorite, setFavorite] = useState(true);
   const [checked, setChecked] = useState(true);
   const [isAdded, setIsAdded] = useState(false);
 
-
   useEffect(() => {
-
-     /*  spotifyAPI.containsMySavedTracks([song.id])
+    /*  spotifyAPI.containsMySavedTracks([song.id])
       .then(res => {
         if (res[0] === false) {
           setFavorite(false);
         }
       }); */
-  }, [])
+  }, []);
 
   function showPlaylistModal() {
     setOpen(true);
@@ -49,16 +56,14 @@ function SongRow({ song, recommended, playlistId, checkboxState, checkboxOnChang
     spotifyAPI.removeFromMySavedTracks([song.id]);
   }
 
-
   function handleAddToPlaylist() {
-     addToPlaylist(playlistId, [song.uri], setIsAdded);
-     setCount(prev => prev+=1);
+    addToPlaylist(playlistId, [song.uri], setIsAdded);
+    setCount((prev) => (prev += 1));
   }
 
   function clickCheckbox(e) {
     setChecked((prev) => !prev);
   }
-
 
   if (!favorite || isAdded) return null;
 
@@ -66,7 +71,8 @@ function SongRow({ song, recommended, playlistId, checkboxState, checkboxOnChang
     <div className="songRow">
       <div className="songRow__playerControls">
         <span className="songRow__trackNumber">
-          <AudiotrackIcon />
+          {/* <AudiotrackIcon /> */}
+          {id}
         </span>
         <span className="songRow__playIcon">
           <PlayArrowIcon onClick={playSong} className="icon__playItem" />
@@ -84,7 +90,7 @@ function SongRow({ song, recommended, playlistId, checkboxState, checkboxOnChang
           </Link>
         </div>
       </div>
-      {pathname.split("/")[2] === "tracks" && (
+      {(pathname.split("/")[2] === "tracks" ) && (
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Checkbox
             className="songRow__checkbox"
