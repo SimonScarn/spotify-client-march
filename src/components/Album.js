@@ -1,5 +1,18 @@
 import "../styles/Album.css";
 import "../styles/global.css";
+import {
+  Container,
+  Image,
+  Header,
+  ArtistInfo,
+  Title,
+  AlbumInfo,
+  AlbumDetails,
+  Controls,
+  Toolbar,
+  TracksContainer,
+} from "../styles/Album.styled.js";
+
 import { useEffect, useState, useContext } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { GlobalContext } from "../GlobalContext";
@@ -17,8 +30,8 @@ import TimerIcon from "@material-ui/icons/Timer";
 import PauseIcon from "@material-ui/icons/Pause";
 
 function Album() {
-  const { userInfo, dispatch } = useContext(GlobalContext);
   const location = useLocation();
+  const { userInfo, dispatch } = useContext(GlobalContext);
   const [album, setAlbum] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [albumDuration, setAlbumDuration] = useState(0);
@@ -69,16 +82,18 @@ function Album() {
     }
   }
 
+
+
   return (
-    <div className="album">
+    <Container>
       <TopHeader />
-      <div className="album__header">
-        <img alt="album cover" src={album?.images[1].url} />
+      <Header>
+        <Image alt="album cover" src={album?.images[1].url} />
         <div>
           <p style={{ textTransform: "uppercase" }}>{album?.["album_type"]}</p>
-          <div className="album__albumDetails">
-            <h1 className="album__albumTitle">{album?.name}</h1>
-            <div>
+          <AlbumDetails>
+            <Title>{album?.name}</Title>
+            <Controls>
               <div>
                 <MusicNoteIcon />
                 <span>{album?.tracks.total}</span>
@@ -88,22 +103,22 @@ function Album() {
                 <TimerIcon />
                 <span>{albumDuration}</span>
               </div>
-            </div>
-          </div>
-          <div className="album__artistInfo">
+            </Controls>
+          </AlbumDetails>
+          <ArtistInfo>
             {album?.artists.map((artist) => (
               <Link to={`/artist/${artist.id}`} className="itemLink">
-                <span className="album__artistName">{artist.name}</span>
+                <span>{artist.name}</span>
               </Link>
             ))}
-          </div>
-          <div className="album__albumInfo">
+          </ArtistInfo>
+          <AlbumInfo>
             <span>{releaseDate}</span>
             <span>{album?.label}</span>
-          </div>
+          </AlbumInfo>
         </div>
-      </div>
-      <div className="album__toolbar">
+      </Header>
+      <Toolbar>
         <IconButton onClick={playAlbum}>
           {isPlaying ? <PauseIcon /> : <PlayCircleFilledIcon />}
         </IconButton>
@@ -114,13 +129,13 @@ function Album() {
         )}
 
         <MoreHorizIcon />
-      </div>
-      <div className="album__body">
+      </Toolbar>
+      <TracksContainer>
         {album?.tracks.items.map((item) => {
           return <AlbumRow key={item.id} item={item} />;
         })}
-      </div>
-    </div>
+      </TracksContainer>
+    </Container>
   );
 }
 

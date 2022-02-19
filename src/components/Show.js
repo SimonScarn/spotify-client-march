@@ -1,4 +1,14 @@
 import "../styles/Show.css";
+import {
+  Container,
+Header,
+Title,
+Publisher,
+Body,
+BodyLeft,
+BodyRight,
+BodyTitle,
+} from "../styles/Show.styled.js";
 import ShowRow from './ShowRow'
 import TopHeader from './TopHeader'
 import { useLocation } from "react-router";
@@ -42,39 +52,39 @@ function Show() {
 
 
   return (
-    <div className="show">
+    <Container>
       <TopHeader/>
-      <div className="show__header">
+      <Header>
         <div><img alt="show cover" src={show?.images[1].url} /></div>
-        <div className="show__showDetails">
+        <div>
           <p style={{textTransform: 'uppercase'}}>{show?.type}</p>
-          <h1 className="show__title">{show?.name}</h1>
-          <h2 className="show__publisher">{show?.publisher}</h2>
+          <Title>{show?.name}</Title>
+          <Publisher>{show?.publisher}</Publisher>
           <p>{show?.["total_episodes"]} episodes</p>
         </div>
-      </div>
+      </Header>
       <div className="view__toolbar">
       <Button className="followBtn" onClick={followShow}>
           {isFollowing ? "UNFOLLOW" : "FOLLOW"}
         </Button>
         <MoreHorizIcon />
       </div>
-      <div className="show__body">
-        <div className="show__bodyLeft">
-          <p className="show__bodyTitle">All episodes</p>
+      <Body>
+        <BodyLeft>
+          <BodyTitle>All episodes</BodyTitle>
           <hr />
-          <div className="show__episodesList">
+          <div>
           {show?.episodes.items.map(item => {
           return <ShowRow key={item.id} item={item} />
         })}
           </div>
-        </div>
-        <div className="show__bodyRight">
-          <p className="show__bodyTitle">About</p>
-          <p className="show__description">{show?.description}</p>
-        </div>
-      </div>
-    </div>
+        </BodyLeft>
+        <BodyRight>
+          <BodyTitle>About</BodyTitle>
+          <p>{show?.description}</p>
+        </BodyRight>
+      </Body>
+    </Container>
   );
 }
 

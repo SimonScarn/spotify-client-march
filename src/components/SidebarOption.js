@@ -1,11 +1,11 @@
-import '../styles/Sidebar.css';
+import "../styles/Sidebar.css";
+import { OptionContainer } from "../styles/Sidebar.styled.js";
 
-export default function SidebarOption({title, Icon}) {
-
-    return (
-        <div className="sidebar__option">
-            {Icon && <Icon className="sidebar__option--icon"/>}
-            <p>{title}</p>
-        </div>
-    )
+export default function SidebarOption({ title, Icon }) {
+  return (
+    <OptionContainer>
+      {Icon && <Icon className="sidebar__option--icon" />}
+      <p>{title}</p>
+    </OptionContainer>
+  );
 }

@@ -1,4 +1,9 @@
 import "../styles/ListItem.css";
+import {
+  Container,
+Image,
+Title,
+} from "../styles/ListItem.styled.js"
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { spotifyAPI } from "../spotify";
@@ -38,13 +43,18 @@ function ListItem({ item, itemID }) {
   }
 
   return (
-    <div className="listItem" onClick={addToPlaylist}>
-      <img src={item?.images[0]?.url} className="listItem__img" />
-      <p className="listItem__name">{item.name}</p>
-      <p>
-        <span> {item.tracks.total} </span>tracks
-      </p>
-    </div>
+    <Container onClick={addToPlaylist}>
+      <Image src={item?.images[0]?.url} className="listItem__img" />
+      <div>
+        <Title>{item.name}</Title>
+        <p>
+          <span><strong>{item.tracks.total}</strong></span> tracks
+        </p>
+      </div>
+      <div>
+        length
+      </div>
+    </Container>
   );
 }
 

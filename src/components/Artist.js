@@ -1,4 +1,11 @@
 import "../styles/Artist.css";
+import {
+  Header,
+ArtistInfo,
+Body,
+Section,
+} from '../styles/Artist.styled.js'
+
 import { useState, useEffect, useLayoutEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { spotifyAPI } from "../spotify";
@@ -85,17 +92,17 @@ function Artist() {
   return (
     <div className="bodyContainer">
       <TopHeader />
-      <div className="artist__header">
-        <div className="artist__artistInfo">
+      <Header>
+        <ArtistInfo>
           <h1>{artist?.name}</h1>
-          <div className="artist__artistTags">
+          <div>
             {artist?.genres.map((e) => {
               return <span>#{e}</span>;
             })}
           </div>
           <p>{artist?.followers.total} followers</p>
-        </div>
-      </div>
+        </ArtistInfo>
+      </Header>
       <div className="view__toolbar">
         <PlayCircleFilledIcon className="playBtn" />
         <Button className="followBtn" onClick={followArtist}>
@@ -103,11 +110,11 @@ function Artist() {
         </Button>
         <MoreHorizIcon />
       </div>
-      <div className="artist__body">
-        <div className="artist__popular">
+      <Body>
+        <div>
           <div style={{ display: "flex" }}>
             <h2>Popular</h2>
-            <IconButton onClick={toggleTracks} size="small">
+            <IconButton onClick={toggleTracks} >
               <ArrowDropDownIcon style={{ color: "whitesmoke" }} />
             </IconButton>
           </div>
@@ -119,7 +126,7 @@ function Artist() {
         <hr />
         {artistAlbums && (
           <>
-            <div className="items__sectionTop">
+            <Section>
               <h2>Albums by {artist?.name}</h2>
               <Link
                 to={{
@@ -129,7 +136,7 @@ function Artist() {
               >
                 Show all
               </Link>
-            </div>
+            </Section>
             <div className="contentRow">
               {artistAlbums?.map((item) => {
                 return <SearchResult key={item.id} item={item} view="artist" />;
@@ -138,7 +145,7 @@ function Artist() {
           </>
         )}
 
-        <div className="items__sectionTop">
+        <Section>
           <h2>Related</h2>
           <Link
             to={{
@@ -148,7 +155,7 @@ function Artist() {
           >
             Show all
           </Link>
-        </div>
+        </Section>
 
         <div className="contentRow">
           {related?.artists &&
@@ -156,7 +163,7 @@ function Artist() {
               return <SearchResult key={item.id} item={item} />;
             })}
         </div>
-      </div>
+      </Body>
     </div>
   );
 }

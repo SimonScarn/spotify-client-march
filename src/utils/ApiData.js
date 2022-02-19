@@ -1,5 +1,5 @@
+import { ColorLink } from "../styles/Global.styled";
 import moment from "moment";
-import {Link} from 'react-router-dom'
 
 const filterAlbums = (data) => {
   const albums = data.filter((e) => e["album_type"] === "album");
@@ -58,9 +58,9 @@ const getReleaseDate = (date) => {
 const getArtists = (artists) => {
   return artists.map((artist) => {
     return (
-      <Link to={`/artist/${artist.id}`} className="song__link">
+      <ColorLink to={`/artist/${artist.id}`}>
         {artist.name}
-      </Link>
+      </ColorLink>
     );
   });
 };

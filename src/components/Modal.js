@@ -1,4 +1,10 @@
 import "../styles/Modal.css";
+import {
+  Container,
+Input,
+Body,
+ListContainer,
+} from "../styles/Modal.styled.js"
 import ReactDom from "react-dom";
 import { useState, useEffect, useContext } from "react";
 import { GlobalContext } from "../GlobalContext";
@@ -29,23 +35,21 @@ function Modal({ open, handleClose, songID }) {
   return ReactDom.createPortal(
     <>
       <MUIModal open={open} onClose={handleClose}>
-        <div className="modal__body">
-          <input
+        <Container>
+          <Input
             placeholder="Search playlists..."
             value={query}
             onChange={searchPlaylists}
           />
-          <div className="modal__bodyList">
-            <hr />
-            <h2 style={{ marginLeft: "30px" }}>Your playlists:</h2>
-            <hr />
-            <div className="modal__bodyListContainer">
+          <Body>
+            <h2>Your playlists:</h2>
+            <ListContainer>
               {userPlaylists?.map((item) => (
                 <ListItem key={item.id} item={item} itemID={songID} />
               ))}
-            </div>
-          </div>
-        </div>
+            </ListContainer>
+          </Body>
+        </Container>
       </MUIModal>
     </>,
     document.getElementById("portalPlaylists")

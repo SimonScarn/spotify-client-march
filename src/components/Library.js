@@ -1,5 +1,6 @@
 import "../styles/SongRow.css";
 import "../styles/global.css";
+import { Wrapper, Grid, HeaderTitle} from '../styles/Global.styled.js';
 import  {useState, useEffect, useContext } from "react";
 import { spotifyAPI } from "../spotify";
 import { useParams, useHistory } from "react-router-dom";
@@ -7,6 +8,8 @@ import { GlobalContext } from "../GlobalContext";
 import TopHeader from "./TopHeader";
 import SearchResult from "./SearchResult";
 import FavoritesTracks from "./FavoritesTracks";
+import LibraryMusic from "@material-ui/icons/LibraryMusic";
+
 
 function Library() {
   const { userInfo, dispatch } = useContext(GlobalContext);
@@ -53,7 +56,7 @@ function Library() {
   }, [category]);
 
   return (
-    <div className="bodyContainer">
+    <Wrapper>
       <TopHeader />
       {category == "tracks" ? (
         <FavoritesTracks />
@@ -62,13 +65,17 @@ function Library() {
           <p style={{ marginLeft: "5%" }}>coming soon</p>
         </>
       ) : (
-        <div className="contentGrid">
+        <>
+        
+        <HeaderTitle><LibraryMusic/> Your {category}</HeaderTitle>
+        <Grid>
           {items?.map((item) => {
             return <SearchResult key={item.id} item={item} view="collection" />;
           })}
-        </div>
+        </Grid>
+        </>
       )}
-    </div>
+    </Wrapper>
   );
 }
 

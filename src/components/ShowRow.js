@@ -1,4 +1,11 @@
 import "../styles/ShowRow.css";
+import {
+  Container,
+  Image,
+  EpisodeInfo,
+  EpisodeDescription,
+  Toolbar,
+} from '../styles/ShowRow.styled.js';
 import { useState, useEffect } from "react";
 import { getReleaseDate } from "../utils/ApiData";
 import PlayCircleFilledWhiteIcon from "@material-ui/icons/PlayCircleFilledWhite";
@@ -8,20 +15,20 @@ function ShowRow({ item }) {
   const [favorite, setFavorite] = useState(false);
 
   return (
-    <div className="showRow">
-      <img src={item?.images[1].url} />
+    <Container>
+      <Image src={item?.images[1].url} />
       <div>
-        <div className="showRow__episodeInfo">
+        <EpisodeInfo>
           <h4>{item?.name}</h4>
-          <p className="showRow__episodeDescription">{item?.description}</p>
-        </div>
-        <div className="showRow__episodeToolbar">
+          <EpisodeDescription>{item?.description}</EpisodeDescription>
+        </EpisodeInfo>
+        <Toolbar>
           <PlayCircleFilledWhiteIcon />
           <p>{() => getReleaseDate(item["release_date"])}</p>
           <AddCircleOutlineIcon />
-        </div>
+        </Toolbar>
       </div>
-    </div>
+    </Container>
   );
 }
 

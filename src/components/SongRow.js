@@ -1,11 +1,25 @@
-import "../styles/SongRow.css";
+import {
+  Container,
+  Details,
+  Artists,
+  Toolbar,
+  Album,
+  ItemLink,
+  AddToPlaylistBtn,
+  ItemImg,
+  Player,
+  CheckBox,
+  PlayIcon,
+  RemoveBtn,
+  Index,
+} from "../styles/SongRow.styled";
+
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { spotifyAPI } from "../spotify";
 import { getItemDuration, getArtists } from "../utils/ApiData";
 import Modal from "./Modal";
-import { Button } from "@material-ui/core";
-import Checkbox from "@mui/material/Checkbox";
+import { Button, IconButton } from "@material-ui/core";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import PauseIcon from "@material-ui/icons/Pause";
 import FavoriteIcon from "@material-ui/icons/Favorite";
@@ -13,6 +27,8 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import LibraryAddIcon from "@material-ui/icons/LibraryAdd";
 import AudiotrackIcon from "@material-ui/icons/Audiotrack";
+import ClearIcon from "@mui/icons-material/Clear";
+import { Tooltip } from "@mui/material";
 
 function SongRow({
   id,
@@ -22,6 +38,7 @@ function SongRow({
   checkboxState,
   checkboxOnChange,
   addToPlaylist,
+  removeFromPlaylist,
   setCount,
 }) {
   const { pathname } = useLocation();
@@ -37,7 +54,7 @@ function SongRow({
           setFavorite(false);
         }
       }); */
-  }, []);
+  }, [checkboxState]);
 
   function showPlaylistModal() {
     setOpen(true);
@@ -61,38 +78,53 @@ function SongRow({
     setCount((prev) => (prev += 1));
   }
 
+  function handleRemoveFromPlaylist() {
+    removeFromPlaylist(playlistId, [song.uri]);
+    setCount((prev) => (prev += 1));
+  }
+
   function clickCheckbox(e) {
     setChecked((prev) => !prev);
   }
 
-  if (!favorite || isAdded) return null;
+  /* ,
+  Toolbar,
+  Album,
+  Link,
+  AddToPlaylistBtn,
+  ItemImg,
+ */
 
+  if (!favorite || isAdded) return null;
   return (
-    <div className="songRow">
-      <div className="songRow__playerControls">
-        <span className="songRow__trackNumber">
-          {/* <AudiotrackIcon /> */}
-          {id}
-        </span>
-        <span className="songRow__playIcon">
-          <PlayArrowIcon onClick={playSong} className="icon__playItem" />
-        </span>
-      </div>
-      <img src={song.album.images[0].url} className="songRow__img" />
-      <div className="songRow__info">
+    <Container>
+      <Player>
+        <Index>{id}</Index>
+        <PlayIcon>
+          <PlayArrowIcon onClick={playSong} />
+        </PlayIcon>
+      </Player>
+      <Tooltip title={song.album.name} placement="top-start">
+        <ItemImg src={song.album.images[0].url} />
+      </Tooltip>
+      <Details>
         <div>
-          <h3>{song.name}</h3>
-          {getArtists(song.artists)}
+          <Tooltip title={song.name} placement="top-start" >
+            <h3>{song.name}</h3>
+          </Tooltip>
+            <Artists>{getArtists(song.artists)}</Artists>
         </div>
-        <div className="songRow__album">
-          <Link to={`/album/${song.album.id}`} className="song__link">
+        <Album>
+          <ItemLink to={`/album/${song.album.id}`} white>
             {song.album.name}
-          </Link>
-        </div>
-      </div>
-      {(pathname.split("/")[2] === "tracks" ) && (
+          </ItemLink>
+        </Album>
+      </Details>
+      {/*-----------------------------PATHNAME = TRACKS-----------------------------*/}
+      {pathname.split("/")[2] ===
+        "tracks" /*  || pathname.split("/")[1] === "playlist" */ && (
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <Checkbox
+          <CheckBox
             className="songRow__checkbox"
             value={checkboxState[song.id]}
             onChange={() => checkboxOnChange(song.id)}
@@ -100,16 +132,16 @@ function SongRow({
         </div>
       )}
       {recommended ? (
-        <div className="songRow__toolbar">
+        <Toolbar>
           <Button
             className="songRow__addToPlaylist"
             onClick={handleAddToPlaylist}
           >
             ADD
           </Button>
-        </div>
+        </Toolbar>
       ) : (
-        <div className="songRow__toolbar">
+        <Toolbar>
           <Modal
             open={open}
             handleClose={hidePlaylistModal}
@@ -124,9 +156,23 @@ function SongRow({
             <span>{() => getItemDuration(song["duration_ms"])}</span>
             <MoreHorizIcon className="icon__moreHorizon" />
           </div>
+        </Toolbar>
+      )}
+      {/*-----------------------------PATHNAME = PLAYLIST-------------------------------*/}
+      {pathname.split("/")[1] === "playlist" && !recommended && (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <RemoveBtn onClick={handleRemoveFromPlaylist}>
+            <ClearIcon />
+          </RemoveBtn>
         </div>
       )}
-    </div>
+    </Container>
   );
 }
 

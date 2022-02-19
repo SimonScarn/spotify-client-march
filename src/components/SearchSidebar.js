@@ -5,7 +5,7 @@ function SearchSidebar() {
 
     
     return (
-        <div className="sidebar__search">
+        <div style={{ marginTop: "5px"}}>
             <input value={query} onChange={e => setQuery(e.target.value)} type="text" placeholder="Search for a playlist..."></input>
             <div></div>
         </div>

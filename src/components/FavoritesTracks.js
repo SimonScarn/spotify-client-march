@@ -12,11 +12,9 @@ import useCheckedTracks from "../hooks/useCheckedTracks";
 function FavoritesTracks() {
   const history = useHistory();
   const [offset, setOffset] = useState(0);
-  /*   const [updateFavorites, setUpdateFavorites] = useState(false); */
-  const { favoritesTracks, loading, setReload } = useFavoriteTracks(offset);
   const [checkedTracks, setCheckedTracks] = useState([]);
+  const { favoritesTracks, loading, setReload } = useFavoriteTracks(offset);
 
-  /*   const checkedTracks = useCheckedTracks(checked, song.id); */
 
   const observer = useRef();
   const lastTrackRef = useCallback(
@@ -33,38 +31,25 @@ function FavoritesTracks() {
     [loading]
   );
 
-  useEffect(() => {
-    console.log("zczekowane traki : ", favoritesTracks);
-  }, [favoritesTracks]);
+
 
   const checkboxOnChange = (id) => {
-    console.log("addujeme", checkedTracks[id]);
-
     if (!checkedTracks.includes(id)) {
       setCheckedTracks((prev) => [...prev, id]);
     } else {
-      console.log("usuwan");
       setCheckedTracks((prev) => [...prev].filter((e) => e !== id));
     }
   };
 
   function removeTracks() {
-    console.log("remvovin ", checkedTracks);
     checkedTracks.forEach((e) => e);
     spotifyAPI.removeFromMySavedTracks(checkedTracks);
     setReload((prev) => !prev);
     setCheckedTracks([]);
   }
-  /* 
-  function removeFavorite(id) {
-    isFavorite(false);
-    spotifyAPI.removeFromMySavedTracks([song.id]);
-  } */
 
   return (
     <>
-       {  console.log('running')}
-
       <div
         style={{
           display: "flex",
@@ -92,9 +77,7 @@ function FavoritesTracks() {
               <SongRow
                 key={item.track.id}
                 song={item.track}
-                isFavorite={true}
-                /*       removeFavorite={removeFavorite} */
-                checkboxState={checkedTracks /* [item.track.id] */}
+                checkboxState={checkedTracks}
                 checkboxOnChange={checkboxOnChange}
               />
             );

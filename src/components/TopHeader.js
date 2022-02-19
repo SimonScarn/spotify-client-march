@@ -1,6 +1,11 @@
-import "../styles/TopHeader.css";
+import {
+  Container,
+  NavBtn,
+  UserInfo,
+  Input,
+  LibaryLink,
+} from "../styles/TopHeader.styled";
 import { useState, useEffect, useContext } from "react";
-import { NavLink } from "react-router-dom";
 import { useHistory, useLocation } from "react-router-dom";
 import { GlobalContext } from "../GlobalContext";
 import { Avatar, IconButton } from "@material-ui/core";
@@ -30,64 +35,53 @@ function TopHeader({ changeQuery }) {
   }
 
   return (
-    <div className="topHeader">
+    <Container>
       <div>
-        <IconButton onClick={goBack} className="topHeader__navControl">
+        <NavBtn onClick={goBack}>
           <ArrowBackIosIcon />
-        </IconButton>
-        <IconButton
-          onClick={() => history.goForward()}
-          className="topHeader__navControl"
-        >
+        </NavBtn>
+        <NavBtn onClick={() => history.goForward()}>
           <ArrowForwardIosIcon />
-        </IconButton>
+        </NavBtn>
       </div>
 
       {changeQuery ? (
-        <input
+        <Input
           onChange={(e) => changeQuery(e.target.value)}
           placeholder="Search for a song etc. ..."
         />
       ) : (
-        <div className="topHeader__libraryOptions">
-          <NavLink
+        <div>
+          <LibaryLink
             to="/collection/playlists"
-            activeClassName="topHeader__navLink--selected"
-            className="topHeader__navLink"
           >
             Playlists
-          </NavLink>
-          <NavLink
+          </LibaryLink>
+          <LibaryLink
             to="/collection/albums"
-            activeClassName="topHeader__navLink--selected"
-            className="topHeader__navLink"
           >
             Albums
-          </NavLink>
+          </LibaryLink>
 
-          <NavLink
+          <LibaryLink
             to="/collection/artists"
-            activeClassName="topHeader__navLink--selected"
-            className="topHeader__navLink"
           >
             Artists
-          </NavLink>
-          <NavLink
+          </LibaryLink>
+          <LibaryLink
             to="/collection/shows"
-            activeClassName="topHeader__navLink--selected"
-            className="topHeader__navLink"
           >
             Shows
-          </NavLink>
+          </LibaryLink>
         </div>
       )}
 
-      <div className="topHeader__userInfo">
+      <UserInfo>
         <Avatar>{userInfo?.user?.["display_name"][0]}</Avatar>
         <h4>{userInfo?.user?.["display_name"]}</h4>
         <ArrowDropDownIcon />
-      </div>
-    </div>
+      </UserInfo>
+    </Container>
   );
 }
 

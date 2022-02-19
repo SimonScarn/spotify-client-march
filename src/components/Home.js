@@ -1,4 +1,10 @@
 import "../styles/global.css";
+import {
+  Wrapper,
+  Section,
+  Row,
+  ContentGrid,
+} from "../styles/Global.styled.js";
 import { useState, useEffect, useContext } from "react";
 import { spotifyAPI } from "../spotify";
 import { GlobalContext } from "../GlobalContext";
@@ -16,10 +22,12 @@ function Home() {
   const { userInfo, dispatch } = useContext(GlobalContext);
 
   useEffect(() => {
-    spotifyAPI.getMyTopArtists().then((data) => {
-      setTopArtists(data.items);
-    })
-    .catch((err) => console.error(err));
+    spotifyAPI
+      .getMyTopArtists()
+      .then((data) => {
+        setTopArtists(data.items);
+      })
+      .catch((err) => console.error(err));
 
     spotifyAPI
       .getMyRecentlyPlayedTracks()
@@ -28,7 +36,6 @@ function Home() {
         setRecentlyPlayed(removeDuplicates(data));
       })
       .catch((err) => console.error(err));
-
 
     spotifyAPI
       .getMyTopTracks()
@@ -63,58 +70,57 @@ function Home() {
   }
 
   return (
-    <div className="bodyContainer">
+    <Wrapper>
       <TopHeader />
-      <div className="contentSection">
+      <Section>
         <h2>Top Artists</h2>
-        <div className="contentRow">
+        <Row>
           {topArtists?.map((artist) => {
             return <SearchResult key={artist.id} item={artist} view={"home"} />;
           })}
-        </div>
-      </div>
-      <div className="contentSection">
+        </Row>
+      </Section>
+      <Section>
         <h2>Recently played</h2>
-        <div style={{ gridTemplateRows: "1fr 1fr" }}>
+        <Row double>
           {recentlyPlayed?.map((item) => {
             return <Item key={item.id} item={item} />;
           })}
-        </div>
-      </div>
-      <div className="contentSection">
+        </Row>
+      </Section>
+      <Section>
         <h2>Your top tracks</h2>
-        <div style={{ gridTemplateRows: "1fr 1fr" }}>
+        <Row double>
           {topTracks?.map((item) => {
             return <Item key={item.id} item={item} />;
           })}
-        </div>
-      </div>
-      <div className="contentSection">
+        </Row>
+      </Section>
+      <Section>
         <h2>New releases</h2>
         <h3>New singles</h3>
-        <div className="itemsRow">
+        <Row double>
           {newReleases?.singles.map((item) => {
             return <Item key={item.id} item={item} />;
           })}
-        </div>
+        </Row>
         <br />
         <h3>New albums</h3>
-
-        <div className="contentRow">
+        <Row>
           {newReleases?.albums.map((item) => {
             return <SearchResult key={item.id} item={item} view={"home"} />;
           })}
-        </div>
-      </div>
-      <div className="contentSection">
+        </Row>
+      </Section>
+      <Section>
         <h2>Featured playlists</h2>
-        <div className="contentRow">
+        <Row>
           {featuredPlaylists?.map((item) => {
             return <SearchResult key={item.id} item={item} view={"home"} />;
           })}
-        </div>
-      </div>
-    </div>
+        </Row>
+      </Section>
+    </Wrapper>
   );
 }
 

@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
+import { spotifyAPI } from "../spotify";
 
 const useCheckedTracks = (value, id) => {
   const [checkedTracks, setCheckedTracks] = useState([]);
 
   useEffect(() => {
 
-    console.log(value, id);
+
     if (value) {
       setCheckedTracks((prev) => [...prev, id]);
     } else {
@@ -13,14 +14,16 @@ const useCheckedTracks = (value, id) => {
     }
   }, [value]);
 
-  useEffect(() => {
-    console.log("tarki :", checkedTracks);
-    if (checkedTracks.length === 0) {
-        console.log('noji chuj')
-    }
-  }, [checkedTracks]);
+  function removeTracks() {
+    checkedTracks.forEach((e) => e);
+    spotifyAPI.removeFromMySavedTracks(checkedTracks);
+    setCheckedTracks([]);
+  }
+
 
   return checkedTracks;
 };
+
+
 
 export default useCheckedTracks;

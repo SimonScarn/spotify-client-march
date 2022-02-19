@@ -7,6 +7,14 @@ const addToPlaylist = (playlistId, songArr, setIsAdded) => {
     .catch((err) => console.error(err));
 };
 
+const removeFromPlaylist = (playlistId, songArr) => {
+  console.log('still rollll in ', playlistId, songArr)
+  spotifyAPI
+    .removeTracksFromPlaylist(playlistId, songArr)
+    .then(() => console.log('remuvin : ', songArr))
+    .catch((err) => console.error(err));
+}
+
 const randomizeTracks = (tracks) => {
   if (tracks.length < 5) return tracks;
   let arr = [];
@@ -30,7 +38,6 @@ const getRecommendations = (tracks, setRecommendedTracks) => {
   return spotifyAPI
     .getRecommendations({ seed_tracks: randomPlaylistTracks })
     .then((data) => {
-      console.log('All rekoms --->', data)
       let randomRecommendedTracks = data.tracks
         .sort(() => 0.5 - Math.random())
   /*       .slice(0, 10); */
@@ -54,8 +61,49 @@ const getPlaylistData = (playlistID) => {
   });
 };
 
+
+export {
+  addToPlaylist,
+  removeFromPlaylist,
+  getRecommendations,
+  getPlaylistData,
+
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //! dev
-const getPlaylist = (playlistID) => {
+/* const getPlaylist = (playlistID) => {
   return spotifyAPI.getPlaylist(playlistID).then((data) => {
     return data;
   });
@@ -65,12 +113,4 @@ const getPlaylistTracks = (playlistID) => {
   return spotifyAPI.getPlaylistTracks(playlistID).then((data) => {
     return data.items;
   });
-};
-
-export {
-  addToPlaylist,
-  getRecommendations,
-  getPlaylistData,
-  getPlaylist,
-  getPlaylistTracks,
-};
+}; */

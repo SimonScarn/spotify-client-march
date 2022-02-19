@@ -1,4 +1,14 @@
 import "../styles/Sidebar.css";
+import {
+  Container,
+  Toolbar,
+  SearchSection,
+  Input,
+  SidebarLink,
+  PlaylistContainer,
+  PlaylistItem,
+} from "../styles/Sidebar.styled.js";
+
 import { useContext, useState, useEffect } from "react";
 import { GlobalContext } from "../GlobalContext";
 import { NavLink, Link } from "react-router-dom";
@@ -44,79 +54,72 @@ export default function Sidebar() {
   function togglePlaylist(e, id) {
     e.preventDefault();
     dispatch({ type: "SET_PLAYER_TRACK", payload: [`spotify:playlist:${id}`] });
-    console.log(id)
+    console.log(id);
   }
 
+  /*  SidebarOption,
+  Toolbar,
+  Search,
+  Input,
+  SidebarLink,
+  PlaylistContainer,
+  PlaylistItem,
+  Toolbar, */
+
   return (
-    <div className="sidebar">
-      <NavLink
-        to="/"
-        exact={true}
-        activeClassName="sidebar__navLink--selected"
-        className="sidebar__navLink"
-      >
+    <Container>
+      <SidebarLink to="/" exact={true}>
         <SidebarOption title="Home" Icon={Home} />
-      </NavLink>
-      <NavLink
-        to="/search"
-        activeClassName="sidebar__navLink--selected"
-        className="sidebar__navLink"
-      >
+      </SidebarLink>
+      <SidebarLink to="/search">
         <SidebarOption title="Search" Icon={Search} />
-      </NavLink>
-      <NavLink
-        to="/collection"
-        activeClassName="sidebar__navLink--selected"
-        className="sidebar__navLink"
-      >
+      </SidebarLink>
+      <SidebarLink to="/collection">
         {" "}
         <SidebarOption title="Library" Icon={LibraryMusic} />
-      </NavLink>
+      </SidebarLink>
       <br />
-      <NavLink to="/" className="sidebar__navLink">
+      <SidebarLink to="/">
         <SidebarOption title="Create new playlist" Icon={AddBox} />
-      </NavLink>
-      <NavLink to="/collection/tracks" className="sidebar__navLink">
+      </SidebarLink>
+      <SidebarLink to="/collection/tracks">
         <SidebarOption title="Liked songs" Icon={Favorite} />
-      </NavLink>
-      <NavLink to="/collection/episodes" className="sidebar__navLink">
+      </SidebarLink>
+      <SidebarLink to="/collection/episodes">
         <SidebarOption title="My episodes" Icon={EqualizerIcon} />
-      </NavLink>
+      </SidebarLink>
       <hr />
 
-      <div className="sidebar__search">
-        <input
-          className="sidebar__input"
+      <SearchSection>
+        <Input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           type="text"
           placeholder="Search for a playlist..."
-        ></input>
-      </div>
-      <div className="sidebar__playlistsContainer">
+        ></Input>
+      </SearchSection>
+      <PlaylistContainer>
         {searchedPlaylists &&
           searchedPlaylists.map((playlist) => {
             return (
-              <Link
+              <SidebarLink
                 to={`/playlist/${playlist.id}`}
-                style={{ cursor: "default" }}
-                className="sidebar__navLink"
               >
-                <div className="sidebar__playlist" key={playlist.id}>
+                <PlaylistItem key={playlist.id}>
                   <p style={{ margin: "0", padding: "0" }}>{playlist.name}</p>
-                  <div className="sidebar_toolbar">
+                  <Toolbar>
                     <AddIcon className="icon__sidebar" onClick={addSong} />
 
                     <PlayArrowIcon
                       className="icon__sidebar"
                       onClick={(e) => togglePlaylist(e, playlist.id)}
                     />
-                  </div>
-                </div>
-              </Link>
+                  </Toolbar>
+                </PlaylistItem>
+              </SidebarLink>
             );
           })}
-      </div>
-    </div>
+      </PlaylistContainer>
+    </Container>
   );
 }

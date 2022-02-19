@@ -1,4 +1,11 @@
 import "../styles/AlbumRow.css";
+import {
+  Index,
+Container,
+Toolbar,
+Info,
+} from "../styles/AlbumRow.styled.js"
+
 import { useState, useEffect, useContext, useReducer } from "react";
 import { Link } from "react-router-dom";
 import { spotifyAPI } from "../spotify";
@@ -73,26 +80,26 @@ function AlbumRow({ item, popular }) {
 
 
   return (
-    <div className="albumRow">
+    <Container>
       {popular ? (
         <div>
-          <img className="albumRow__img" src={item.album.images[0].url} />
+          <img src={item.album.images[0].url} />
         </div>
       ) : (
-        <p className="albumRow__trackNum">
+        <Index>
           {item["track_number"]}
           {isPlaying ? (
             <PauseIcon onClick={playItem} className="albumRow__playIcon" />
           ) : (
             <PlayArrowIcon onClick={playItem} className="albumRow__playIcon" />
           )}
-        </p>
+        </Index>
       )}
-      <div className="albumRow__trackInfo">
+      <Info>
         <h3>{item.name}</h3>
-        <p className="albumRow__artists">{getArtists(item.artists)}</p>
-      </div>
-      <div className="albumRow__toolbar">
+        <p>{getArtists(item.artists)}</p>
+      </Info>
+      <Toolbar>
         <Modal open={open} handleClose={hidePlaylistModal} songID={item.uri} />
         <LibraryAddIcon
           className="icon__addLibrary "
@@ -114,8 +121,8 @@ function AlbumRow({ item, popular }) {
             <span>{item.popularity}</span>
           </p>
         )}
-      </div>
-    </div>
+      </Toolbar>
+    </Container>
   );
 }
 

@@ -1,4 +1,10 @@
 import "../styles/Discography.css";
+import {
+  AlbumHeader,
+  AlbumDetails,
+  AlbumCover,
+  AlbumIcons,
+  } from '../styles/Discography.styled.js'
 import { useState, useEffect } from "react";
 import { spotifyAPI } from "../spotify";
 import { getReleaseDate } from "../utils/ApiData";
@@ -25,23 +31,23 @@ function AlbumSection({ album }) {
 
   return (
     <div>
-      <div className="discography__albumHeader">
-        <img src={album?.images[0].url} className="discography__albumCover" />
-        <div className="discography__albumDetails">
+      <AlbumHeader>
+        <AlbumCover src={album?.images[0].url}/>
+        <AlbumDetails>
           <h3>{album?.name}</h3>
           <p>{album?.type}</p>
           <span>{() => getReleaseDate(album?.["release_date"])}</span>
           <p>
             <span>{album?.["total_tracks"]}</span> tracks
           </p>
-        </div>
-        <div className="discography__albumIcons">
+        </AlbumDetails>
+        <AlbumIcons>
           <PlayCircleFilledIcon />
           {favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
           <MoreHorizIcon />
-        </div>
-      </div>
-      <div className="discography__albumBody">
+        </AlbumIcons>
+      </AlbumHeader>
+      <div>
         {tracks.map((track) => (
           <AlbumRow key={track.id} item={track} />
         ))}

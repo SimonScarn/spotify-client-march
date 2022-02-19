@@ -33,18 +33,22 @@
   overflow-x: scroll;
 }
 
+
+
 .contentGrid {
   display: grid;
   place-content: center;
   grid-template-columns: repeat(auto-fill, 190px);
   gap: 10px;
   padding: 20px 10px;
+  bordeR: 2px solid orange;
+
 }
 
 .itemsRow {
   display: grid;
   justify-content: left;
- grid-template-rows: 1fr 1fr; 
+  grid-template-rows: 1fr 1fr; 
   grid-auto-flow: column;
   grid-row: 1;
   gap: 10px;
@@ -53,6 +57,7 @@
   overflow-y: hidden;
   overflow-x: scroll;
   color: whitesmoke;
+  border: 3px solid green;
 }
 
 .icon__moreHorizon,
@@ -74,7 +79,7 @@
 
 .itemLink {
   text-decoration: none;
-  color: inherit;
+  color: red;
 }
 
 .itemLink:hover {

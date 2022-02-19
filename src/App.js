@@ -1,4 +1,6 @@
 import "./App.css";
+import { theme } from "./styles/theme";
+import { ThemeProvider } from "styled-components";
 import { useState, useEffect, useContext } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import axios from "axios";
@@ -32,6 +34,7 @@ function App() {
 
   return (
     <Router>
+    <ThemeProvider theme={theme}>
       {!code ? (
         <Login />
       ) : (
@@ -39,6 +42,7 @@ function App() {
           <Player code={code} />
         </div>
       )}
+      </ThemeProvider>
     </Router>
   );
 }

@@ -1,10 +1,16 @@
 import "../styles/SearchResult.css";
+import {
+  Container,
+  Image,
+  Title,
+  DeleteBtn,
+  PlayBtn
+  } from "../styles/SearchResult.styled.js";
 import { useEffect, useContext, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { GlobalContext } from "../GlobalContext";
 import { spotifyAPI } from "../spotify";
 import { getDescription } from "../utils/ApiData";
-import { IconButton } from "@material-ui/core";
 import PlayCircleIcon from "@material-ui/icons/PlayArrow";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 
@@ -94,29 +100,29 @@ function SearchResult({ item, view }) {
   if (remove) return null;
 
   return (
-    <div className="searchResult" onClick={() => openSearchResult(item)}>
+    <Container onClick={() => openSearchResult(item)}>
       <div>
-        <img
+        <Image
           src={item?.images[0]?.url ? item?.images[0]?.url : defaultImgUrl}
           className={item.type == "artist" ? "artistAvatar" : null}
         />
-        <p className="searchResult__title">{item.name}</p>
-        <p className="searchResult__title">{() => getDescription(item, view)}</p>
+        <Title>{item.name}</Title>
+        <Title>{() => getDescription(item, view)}</Title>
 
         {view == "collection" && (
-          <IconButton className="searchResult__deleteBtn" onClick={deleteItem}>
+          <DeleteBtn onClick={deleteItem}>
             <HighlightOffIcon className="searchResult__deleteIcon" />
-          </IconButton>
+          </DeleteBtn>
         )}
 
-        <IconButton className="searchResult__playBtn" onClick={playItem}>
+        <PlayBtn onClick={playItem}>
           <PlayCircleIcon
             className="searchResult__playIcon"
             onClick={playItem}
           />
-        </IconButton>
+        </PlayBtn>
       </div>
-    </div>
+    </Container>
   );
 }
 

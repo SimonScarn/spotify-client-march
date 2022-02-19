@@ -1,5 +1,11 @@
 import "../styles/Discography.css";
 import "../styles/global.css";
+import {
+  Container,
+  ToggleBtn,
+Toolbar,
+ItemsList,
+} from '../styles/Discography.styled.js'
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { spotifyAPI } from "../spotify";
@@ -52,7 +58,7 @@ function Discography() {
   }
 
   return (
-    <div className="bodyContainer">
+    <Container>
       <TopHeader />
       {path == "related" ? (
         <>
@@ -65,7 +71,7 @@ function Discography() {
         </>
       ) : (
         <>
-          <div className="discography__toolbar">
+          <Toolbar>
             <h3>{artistName}</h3>
             <ToggleButtonGroup
               value={alignment}
@@ -73,20 +79,20 @@ function Discography() {
               onChange={handleAlignment}
               color="primary"
             >
-              <ToggleButton className="discography__toggle" value="left">
+              <ToggleBtn value="left">
                 <FormatListBulletedIcon />
-              </ToggleButton>
-              <ToggleButton className="discography__toggle" value="right">
+              </ToggleBtn>
+              <ToggleBtn value="right">
                 <ViewModuleIcon />
-              </ToggleButton>
+              </ToggleBtn>
             </ToggleButtonGroup>
-          </div>
+          </Toolbar>
           {alignment == "left" && (
-            <div className="discography__itemsList">
+            <ItemsList>
               {artistAlbums?.map((album) => (
                 <AlbumSection key={album.id} album={album} />
               ))}
-            </div>
+            </ItemsList>
           )}
           {alignment == "right" && (
             <div className="contentGrid">
@@ -97,7 +103,7 @@ function Discography() {
           )}
         </>
       )}
-    </div>
+    </Container>
   );
 }
 

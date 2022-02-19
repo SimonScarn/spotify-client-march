@@ -1,6 +1,11 @@
-import { useState, useEffect, useRef, useContext } from "react";
 import "../styles/Search.css";
 import "../styles/global.css";
+import {
+SearchResults,
+Categories,
+} from '../styles/Search.styled.js'
+import { useState, useEffect, useRef, useContext } from "react";
+
 import { spotifyAPI } from "../spotify";
 import { useHistory, useParams, Link } from "react-router-dom";
 import useDebounce from "../hooks/useDebounce";
@@ -80,7 +85,7 @@ function Search() {
     <div className="bodyContainer">
       <TopHeader changeQuery={(query) => setQuery(query)} />
       {query ? (
-        <div className="search__results">
+        <SearchResults>
           {/*-----------tracks-----------*/}
           {tracks.length > 0 && (
             <>
@@ -173,15 +178,15 @@ function Search() {
               </div>
             </>
           )} */}
-        </div>
+        </SearchResults>
       ) : (
-        <div className="search__categories">
+        <Categories>
           <h2>Categories</h2>
           {/*         {categories.map((category) => {
               return <CategoryItem category={category} />;
             })} */}
           <p>categories & recommendations coming soon</p>
-        </div>
+        </Categories>
       )}
     </div>
   );
