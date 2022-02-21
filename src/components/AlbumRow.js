@@ -12,12 +12,12 @@ import { spotifyAPI } from "../spotify";
 import { GlobalContext } from "../GlobalContext";
 import { getItemDuration, getArtists } from "../utils/ApiData";
 import Modal from "./Modal";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
-import LibraryAddIcon from "@material-ui/icons/LibraryAdd";
-import PlayArrowIcon from "@material-ui/icons/PlayArrow";
-import PauseIcon from "@material-ui/icons/Pause";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import PauseIcon from "@mui/icons-material/Pause";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 
 function AlbumRow({ item, popular }) {

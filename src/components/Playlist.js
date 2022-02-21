@@ -22,8 +22,8 @@ import {
 
 import TopHeader from "./TopHeader";
 import SongRow from "./SongRow";
-import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
-import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+import PlayCircleFilledIcon from "@mui/icons-material/PlayCircleFilled";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import defaultImgSrc from "../assets/defaultimgsrc.png";
 import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";

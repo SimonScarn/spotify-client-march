@@ -6,17 +6,17 @@ import {
   LibaryLink,
 } from "../styles/TopHeader.styled";
 import { useState, useEffect, useContext } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { GlobalContext } from "../GlobalContext";
-import { Avatar, IconButton } from "@material-ui/core";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
-import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import { Avatar, IconButton } from "@mui/material";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 function TopHeader({ changeQuery }) {
   const { userInfo, dispatch } = useContext(GlobalContext);
 
-  const history = useHistory();
+  const navigate = useNavigate();
   const { state } = useLocation();
   const [prevPath, setPrevPath] = useState(null);
 
@@ -28,11 +28,14 @@ function TopHeader({ changeQuery }) {
 
   function goBack() {
     if (prevPath) {
-      history.replace(prevPath);
+      navigate(prevPath);
     } else {
-      history.goBack();
+      navigate(-1);
     }
   }
+
+ 
+
 
   return (
     <Container>
@@ -40,7 +43,7 @@ function TopHeader({ changeQuery }) {
         <NavBtn onClick={goBack}>
           <ArrowBackIosIcon />
         </NavBtn>
-        <NavBtn onClick={() => history.goForward()}>
+        <NavBtn onClick={() => navigate(1)}>
           <ArrowForwardIosIcon />
         </NavBtn>
       </div>

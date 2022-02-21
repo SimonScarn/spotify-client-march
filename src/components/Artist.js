@@ -12,10 +12,10 @@ import { spotifyAPI } from "../spotify";
 import TopHeader from "./TopHeader";
 import AlbumRow from "./AlbumRow";
 import SearchResult from "./SearchResult";
-import { Button, IconButton } from "@material-ui/core";
-import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
-import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
-import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import { Button, IconButton } from "@mui/material";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import PlayCircleFilledIcon from "@mui/icons-material/PlayCircleFilled";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 function Artist() {
   const [artist, setArtist] = useState(null);
@@ -34,7 +34,6 @@ function Artist() {
     spotifyAPI
       .getArtist(artistID)
       .then((data) => {
-        console.log(data)
         setArtist(data);
         return spotifyAPI.getArtistTopTracks(artistID, "CA");
       })
@@ -124,7 +123,7 @@ function Artist() {
             })}
         </div>
         <hr />
-        {artistAlbums && (
+        {artistAlbums.length > 0 && (
           <>
             <Section>
               <h2>Albums by {artist?.name}</h2>
@@ -158,7 +157,7 @@ function Artist() {
         </Section>
 
         <div className="contentRow">
-          {related?.artists &&
+          {related?.artists.length > 0 &&
             related.artists.map((item) => {
               return <SearchResult key={item.id} item={item} />;
             })}

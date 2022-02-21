@@ -8,8 +8,8 @@ import {
 } from '../styles/ShowRow.styled.js';
 import { useState, useEffect } from "react";
 import { getReleaseDate } from "../utils/ApiData";
-import PlayCircleFilledWhiteIcon from "@material-ui/icons/PlayCircleFilledWhite";
-import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import PlayCircleFilledWhiteIcon from "@mui/icons-material/PlayCircleFilledWhite";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 function ShowRow({ item }) {
   const [favorite, setFavorite] = useState(false);

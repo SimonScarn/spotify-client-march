@@ -11,6 +11,7 @@ const filterAlbums = (data) => {
       tracksCount: e["total_tracks"],
       releaseDate: e["release_date"],
       id: e.id,
+      type: "album",
     };
   });
 };
@@ -57,20 +58,18 @@ const getReleaseDate = (date) => {
 
 const getArtists = (artists) => {
   return artists.map((artist) => {
-    return (
-      <ColorLink to={`/artist/${artist.id}`}>
-        {artist.name}
-      </ColorLink>
-    );
+    return <ColorLink to={`/artist/${artist.id}`}>{artist.name}</ColorLink>;
   });
 };
 
 const getDescription = (item, view) => {
+  console.log(item.type);
+
   switch (item.type) {
     case "album":
       return view === "artist"
         ? item["release_date"].substring(0, 4)
-        : getArtists(item.artists);
+        : /* getArtists(item.artists) */ "huuuuu";
     case "show":
       return item?.publisher;
     case "artist":
@@ -78,10 +77,9 @@ const getDescription = (item, view) => {
     case "playlist":
       return `by ${item.owner["display_name"]}`;
     case "episode":
-        return item?.publisher;
-    case undefined: 
-      return getArtists(item.artists); 
-
+      return item?.publisher;
+    case undefined:
+      return getArtists(item.artists);
   }
 };
 
@@ -92,5 +90,5 @@ export {
   getAlbumDuration,
   getReleaseDate,
   getDescription,
-  getArtists
+  getArtists,
 };

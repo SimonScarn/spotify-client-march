@@ -1,42 +1,41 @@
 import { spotifyAPI } from "../spotify";
-import { filterAlbums } from "./ApiData";
 
-export function getAlbums(query, setAlbums) {
+export function getAlbums(query) {
   return spotifyAPI
     .searchAlbums(query)
     .then((data) => {
-      setAlbums(filterAlbums(data.albums.items));
+      return data.albums.items;
     })
     .catch((err) => console.error(err));
 }
 
-export function getArtists(query, setArtists) {
+export function getArtists(query) {
   return spotifyAPI.searchArtists(query).then((data) => {
-    setArtists(data.artists.items);
+    return data.artists.items;
   });
 }
 
-export function getPlaylists(query, setPlaylists) {
+export function getPlaylists(query) {
   return spotifyAPI.searchPlaylists(query).then((data) => {
-    setPlaylists(data.playlists.items);
+    return data.playlists.items;
   });
 }
 
-export function getShows(query, setShows) {
+export function getShows(query) {
   return spotifyAPI.searchShows(query).then((data) => {
-    setShows(data.shows.items);
+    return data.shows.items;
   });
 }
 
-export function getEpisodes(query, setEpisodes) {
+export function getEpisodes(query) {
   return spotifyAPI.searchEpisodes(query).then((data) => {
-    setEpisodes(data.episodes.items);
+    return data.episodes.items;
   });
 }
 
-export function getTracks(query, setTracks) {
+export function getTracks(query) {
   return spotifyAPI.searchTracks(query).then((data) => {
-    setTracks(data.tracks.items);
+    return data.tracks.items;
   });
 }
 

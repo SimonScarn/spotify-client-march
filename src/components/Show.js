@@ -14,8 +14,8 @@ import TopHeader from './TopHeader'
 import { useLocation } from "react-router";
 import { useState, useEffect } from "react";
 import { spotifyAPI } from "../spotify";
-import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
-import { Button } from '@material-ui/core'
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import { Button } from '@mui/material'
 
 
 

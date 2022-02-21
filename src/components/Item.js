@@ -8,7 +8,7 @@ Details,
 PlayBtn,
 } from "../styles/Item.styled.js"
 import { getArtists } from "../utils/ApiData";
-import PlayCircleIcon from "@material-ui/icons/PlayArrow";
+import PlayCircleIcon from "@mui/icons-material/PlayArrow";
 
 function Item({ item }) {
   function playItem(e) {
@@ -23,7 +23,7 @@ function Item({ item }) {
       <Container>
         <Image src={item.album ? item.album.images[0].url : item.images[0].url} />
         <Details>
-          <h3>{item.name}</h3>
+          <h2>{item.name}</h2>
           <p>{getArtists(item.artists)}</p>
         </Details>
         <PlayBtn>

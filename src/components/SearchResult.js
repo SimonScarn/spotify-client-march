@@ -4,66 +4,73 @@ import {
   Image,
   Title,
   DeleteBtn,
-  PlayBtn
-  } from "../styles/SearchResult.styled.js";
+  PlayBtn,
+} from "../styles/SearchResult.styled.js";
 import { useEffect, useContext, useState } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { GlobalContext } from "../GlobalContext";
 import { spotifyAPI } from "../spotify";
-import { getDescription } from "../utils/ApiData";
-import PlayCircleIcon from "@material-ui/icons/PlayArrow";
-import HighlightOffIcon from "@material-ui/icons/HighlightOff";
+import { getArtists, getDescription } from "../utils/ApiData";
+import PlayCircleIcon from "@mui/icons-material/PlayArrow";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import Loader from "react-loader-spinner";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+
 
 function SearchResult({ item, view }) {
   const [remove, setRemove] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const {
     userInfo: { savedAlbums },
     dispatch,
   } = useContext(GlobalContext);
-  const history = useHistory();
+  const navigate = useNavigate();
   const defaultImgUrl =
-    "https://png.pngitem.com/pimgs/s/150-1503945_transparent-user-png-default-user-image-png-png.png";
+    "https://img.freepik.com/free-photo/gray-painted-background_53876-94041.jpg";
   const prevPath = useLocation().pathname;
+  const { pathname } = useLocation();
 
-  const openSearchResult = (item) => {
+  const openSearchResult = (e, item) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const href = e.target.getAttribute("href");
+    if (href !== null && href.includes("artist")) {
+      return;
+    }
+
     switch (item.type) {
       case "album":
-        history.push({
-          pathname: `/album/${item.id}`,
+        navigate(`/album/${item.id}`, {
           state: {
-            prevPath: prevPath,
+            prevPath: pathname,
           },
         });
         break;
       case "show":
-        history.push({
-          pathname: `/show/${item.id}`,
+        navigate(`/show/${item.id}`, {
           state: {
-            prevPath: prevPath,
+            prevPath: pathname,
           },
         });
         break;
       case "artist":
-        history.push({
-          pathname: `/artist/${item.id}`,
+        navigate(`/artist/${item.id}`, {
           state: {
-            prevPath: prevPath,
+            prevPath: pathname,
           },
         });
         break;
       case "playlist":
-        history.push({
-          pathname: `/playlist/${item.id}`,
+        navigate(`/playlist/${item.id}`, {
           state: {
-            prevPath: prevPath,
+            prevPath: pathname,
           },
         });
         break;
       default:
-        history.push({
-          pathname: `/album/${item.id}`,
+        navigate(`/album/${item.id}`, {
           state: {
-            prevPath: prevPath,
+            prevPath: pathname,
           },
         });
         break;
@@ -97,18 +104,28 @@ function SearchResult({ item, view }) {
     });
   }
 
+  useEffect(() => {}, [item]);
+
   if (remove) return null;
 
   return (
-    <Container onClick={() => openSearchResult(item)}>
+    <Container onClick={(e) => openSearchResult(e, item)}>
       <div>
+      {isLoading &&  <Image src={defaultImgUrl}/>} 
         <Image
-          src={item?.images[0]?.url ? item?.images[0]?.url : defaultImgUrl}
+          src={(!isLoading || item?.images[0]?.url) ? item?.images[0]?.url : defaultImgUrl}
           className={item.type == "artist" ? "artistAvatar" : null}
+          style={isLoading ? {display: "none"} : {display: "inline"}}
+          onLoad={() => setIsLoading(false)}
         />
-        <Title>{item.name}</Title>
-        <Title>{() => getDescription(item, view)}</Title>
+        <h2>{item.name}</h2>
+        {item.publisher && <h3>{item.publisher}</h3>}
 
+        {view === "artist" ? (
+          <Title>{item?.["release_date"]}</Title>
+        ) : (
+          <Title>{item?.artists && getArtists(item.artists)}</Title>
+        )}
         {view == "collection" && (
           <DeleteBtn onClick={deleteItem}>
             <HighlightOffIcon className="searchResult__deleteIcon" />

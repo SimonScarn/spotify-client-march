@@ -20,14 +20,14 @@ import { spotifyAPI } from "../spotify";
 import { getAlbumDuration, getReleaseDate } from "../utils/ApiData";
 import AlbumRow from "./AlbumRow";
 import TopHeader from "./TopHeader";
-import { IconButton } from "@material-ui/core";
-import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
-import MusicNoteIcon from "@material-ui/icons/MusicNote";
-import TimerIcon from "@material-ui/icons/Timer";
-import PauseIcon from "@material-ui/icons/Pause";
+import { IconButton } from "@mui/material";
+import PlayCircleFilledIcon from "@mui/icons-material/PlayCircleFilled";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import MusicNoteIcon from "@mui/icons-material/MusicNote";
+import TimerIcon from "@mui/icons-material/Timer";
+import PauseIcon from "@mui/icons-material/Pause";
 
 function Album() {
   const location = useLocation();

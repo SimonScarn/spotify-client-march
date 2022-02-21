@@ -14,15 +14,15 @@ import { GlobalContext } from "../GlobalContext";
 import { NavLink, Link } from "react-router-dom";
 
 import SidebarOption from "./SidebarOption";
-import Home from "@material-ui/icons/Home";
-import Search from "@material-ui/icons/Search";
-import LibraryMusic from "@material-ui/icons/LibraryMusic";
-import AddBox from "@material-ui/icons/AddBox";
-import Favorite from "@material-ui/icons/Favorite";
-import EqualizerIcon from "@material-ui/icons/Equalizer";
-import PlayArrowIcon from "@material-ui/icons/PlayArrow";
-import AddIcon from "@material-ui/icons/Add";
-import { IconButton } from "@material-ui/core";
+import Home from "@mui/icons-material/Home";
+import Search from "@mui/icons-material/Search";
+import LibraryMusic from "@mui/icons-material/LibraryMusic";
+import AddBox from "@mui/icons-material/AddBox";
+import Favorite from "@mui/icons-material/Favorite";
+import EqualizerIcon from "@mui/icons-material/Equalizer";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import AddIcon from "@mui/icons-material/Add";
+import { IconButton } from "@mui/material";
 
 export default function Sidebar() {
   const { userInfo, dispatch } = useContext(GlobalContext);

@@ -78,11 +78,16 @@ const Details = styled.div`
     width: 190px;
 
 
-    h3,
+    h2,
     p {
         white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    }
+
+    h2 {
+        font-size: 18px;
+        font-style: italic;
     }
 `
 

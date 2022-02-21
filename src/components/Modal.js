@@ -8,7 +8,7 @@ ListContainer,
 import ReactDom from "react-dom";
 import { useState, useEffect, useContext } from "react";
 import { GlobalContext } from "../GlobalContext";
-import { Modal as MUIModal } from "@material-ui/core";
+import { Modal as MUIModal } from "@mui/material";
 import ListItem from "./ListItem";
 
 function Modal({ open, handleClose, songID }) {

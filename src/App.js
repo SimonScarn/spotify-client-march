@@ -2,7 +2,7 @@ import "./App.css";
 import { theme } from "./styles/theme";
 import { ThemeProvider } from "styled-components";
 import { useState, useEffect, useContext } from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, HashRouter } from "react-router-dom";
 import axios from "axios";
 import { GlobalContext } from "./GlobalContext";
 import Login from "./components/Login";
@@ -14,7 +14,7 @@ function App() {
   const [code, setCode] = useState(null);
   const { userInfo, dispatch } = useContext(GlobalContext);
 
-/*   useEffect(() => {
+  /*   useEffect(() => {
 
     apiRequest.get("/status").then((res) => {
       dispatch({ type: "SET_APP_STATUS", payload: res.data.isRunning });
@@ -30,18 +30,18 @@ function App() {
 
   useEffect(() => {
     setCode(new URLSearchParams(window.location.search).get("code"));
-  }, [code])
+  }, [code]);
 
   return (
     <Router>
-    <ThemeProvider theme={theme}>
-      {!code ? (
-        <Login />
-      ) : (
-        <div className="App">
-          <Player code={code} />
-        </div>
-      )}
+      <ThemeProvider theme={theme}>
+        {!code ? (
+          <Login />
+        ) : (
+          <div className="App">
+            <Player code={code} />
+          </div>
+        )}
       </ThemeProvider>
     </Router>
   );

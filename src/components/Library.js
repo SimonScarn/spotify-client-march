@@ -1,21 +1,22 @@
 import "../styles/SongRow.css";
 import "../styles/global.css";
-import { Wrapper, Grid, HeaderTitle} from '../styles/Global.styled.js';
-import  {useState, useEffect, useContext } from "react";
+import { Wrapper, Grid, HeaderTitle } from "../styles/Global.styled.js";
+import { useState, useEffect, useRef, useContext, useCallback } from "react";
 import { spotifyAPI } from "../spotify";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { GlobalContext } from "../GlobalContext";
 import TopHeader from "./TopHeader";
 import SearchResult from "./SearchResult";
 import FavoritesTracks from "./FavoritesTracks";
-import LibraryMusic from "@material-ui/icons/LibraryMusic";
-
+import LibraryMusic from "@mui/icons-material/LibraryMusic";
 
 function Library() {
-  const { userInfo, dispatch } = useContext(GlobalContext);
+  const navigate = useNavigate();
   const { category } = useParams() || "playlists";
-  const history = useHistory();
+  const { userInfo, dispatch } = useContext(GlobalContext);
   const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [offset, setOffset] = useState(0);
 
   useEffect(() => {
     switch (category) {
@@ -25,9 +26,18 @@ function Library() {
         });
         break;
       case "albums":
-        spotifyAPI.getMySavedAlbums().then((data) => {
-          setItems(data.items.map((e) => e.album));
-        });
+        setLoading(true);
+
+        spotifyAPI
+          .getMySavedAlbums({ offset, limit: 50 })
+          .then((data) => {
+            console.log(offset, "albumy: ", data);
+            const filteredAlbums = data.items.map((e) => e.album);
+            setItems((prev) => [...prev, filteredAlbums]);
+            setLoading(false);
+          })
+          .then(() => setOffset((prev) => prev + 20));
+
         break;
       case "shows":
         spotifyAPI.getMySavedShows().then((data) => {
@@ -41,11 +51,11 @@ function Library() {
         break;
       case "episodes":
         spotifyAPI.getMySavedShows().then((data) => {
-          console.log(data.items)
+          console.log(data.items);
         });
         break;
       case undefined:
-        history.push("/collection/playlists");
+        navigate("/collection/playlists");
         spotifyAPI.getUserPlaylists().then((data) => {
           setItems(data.items);
         });
@@ -53,7 +63,11 @@ function Library() {
       default:
         break;
     }
-  }, [category]);
+  }, [category, offset]);
+
+  /*   useEffect(() => {
+    console.log('itiititt', items)
+  }, [items]) */
 
   return (
     <Wrapper>
@@ -66,13 +80,20 @@ function Library() {
         </>
       ) : (
         <>
-        
-        <HeaderTitle><LibraryMusic/> Your {category}</HeaderTitle>
-        <Grid>
-          {items?.map((item) => {
-            return <SearchResult key={item.id} item={item} view="collection" />;
-          })}
-        </Grid>
+          <HeaderTitle>
+            <LibraryMusic /> Your {category}
+          </HeaderTitle>
+          <Grid>
+            {items?.map((item) => {
+              return (
+                <SearchResult
+                  key={item.id}
+                  item={item}
+                  view="collection"
+                />
+              );
+            })}
+          </Grid>
         </>
       )}
     </Wrapper>

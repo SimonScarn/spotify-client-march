@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import { IconButton } from "@mui/material";
 
-
-
 const PlayBtn = styled(IconButton)`
   && {
     position: absolute;
@@ -58,6 +56,26 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
   }
+
+  h2,
+  h3 {
+    padding: 0;
+    margin: 0;
+    margin-top: 0.25rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  h2 {
+    font-style: italic;
+    font-weight: 900;
+    font-size: 18px;
+  }
+  h3 {
+    font-weight: lighter;
+    font-size: 16px;
+  }
 `;
 
 const Image = styled.img`
@@ -76,21 +94,15 @@ const Title = styled.p`
 `;
 
 const DeleteBtn = styled(IconButton)`
-      position: absolute;
-    top: -5px;
-    right: -5px;
-    width: 30px;
-    height: 30px;
-    color: #eee;
-    cursor: default;
-`
-export {
-Container,
-Image,
-Title,
-DeleteBtn,
-PlayBtn
-}
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 30px;
+  height: 30px;
+  color: #eee;
+  cursor: default;
+`;
+export { Container, Image, Title, DeleteBtn, PlayBtn };
 
 /* 
   

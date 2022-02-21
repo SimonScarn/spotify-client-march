@@ -13,8 +13,8 @@ import SearchResult from "./SearchResult";
 import TopHeader from "./TopHeader";
 import AlbumSection from "./AlbumSection";
 import { ToggleButtonGroup, ToggleButton } from "@mui/material";
-import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
-import ViewModuleIcon from "@material-ui/icons/ViewModule";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
+import ViewModuleIcon from "@mui/icons-material/ViewModule";
 
 function Discography() {
   const location = useLocation();

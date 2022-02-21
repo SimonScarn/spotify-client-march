@@ -8,7 +8,7 @@ import Artist from "./Artist";
 import Search from "./Search";
 import Discography from "./Discography";
 import Library from "./Library";
-import { Switch, Route, HashRouter } from "react-router-dom";
+import { Routes, Route, HashRouter } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { GlobalContext } from "./../GlobalContext";
@@ -16,7 +16,6 @@ import { getUrlToken, spotifyAPI } from "./../spotify";
 import { getUserPlaylists } from "./../utils/ApiCalls";
 import useAuth from "../hooks/useAuth";
 import { apiRequest } from "./../requests";
-
 
 export default function Player({ code }) {
   const accessToken = useAuth(code);
@@ -45,34 +44,31 @@ export default function Player({ code }) {
   }, [accessToken]);
 
   return (
-    <HashRouter>
-      <div className="player">
-        <div className="player__body">
-          <Sidebar />
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/search" component={Search} />
-            <Route path="/search/:id" component={Search} />
-            <Route path="/album" component={Album} />
-            <Route path="/album/:id" component={Album} />
-            <Route path="/playlist" component={Playlist} />
-            <Route path="/playlist/:id" component={Playlist} />
-            <Route path="/show" component={Show} />
-            <Route path="/show/:id" component={Show} />
-            <Route exact path="/artist" component={Artist} />
-            <Route exact path="/artist/:id" component={Artist} />
-            <Route
-              exact
-              path="/artist/:id/discography/album"
-              component={Discography}
-            />
-            <Route exact path="/artist/:id/related" component={Discography} />
-            <Route exact path="/collection" component={Library} />
-            <Route exact path="/collection/:category" component={Library} />
-          </Switch>
-          <Footer />
-        </div>
+    <div className="player">
+      <div className="player__body">
+        <Sidebar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/search/:id" element={<Search />} />
+          <Route path="/album" element={<Album />} />
+          <Route path="/album/:id" element={<Album />} />
+          <Route path="/playlist" element={<Playlist />} />
+          <Route path="/playlist/:id" element={<Playlist />} />
+          <Route path="/show" element={<Show />} />
+          <Route path="/show/:id" element={<Show />} />
+          <Route  path="/artist" element={<Artist />} />
+          <Route  path="/artist/:id" element={<Artist />} />
+          <Route
+            path="/artist/:id/discography/album"
+            element={<Discography />}
+          />
+          <Route  path="/artist/:id/related" element={<Discography />} />
+          <Route  path="/collection" element={<Library />} />
+          <Route  path="/collection/:category" element={<Library />} />
+        </Routes>
+        <Footer />
       </div>
-    </HashRouter>
+    </div>
   );
 }
