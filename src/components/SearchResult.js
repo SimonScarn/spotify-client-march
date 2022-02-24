@@ -1,21 +1,21 @@
 import "../styles/SearchResult.css";
+import { PlayBtn } from "../styles/Global.styled.js";
 import {
   Container,
   Image,
   Title,
   DeleteBtn,
-  PlayBtn,
 } from "../styles/SearchResult.styled.js";
 import { useEffect, useContext, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { GlobalContext } from "../GlobalContext";
 import { spotifyAPI } from "../spotify";
-import { getArtists, getDescription } from "../utils/ApiData";
+import { getArtists, getDescription, getReleaseDate } from "../utils/ApiData";
 import PlayCircleIcon from "@mui/icons-material/PlayArrow";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-
+import defaultImgSrc from "../assets/defaultimgsrc.png";
 
 function SearchResult({ item, view }) {
   const [remove, setRemove] = useState(false);
@@ -25,8 +25,6 @@ function SearchResult({ item, view }) {
     dispatch,
   } = useContext(GlobalContext);
   const navigate = useNavigate();
-  const defaultImgUrl =
-    "https://img.freepik.com/free-photo/gray-painted-background_53876-94041.jpg";
   const prevPath = useLocation().pathname;
   const { pathname } = useLocation();
 
@@ -111,18 +109,24 @@ function SearchResult({ item, view }) {
   return (
     <Container onClick={(e) => openSearchResult(e, item)}>
       <div>
-      {isLoading &&  <Image src={defaultImgUrl}/>} 
+        {isLoading && <Image src={defaultImgSrc} cover />}
         <Image
-          src={(!isLoading || item?.images[0]?.url) ? item?.images[0]?.url : defaultImgUrl}
-          className={item.type == "artist" ? "artistAvatar" : null}
-          style={isLoading ? {display: "none"} : {display: "inline"}}
+          src={
+            !isLoading || item?.images[0]?.url
+              ? item?.images[0]?.url
+              : defaultImgSrc
+          }
+          style={{
+            display: isLoading ? "none" : "inline",
+            borderRadius: item.type == "artist" && "50%",
+          }}
           onLoad={() => setIsLoading(false)}
         />
         <h2>{item.name}</h2>
         {item.publisher && <h3>{item.publisher}</h3>}
 
         {view === "artist" ? (
-          <Title>{item?.["release_date"]}</Title>
+          <Title>{getReleaseDate(item?.["release_date"])}</Title>
         ) : (
           <Title>{item?.artists && getArtists(item.artists)}</Title>
         )}

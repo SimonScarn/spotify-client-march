@@ -19,16 +19,18 @@ const Container = styled.div`
 
 
 const NavBtn = styled(IconButton)`
+&& {
   margin-right: 0.75rem;
   color: whitesmoke;
   box-shadow: 0px 1px 1px 2px aqua;
   transition: color, background-color 0.2s ease-in-out;
   cursor: pointer;
+}
+
 
   &:hover {
-    color: pink;
+    color: aqua;
     background-color: aqua;
-    box-shadow: 0px 1px 1px 0.7px pink;
   }
 `;
 

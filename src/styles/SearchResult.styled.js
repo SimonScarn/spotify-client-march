@@ -1,22 +1,7 @@
 import styled from "styled-components";
 import { IconButton } from "@mui/material";
-
-const PlayBtn = styled(IconButton)`
-  && {
-    position: absolute;
-    top: calc(65% - 15px);
-    left: calc(50% - 15px);
-    gap: 15px;
-    width: 40px;
-    height: 40px;
-    background-color: aquamarine;
-    visibility: hidden;
-    transform: translate(110%, -20%);
-    opacity: 0.1;
-    cursor: default;
-    transition: 0.2s;
-  }
-`;
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import { PlayBtn } from "./Global.styled.js";
 
 const Container = styled.div`
   flex: 1 1 150px;
@@ -29,7 +14,7 @@ const Container = styled.div`
   cursor: pointer;
   object-fit: contain;
 
-  &hover ${PlayBtn} {
+  &:hover ${PlayBtn} {
     visibility: visible;
     transform: translate(110%, -50%);
     opacity: 1;
@@ -80,7 +65,7 @@ const Container = styled.div`
 
 const Image = styled.img`
   height: 150px;
-  object-fit: contain;
+  object-fit: ${(props) => (props.cover ? "cover" : "contain")};
   margin: 0;
 `;
 
@@ -94,15 +79,17 @@ const Title = styled.p`
 `;
 
 const DeleteBtn = styled(IconButton)`
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  width: 30px;
-  height: 30px;
-  color: #eee;
-  cursor: default;
+  && {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 30px;
+    height: 30px;
+    cursor: default;
+  }
 `;
-export { Container, Image, Title, DeleteBtn, PlayBtn };
+
+export { Container, Image, Title, DeleteBtn };
 
 /* 
   

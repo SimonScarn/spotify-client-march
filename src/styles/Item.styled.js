@@ -1,11 +1,12 @@
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { IconButton } from "@mui/material";
+import {PlayBtn} from './Global.styled.js';
 
 
 
 
-const PlayBtn = styled(IconButton)`
+/* const PlayBtn = styled(IconButton)`
   position: absolute;
     top: 70%;
     left: 85%;
@@ -18,7 +19,7 @@ const PlayBtn = styled(IconButton)`
     background-color: aquamarine;
     transform: translateX(-50%, -50%);
     transition: 0.3s;
-    `
+    ` */
 
 const Container = styled.div`
     position: relative;
@@ -40,7 +41,7 @@ const Container = styled.div`
     &:hover ${PlayBtn} {
         visibility: visible;
     opacity: 1;
-    transform: translateY(-100%);
+    transform: translateX(380%) translateY(-50%);
     } 
 
     &:before {
@@ -94,7 +95,6 @@ const Details = styled.div`
 
 
 export {
-    PlayBtn,
 Container,
 Image,
 ItemLink,

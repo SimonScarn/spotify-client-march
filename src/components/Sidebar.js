@@ -79,7 +79,7 @@ export default function Sidebar() {
         <SidebarOption title="Library" Icon={LibraryMusic} />
       </SidebarLink>
       <br />
-      <SidebarLink to="/">
+      <SidebarLink to="/playlist/3oowhb3CpyJ2a2317TZeYp">
         <SidebarOption title="Create new playlist" Icon={AddBox} />
       </SidebarLink>
       <SidebarLink to="/collection/tracks">

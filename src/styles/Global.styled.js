@@ -1,11 +1,20 @@
-import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { IconButton } from "@mui/material";
 
 const LoaderContainer = styled.div`
   display: grid;
   place-content: center;
   min-height: 75vh;
 `;
+
+const LoadingRow = styled.div`
+  grid-column: 1/-1;
+  display: grid;
+  place-content: center;
+  height: 60px;
+
+`
 
 const Wrapper = styled.div`
   position: relative;
@@ -70,4 +79,26 @@ const ColorLink = styled(Link)`
   }
 `;
 
-export { LoaderContainer, Wrapper, Section, Row, Grid, HeaderTitle, ColorLink };
+const PlayBtn = styled(IconButton)`
+  && {
+    position: absolute;
+    top: calc(65% - 15px);
+    left: calc(50% - 15px);
+    gap: 15px;
+    width: 40px;
+    height: 40px;
+    color: black;
+    background-color: ${props => props.theme.colors.linkSecondary};
+    visibility: hidden;
+    transform: translate(110%, -20%);
+    opacity: 0.1;
+    cursor: default;
+    transition: 0.2s;
+
+    &:hover {
+      background-color: ${props => props.theme.colors.linkSecondary};
+    }
+  }
+`;
+
+export { LoaderContainer, LoadingRow, Wrapper, Section, Row, Grid, HeaderTitle, ColorLink, PlayBtn };

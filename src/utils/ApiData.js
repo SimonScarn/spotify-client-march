@@ -52,7 +52,7 @@ const getAlbumDuration = (tracks) => {
 };
 
 const getReleaseDate = (date) => {
-  let releaseDate = moment(date, "YYYY-MM-DD").format("DD MM YYYY");
+  let releaseDate = moment(date, "YYYY-MM-DD").format("DD.MM YYYY");
   return releaseDate;
 };
 

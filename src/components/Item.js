@@ -1,11 +1,11 @@
 import "../styles/Item.css";
+import { PlayBtn } from "../styles/Global.styled.js";
 import "../styles/global.css";
 import {
 Container,
 Image,
 ItemLink,
 Details,
-PlayBtn,
 } from "../styles/Item.styled.js"
 import { getArtists } from "../utils/ApiData";
 import PlayCircleIcon from "@mui/icons-material/PlayArrow";

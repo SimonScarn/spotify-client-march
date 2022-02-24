@@ -1,5 +1,5 @@
 import "../styles/SongRow.css";
-import { LoaderContainer } from "../styles/Global.styled.js";
+import { LoadingRow } from "../styles/Global.styled.js";
 import { useEffect, useState, useRef, useCallback } from "react";
 import useFavoriteTracks from "../hooks/useFavoriteTracks";
 import SongRow from "../components/SongRow";
@@ -47,56 +47,48 @@ function FavoritesTracks() {
   }
 
   return (
-    <div>
-      {loading ? (
-        <LoaderContainer>
-          <Loader
-            type="Oval"
-            color="pink"
-            height={100}
-            width={100}
-            timeout={3000}
-          />
-        </LoaderContainer>
-      ) : (
-        <>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            <h2 style={{ marginLeft: "5%" }}>Your favorite tracks</h2>
-            <div className="checkBox__controls" style={{ marginRight: "5%" }}>
-              <IconButton onClick={removeTracks}>
-                <DeleteForeverIcon style={{ color: "white" }} />
-              </IconButton>
-            </div>
-          </div>
-          <div className="section__Rows">
-            {favoritesTracks?.map((item, idx) => {
-              if (favoritesTracks.length === idx + 1) {
-                return (
-                  <div ref={lastTrackRef} className="songRow">
-                    <p>loading...</p>
-                  </div>
-                );
-              } else {
-                return (
-                  <SongRow
-                    key={item.track.id}
-                    song={item.track}
-                    checkboxState={checkedTracks}
-                    checkboxOnChange={checkboxOnChange}
-                  />
-                );
-              }
-            })}
-          </div>
-        </>
-      )}
-    </div>
+    <>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <h2 style={{ marginLeft: "5%" }}>Your favorite tracks</h2>
+        <div className="checkBox__controls" style={{ marginRight: "5%" }}>
+          <IconButton onClick={removeTracks}>
+            <DeleteForeverIcon style={{ color: "white" }} />
+          </IconButton>
+        </div>
+      </div>
+      <div className="section__Rows">
+        {favoritesTracks?.map((item, idx) => {
+          if (favoritesTracks.length === idx + 1) {
+            return (
+              <LoadingRow ref={lastTrackRef}>
+                <Loader
+                  type="Oval"
+                  color="rgb(164, 109, 200)"
+                  height={40}
+                  width={100}
+                  timeout={3000}
+                />
+              </LoadingRow>
+            );
+          } else {
+            return (
+              <SongRow
+                key={item.track.id}
+                song={item.track}
+                checkboxState={checkedTracks}
+                checkboxOnChange={checkboxOnChange}
+              />
+            );
+          }
+        })}
+      </div>
+    </>
   );
 }
 

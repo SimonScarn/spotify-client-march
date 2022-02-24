@@ -1,10 +1,5 @@
 import "../styles/Artist.css";
-import {
-  Header,
-ArtistInfo,
-Body,
-Section,
-} from '../styles/Artist.styled.js'
+import { Header, ArtistInfo, Body, Section } from "../styles/Artist.styled.js";
 
 import { useState, useEffect, useLayoutEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
@@ -28,7 +23,7 @@ function Artist() {
   const [hideTracks, setHideTracks] = useState(false);
 
   useEffect(() => {
-    document.querySelector(".bodyContainer").scrollTo(0,0)
+    document.querySelector(".bodyContainer").scrollTo(0, 0);
     setArtistID(pathname.split("/")[2]);
 
     spotifyAPI
@@ -72,7 +67,6 @@ function Artist() {
       .catch((err) => console.error(err));
   }, [artistID, pathname]);
 
-
   function followArtist() {
     spotifyAPI.isFollowingArtists([artist.id]).then((data) => {
       if (data[0]) {
@@ -113,7 +107,7 @@ function Artist() {
         <div>
           <div style={{ display: "flex" }}>
             <h2>Popular</h2>
-            <IconButton onClick={toggleTracks} >
+            <IconButton onClick={toggleTracks}>
               <ArrowDropDownIcon style={{ color: "whitesmoke" }} />
             </IconButton>
           </div>
@@ -123,7 +117,7 @@ function Artist() {
             })}
         </div>
         <hr />
-        {artistAlbums.length > 0 && (
+        {artistAlbums?.length > 0 && (
           <>
             <Section>
               <h2>Albums by {artist?.name}</h2>
@@ -143,25 +137,27 @@ function Artist() {
             </div>
           </>
         )}
+        {related?.artists?.length > 0 && (
+          <>
+            <Section>
+              <h2>Related</h2>
+              <Link
+                to={{
+                  pathname: `${artistID}/related`,
+                  state: { type: "related" },
+                }}
+              >
+                Show all
+              </Link>
+            </Section>
 
-        <Section>
-          <h2>Related</h2>
-          <Link
-            to={{
-              pathname: `${artistID}/related`,
-              state: { type: "related" },
-            }}
-          >
-            Show all
-          </Link>
-        </Section>
-
-        <div className="contentRow">
-          {related?.artists.length > 0 &&
-            related.artists.map((item) => {
-              return <SearchResult key={item.id} item={item} />;
-            })}
-        </div>
+            <div className="contentRow">
+              {related.artists.map((item) => {
+                return <SearchResult key={item.id} item={item} />;
+              })}
+            </div>
+          </>
+        )}
       </Body>
     </div>
   );
