@@ -1,4 +1,3 @@
-import "../styles/Sidebar.css";
 import {
   Container,
   Toolbar,
@@ -8,11 +7,8 @@ import {
   PlaylistContainer,
   PlaylistItem,
 } from "../styles/Sidebar.styled.js";
-
 import { useContext, useState, useEffect } from "react";
 import { GlobalContext } from "../GlobalContext";
-import { NavLink, Link } from "react-router-dom";
-
 import SidebarOption from "./SidebarOption";
 import Home from "@mui/icons-material/Home";
 import Search from "@mui/icons-material/Search";
@@ -22,14 +18,11 @@ import Favorite from "@mui/icons-material/Favorite";
 import EqualizerIcon from "@mui/icons-material/Equalizer";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import AddIcon from "@mui/icons-material/Add";
-import { IconButton } from "@mui/material";
 
 export default function Sidebar() {
   const { userInfo, dispatch } = useContext(GlobalContext);
   const [query, setQuery] = useState("");
   const [searchedPlaylists, setSearchedPlaylists] = useState([]);
-  const [filterQuery, setFilterQuery] = useState("");
-  const [sortOption, setSortOption] = useState("ascending");
 
   useEffect(() => {
     setSearchedPlaylists(userInfo.playlists);
@@ -54,17 +47,8 @@ export default function Sidebar() {
   function togglePlaylist(e, id) {
     e.preventDefault();
     dispatch({ type: "SET_PLAYER_TRACK", payload: [`spotify:playlist:${id}`] });
-    console.log(id);
   }
 
-  /*  SidebarOption,
-  Toolbar,
-  Search,
-  Input,
-  SidebarLink,
-  PlaylistContainer,
-  PlaylistItem,
-  Toolbar, */
 
   return (
     <Container>
@@ -88,7 +72,6 @@ export default function Sidebar() {
       <SidebarLink to="/collection/episodes">
         <SidebarOption title="My episodes" Icon={EqualizerIcon} />
       </SidebarLink>
-      <hr />
 
       <SearchSection>
         <Input
@@ -106,12 +89,10 @@ export default function Sidebar() {
                 to={`/playlist/${playlist.id}`}
               >
                 <PlaylistItem key={playlist.id}>
-                  <p style={{ margin: "0", padding: "0" }}>{playlist.name}</p>
+                  <p>{playlist.name}</p>
                   <Toolbar>
-                    <AddIcon className="icon__sidebar" onClick={addSong} />
-
+                    <AddIcon />
                     <PlayArrowIcon
-                      className="icon__sidebar"
                       onClick={(e) => togglePlaylist(e, playlist.id)}
                     />
                   </Toolbar>

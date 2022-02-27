@@ -15,6 +15,13 @@ const RemoveBtn = styled(IconButton)`
   }
 `;
 
+const PlaylistShowBtn = styled(IconButton)`
+    && {
+      visibility: hidden;
+      color: whitesmoke;
+    }
+`
+
 const Index = styled.div``;
 
 const PlayIcon = styled.span`
@@ -32,8 +39,6 @@ const Container = styled.div`
   padding: 0.5em 1em;
   padding-right: 3em;
   background-image: linear-gradient(315deg, #000000 0%, #141414 74%);
-
-
 
   &:hover {
     background-image: linear-gradient(55deg, #000000 0%, #202020 74%);
@@ -59,8 +64,11 @@ const Container = styled.div`
 
     &:hover ${Index} {
         display: none;
-
   }
+
+    &:hover ${PlaylistShowBtn} {
+      visibility: visible;
+    }
 `;
 
 /*    .songRow__details {
@@ -93,7 +101,7 @@ const Details = styled.div`
 
 const Artists = styled.div`
   max-height: 30px;
-  max-width: 600px;
+  max-width: 400px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -136,16 +144,20 @@ const ItemLink = styled(Link)`
 `;
 
 const AddToPlaylistBtn = styled.div`
+&& {
   padding: 0.5em 3em;
   color: pink;
   border: 1px solid rgb(164, 109, 200);
   border-radius: 100px;
   transition: 0.2s ease-in-out;
+  cursor: pointer;
 
   &:hover {
     transform: scale(1.1);
   }
+} 
 `;
+
 const ItemImg = styled.img`
   height: 50px;
   margin: auto 1rem;
@@ -163,33 +175,6 @@ const CheckBox = styled(Checkbox)`
   box-shadow: rgb(164, 109, 200);
 `;
 
-/*  
- 
-
-  
-   
-  .songRow:hover .icon__moreHorizon {
-    visibility: visible;
-  }
-  
-  .songRow:hover .icon__MoreHorizon,
-  .songRow:hover .icon__addLibrary {
-    visibility: visible;
-    cursor: pointer;
-  }
-  
-  .songRow:hover .songRow__trackNumber {
-    display: none;
-  }
-  
-
-  
-  .songRow:hover .songRow__playIcon {
-    display: block !important;
-  }
-  
-  
-  */
 
 export {
   Container,
@@ -198,11 +183,12 @@ export {
   Toolbar,
   Album,
   ItemLink,
-  AddToPlaylistBtn,
   ItemImg,
   Player,
   CheckBox,
   PlayIcon,
   RemoveBtn,
+  AddToPlaylistBtn,
+  PlaylistShowBtn,
   Index,
 };

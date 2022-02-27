@@ -1,10 +1,5 @@
 import "../styles/global.css";
-import {
-  Wrapper,
-  Section,
-  Row,
-  ContentGrid,
-} from "../styles/Global.styled.js";
+import { Wrapper, Section, Row, ContentGrid } from "../styles/Global.styled.js";
 import { useState, useEffect, useContext } from "react";
 import { spotifyAPI } from "../spotify";
 import { GlobalContext } from "../GlobalContext";

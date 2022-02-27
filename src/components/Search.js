@@ -1,13 +1,10 @@
-import "../styles/Search.css";
-import "../styles/global.css";
+import { Row, Wrapper } from "../styles/Global.styled.js";
 import { SearchResults, Categories } from "../styles/Search.styled.js";
 import { useState, useEffect, useRef, useContext } from "react";
-
+import { useNavigate, useLocation } from "react-router-dom";
 import { spotifyAPI } from "../spotify";
-import { useNavigate, useParams, Link, useLocation } from "react-router-dom";
 import useDebounce from "../hooks/useDebounce";
 import { GlobalContext } from "../GlobalContext";
-
 import {
   getAlbums,
   getArtists,
@@ -16,10 +13,10 @@ import {
   getEpisodes,
   getTracks,
 } from "../utils/ApiCalls";
+import { filterAlbums } from "../utils/ApiData";
 import TopHeader from "./TopHeader";
 import SearchResult from "./SearchResult";
 import Item from "./Item";
-import { filterAlbums } from "../utils/ApiData";
 
 function Search() {
   const navigate = useNavigate();
@@ -53,6 +50,9 @@ function Search() {
   }, []);
 
   useEffect(() => {
+    if (query === undefined) {
+      setQuery('');
+    }
     searchItem(query);
   }, [query]);
 
@@ -82,7 +82,7 @@ function Search() {
   }
 
   return (
-    <div className="bodyContainer">
+    <Wrapper>
       <TopHeader changeQuery={(query) => setQuery(query)} />
       {query ? (
         <SearchResults>
@@ -92,12 +92,12 @@ function Search() {
               <div style={{ display: "flex" }}>
                 <h2>Tracks</h2>
               </div>
-              <div className="itemsRow">
+              <Row double>
                 {tracks?.map((track) => {
                   return <Item key={track.id} item={track} />;
                 })}
                 //
-              </div>
+              </Row>
             </>
           )}
 
@@ -111,11 +111,11 @@ function Search() {
               >
                 <h2>Albums</h2>
               </div>
-              <div className="contentRow">
+              <Row>
                 {albums?.map((album) => {
                   return <SearchResult key={album.id} item={album} />;
                 })}
-              </div>
+              </Row>
             </>
           )}
           {/*-----------artists-----------*/}
@@ -125,11 +125,11 @@ function Search() {
                 <h2>Artists</h2>
               </div>
 
-              <div className="contentRow">
+              <Row>
                 {artists?.map((artist) => {
                   return <SearchResult key={artist.id} item={artist} />;
                 })}
-              </div>
+              </Row>
             </>
           )}
           {/*-----------playlists-----------*/}
@@ -139,11 +139,11 @@ function Search() {
                 <h2>Playlists</h2>
               </div>
 
-              <div className="contentRow">
+              <Row>
                 {playlists?.map((playlist) => {
                   return <SearchResult key={playlist.id} item={playlist} />;
                 })}
-              </div>
+              </Row>
             </>
           )}
           {/*-----------shows-----------*/}
@@ -153,12 +153,12 @@ function Search() {
                 <h2>Shows</h2>
               </div>
 
-              <div className="contentRow">
+              <Row>
                 {shows?.map((show) => {
                   return <SearchResult key={show.id} item={show} />;
                 })}
                 //
-              </div>
+              </Row>
             </>
           )}
           {/*-----------episodes-----------*/}
@@ -180,13 +180,11 @@ function Search() {
       ) : (
         <Categories>
           <h2>Categories</h2>
-          {/*         {categories.map((category) => {
-              return <CategoryItem category={category} />;
-            })} */}
+
           <p>categories & recommendations coming soon</p>
         </Categories>
       )}
-    </div>
+    </Wrapper>
   );
 }
 

@@ -1,6 +1,5 @@
-import "../styles/Artist.css";
+import { Row, Toolbar } from "../styles/Global.styled.js";
 import { Header, ArtistInfo, Body, Section } from "../styles/Artist.styled.js";
-
 import { useState, useEffect, useLayoutEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { spotifyAPI } from "../spotify";
@@ -11,20 +10,21 @@ import { Button, IconButton } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import PlayCircleFilledIcon from "@mui/icons-material/PlayCircleFilled";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { FollowBtn, PlayBtn, Wrapper } from "../styles/Global.styled";
 
 function Artist() {
+  const { pathname } = useLocation();
   const [artist, setArtist] = useState(null);
   const [popularTracks, setPopularTracks] = useState([]);
   const [artistAlbums, setArtistAlbums] = useState([]);
   const [related, setRelated] = useState([]);
-  const { pathname } = useLocation();
   const [artistID, setArtistID] = useState(null);
   const [isFollowing, setIsFollowing] = useState(false);
   const [hideTracks, setHideTracks] = useState(false);
 
   useEffect(() => {
-    document.querySelector(".bodyContainer").scrollTo(0, 0);
     setArtistID(pathname.split("/")[2]);
+    document.querySelector(Wrapper).scrollTo(0, 0);
 
     spotifyAPI
       .getArtist(artistID)
@@ -83,7 +83,7 @@ function Artist() {
   }
 
   return (
-    <div className="bodyContainer">
+    <Wrapper>
       <TopHeader />
       <Header>
         <ArtistInfo>
@@ -96,13 +96,12 @@ function Artist() {
           <p>{artist?.followers.total} followers</p>
         </ArtistInfo>
       </Header>
-      <div className="view__toolbar">
-        <PlayCircleFilledIcon className="playBtn" />
-        <Button className="followBtn" onClick={followArtist}>
+      <Toolbar>
+        <PlayBtn />
+        <FollowBtn onClick={followArtist}>
           {isFollowing ? "UNFOLLOW" : "FOLLOW"}
-        </Button>
-        <MoreHorizIcon />
-      </div>
+        </FollowBtn>
+      </Toolbar>
       <Body>
         <div>
           <div style={{ display: "flex" }}>
@@ -121,45 +120,36 @@ function Artist() {
           <>
             <Section>
               <h2>Albums by {artist?.name}</h2>
-              <Link
-                to={{
-                  pathname: `${artistID}/discography/album`,
-                  state: { type: "albums" },
-                }}
-              >
+              <Link to={"discography/album"} state={{ type: "albums" }}>
+
                 Show all
               </Link>
             </Section>
-            <div className="contentRow">
+            <Row>
               {artistAlbums?.map((item) => {
                 return <SearchResult key={item.id} item={item} view="artist" />;
               })}
-            </div>
+            </Row>
           </>
         )}
         {related?.artists?.length > 0 && (
           <>
             <Section>
               <h2>Related</h2>
-              <Link
-                to={{
-                  pathname: `${artistID}/related`,
-                  state: { type: "related" },
-                }}
-              >
+              <Link to={"related"} state={{ type: "related" }}>
                 Show all
               </Link>
             </Section>
 
-            <div className="contentRow">
+            <Row>
               {related.artists.map((item) => {
                 return <SearchResult key={item.id} item={item} />;
               })}
-            </div>
+            </Row>
           </>
         )}
       </Body>
-    </div>
+    </Wrapper>
   );
 }
 

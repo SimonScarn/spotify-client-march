@@ -90,11 +90,6 @@ const Controls = styled.div`
     gap: 3px;
     }
 `;
-const Toolbar = styled.div`
-  display: flex;
-  align-items: center;
-  height: 60px;
-`;
 
 const TracksContainer = styled.div`
   padding-top: 20px;
@@ -111,7 +106,6 @@ export {
   AlbumInfo,
   AlbumDetails,
   Controls,
-  Toolbar,
   TracksContainer,
 };
 

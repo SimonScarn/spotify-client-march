@@ -23,22 +23,29 @@ const OptionContainer = styled.div`
   transition: 0.2s color ease-in;
 
   &:hover {
-    color: grey;
     cursor: pointer;
     transform: scale(1.04);
+  }
 
-    & > p {
-      margin-left: 10px;
-    }
+  & > p {
+    margin-left: 10px;
   }
 `;
 const Toolbar = styled.div`
+  visibility: hidden;
+  text-align: center;
+  background: whitesmoke;
+  color: black;
+  border-radius: 1rem;
   overflow-x: hidden;
   overflow-y: hidden;
 `;
 
 const SearchSection = styled.div`
   margin-top: 5px;
+  padding: 15px 0 5px 0;
+  border-top: 1px solid whitesmoke;
+  
 `;
 
 const Input = styled.input`
@@ -47,15 +54,19 @@ const Input = styled.input`
   width: 80%;
   margin-left: auto;
   margin-right: auto;
+  padding: 2px 6px;
+  border-radius: 1rem;
   border: none;
   box-shadow: rgb(24, 29, 34) 0px 20px 30px -10px;
   background-color: rgb(153, 202, 173);
   font-weight: 700;
+  color: black;
+
 
   &:focus {
-    background-color: pink;
+    background-color: ${(props) => props.theme.colors.colorSecondary};
     outline: 2px solid aqua;
-    transition: background-color 0.2s linear;
+    transition: all 0.2s linear;
   }
 `;
 
@@ -64,16 +75,15 @@ const SidebarLink = styled(NavLink)`
   color: inherit;
 
   &.active {
-    color: black;
-    background: whitesmoke;
-  }
+    color: ${props => props.theme.colors.colorPrimary};
+    font-weight: 900;
+}
 `;
 
 const PlaylistContainer = styled.div`
   margin-top: 15px;
   margin-bottom: 70px;
   overflow-y: auto;
-  border-top: 1px solid whitesmoke;
 `;
 
 const PlaylistItem = styled.div`
@@ -86,15 +96,19 @@ const PlaylistItem = styled.div`
     color: rgb(164, 109, 200);
   }
 
+  &:hover ${Toolbar} {
+    visibility: visible;
+  }
+
   & > p {
+    margin: 0;
+    padding: 0;
     width: 150px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 `;
-
-
 
 export {
   Container,
@@ -106,17 +120,3 @@ export {
   PlaylistContainer,
   PlaylistItem,
 };
-
-/* .icon__sidebar {
-  visibility: hidden;
-}
-
-.sidebar__playlist:hover .icon__sidebar {
-  visibility: visible;
-  cursor: pointer;
-}
-
-
-.icon__sidebar:hover {
-  color: #6b0f1a !important;
-} */

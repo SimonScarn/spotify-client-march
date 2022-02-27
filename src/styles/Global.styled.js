@@ -1,11 +1,13 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { IconButton } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 
 const LoaderContainer = styled.div`
   display: grid;
   place-content: center;
-  min-height: 75vh;
+  min-height: ${props => props.full ? "100vh" : "75vh"};
+  background: ${props => props.full && "#121212"};
+  transition: background .3s ease-in-out;
 `;
 
 const LoadingRow = styled.div`
@@ -13,8 +15,7 @@ const LoadingRow = styled.div`
   display: grid;
   place-content: center;
   height: 60px;
-
-`
+`;
 
 const Wrapper = styled.div`
   position: relative;
@@ -51,7 +52,13 @@ const Grid = styled.div`
   grid-template-columns: repeat(auto-fill, 190px);
   gap: 10px;
   padding: 20px 10px;
-  border: 1px solid red;
+`;
+
+const Toolbar = styled.div`
+  display: flex;
+  align-items: center;
+  height: 60px;
+  padding-left: 20px;
 `;
 
 const HeaderTitle = styled.h2`
@@ -71,11 +78,11 @@ const ColorLink = styled(Link)`
   }
 
   &:nth-of-type(1n) {
-    color: ${(props) => props.theme.colors.linkPrimary};
+    color: ${(props) => props.theme.colors.colorPrimary};
   }
 
   &:nth-of-type(2n) {
-    color: ${(props) => props.theme.colors.linkSecondary};
+    color: ${(props) => props.theme.colors.colorSecondary};
   }
 `;
 
@@ -88,7 +95,7 @@ const PlayBtn = styled(IconButton)`
     width: 40px;
     height: 40px;
     color: black;
-    background-color: ${props => props.theme.colors.linkSecondary};
+    background-color: ${(props) => props.theme.colors.linkSecondary};
     visibility: hidden;
     transform: translate(110%, -20%);
     opacity: 0.1;
@@ -96,9 +103,30 @@ const PlayBtn = styled(IconButton)`
     transition: 0.2s;
 
     &:hover {
-      background-color: ${props => props.theme.colors.linkSecondary};
+      background-color: ${(props) => props.theme.colors.colorSecondary};
     }
   }
 `;
 
-export { LoaderContainer, LoadingRow, Wrapper, Section, Row, Grid, HeaderTitle, ColorLink, PlayBtn };
+const FollowBtn = styled(Button)`
+  && {
+    height: 25px;
+    width: 100px;
+    border: 1px solid whitesmoke;
+    color: whitesmoke;
+  }
+`;
+
+export {
+  LoaderContainer,
+  LoadingRow,
+  Wrapper,
+  Section,
+  Row,
+  Grid,
+  Toolbar,
+  HeaderTitle,
+  ColorLink,
+  PlayBtn,
+  FollowBtn,
+};

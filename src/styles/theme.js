@@ -8,7 +8,7 @@ export const theme = {
   colors: {
     bgMain: "#121212",
     bgHeader: "#262626",
-    linkPrimary: "rgb(221, 119, 119)",
-    linkSecondary: "rgb(164, 109, 200)",
+    colorPrimary: "rgb(221, 119, 119)",
+    colorSecondary: "rgb(164, 109, 200)",
   },
 };

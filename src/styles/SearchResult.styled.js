@@ -18,7 +18,9 @@ const Container = styled.div`
     visibility: visible;
     transform: translate(110%, -50%);
     opacity: 1;
+    
   }
+
 
   &:before {
     content: "";

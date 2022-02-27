@@ -1,5 +1,4 @@
-import "../styles/Album.css";
-import "../styles/global.css";
+import { Toolbar } from "../styles/Global.styled.js";
 import {
   Container,
   Image,
@@ -9,10 +8,8 @@ import {
   AlbumInfo,
   AlbumDetails,
   Controls,
-  Toolbar,
   TracksContainer,
 } from "../styles/Album.styled.js";
-
 import { useEffect, useState, useContext } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { GlobalContext } from "../GlobalContext";
@@ -81,8 +78,6 @@ function Album() {
       dispatch({ type: "SET_PLAYING_STATE", payload: true });
     }
   }
-
-
 
   return (
     <Container>

@@ -1,10 +1,11 @@
 import "../styles/Discography.css";
 import {
+  AlbumContainer,
   AlbumHeader,
   AlbumDetails,
   AlbumCover,
   AlbumIcons,
-  } from '../styles/Discography.styled.js'
+} from "../styles/Discography.styled.js";
 import { useState, useEffect } from "react";
 import { spotifyAPI } from "../spotify";
 import { getReleaseDate } from "../utils/ApiData";
@@ -27,23 +28,31 @@ function AlbumSection({ album }) {
       .containsMySavedAlbums([album.id])
       .then((data) => setFavorite(data[0]))
       .catch((err) => console.error(err));
-  }, []);
+  }, [album]);
 
   return (
-    <div>
+    <AlbumContainer>
       <AlbumHeader>
-        <AlbumCover src={album?.images[0].url}/>
+        <AlbumCover>
+          <img src={album?.images[0].url} />
+        </AlbumCover>
         <AlbumDetails>
           <h3>{album?.name}</h3>
+          <span>
+            <strong>{getReleaseDate(album?.["release_date"])}</strong>
+          </span>
           <p>{album?.type}</p>
-          <span>{() => getReleaseDate(album?.["release_date"])}</span>
           <p>
             <span>{album?.["total_tracks"]}</span> tracks
           </p>
         </AlbumDetails>
         <AlbumIcons>
-          <PlayCircleFilledIcon />
-          {favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+          <PlayCircleFilledIcon fontSize="large" />
+          {favorite ? (
+            <FavoriteIcon fontSize="large" />
+          ) : (
+            <FavoriteBorderIcon fontSize="large" />
+          )}
           <MoreHorizIcon />
         </AlbumIcons>
       </AlbumHeader>
@@ -52,7 +61,7 @@ function AlbumSection({ album }) {
           <AlbumRow key={track.id} item={track} />
         ))}
       </div>
-    </div>
+    </AlbumContainer>
   );
 }
 

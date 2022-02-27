@@ -11,13 +11,14 @@ const Container = styled.div`
   padding: 5px 20px 5px 30px;
   margin-bottom: 1px;
   color: whitesmoke;
-  background-color: #000000;
+/*   background-color: #000000; */
   background-image: linear-gradient(315deg, #000000 0%, #414141 74%);
+
 
   &:hover {
     cursor: pointer;
-    box-shadow: 0px 4px 4px -2px rgba(0, 0, 0, 0.24);
-    background-color: #301d20;
+        background-image: linear-gradient(55deg, #000000 0%, #202020 74%);
+/*     background-color: #301d20; */
     opacity: 0.8;
   }
 

@@ -1,18 +1,16 @@
-import "../styles/Discography.css";
-import "../styles/global.css";
+import { Grid, Wrapper } from "../styles/Global.styled";
 import {
-  Container,
+  ToggleBtnGroup,
   ToggleBtn,
-Toolbar,
-ItemsList,
-} from '../styles/Discography.styled.js'
+  Toolbar,
+  ItemsList,
+} from "../styles/Discography.styled.js";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { spotifyAPI } from "../spotify";
 import SearchResult from "./SearchResult";
 import TopHeader from "./TopHeader";
 import AlbumSection from "./AlbumSection";
-import { ToggleButtonGroup, ToggleButton } from "@mui/material";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import ViewModuleIcon from "@mui/icons-material/ViewModule";
 
@@ -24,8 +22,8 @@ function Discography() {
   const [related, setRelated] = useState([]);
   const [alignment, setAlignment] = useState("left");
 
-
   useEffect(() => {
+    console.log("wasap hołłłł", location);
 
     if (location.state.type == "related") {
       spotifyAPI
@@ -52,28 +50,32 @@ function Discography() {
     }
   }, [location]);
 
+
   function handleAlignment(event, newAlignment) {
     if (!newAlignment) return;
     setAlignment(newAlignment);
   }
 
   return (
-    <Container>
+    <Wrapper>
       <TopHeader />
-      {path == "related" ? (
+      {/*------------RELATED ARTISTS------------*/}
+      {path == "related" && (
         <>
-          <h2 style={{marginLeft: "5%"}}>You may like</h2>
-          <div className="contentGrid">
+          <h2 style={{ marginLeft: "5%" }}>You may like</h2>
+          <Grid>
             {related?.map((item) => (
               <SearchResult key={item.id} item={item} />
             ))}
-          </div>
+          </Grid>
         </>
-      ) : (
+      )}
+      {/*------------ARTIST ALBUMS------------*/}
+      {path == "albums" && (
         <>
           <Toolbar>
             <h3>{artistName}</h3>
-            <ToggleButtonGroup
+            <ToggleBtnGroup
               value={alignment}
               exclusive
               onChange={handleAlignment}
@@ -85,7 +87,7 @@ function Discography() {
               <ToggleBtn value="right">
                 <ViewModuleIcon />
               </ToggleBtn>
-            </ToggleButtonGroup>
+            </ToggleBtnGroup>
           </Toolbar>
           {alignment == "left" && (
             <ItemsList>
@@ -95,15 +97,15 @@ function Discography() {
             </ItemsList>
           )}
           {alignment == "right" && (
-            <div className="contentGrid">
+            <Grid>
               {artistAlbums?.map((item) => (
-                <SearchResult key={item.id} item={item} />
+                <SearchResult key={item.id} item={item} view="artist"/>
               ))}
-            </div>
+            </Grid>
           )}
         </>
       )}
-    </Container>
+    </Wrapper>
   );
 }
 

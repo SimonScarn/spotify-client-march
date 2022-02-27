@@ -20,6 +20,15 @@ const Header = styled.div`
     margin-bottom: auto;
   }
 `;
+
+const Toolbar = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  height: 60px;
+  padding-left: 25px;
+`;
+
 const Title = styled.h1`
   font-size: 2rem;
   font-weight: 900;
@@ -54,6 +63,7 @@ const BodyTitle = styled.p`
 export {
   Container,
   Header,
+  Toolbar,
   Title,
   Publisher,
   Body,

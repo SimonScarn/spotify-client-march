@@ -1,5 +1,5 @@
 import "../styles/Playlist.css";
-import {LoaderContainer} from '../styles/Global.styled.js';
+import { LoaderContainer } from "../styles/Global.styled.js";
 import {
   Container,
   Header,
@@ -31,15 +31,21 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 function Playlist() {
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(true);
-  const [playlist, setPlaylist] = useState();
+  const [playlist, setPlaylist] = useState(null);
   const [tracks, setTracks] = useState([]);
-  const [randomTracks, setRandomTracks] = useState([]);
   const [recommendedTracks, setRecommendedTracks] = useState([]);
+  const [initial, setInitial] = useState(false);
 
   const [count, setCount] = useState(1);
 
   useEffect(() => {
-    setIsLoading(true);
+    setInitial(true);
+  });
+
+  useEffect(() => {
+    if (initial !== true) {
+      setIsLoading(true);
+    }
     const playlistID = location.pathname.split("/")[2];
     setTimeout(() => {
       getPlaylistData(playlistID).then((data) => {
@@ -53,26 +59,17 @@ function Playlist() {
     }, 1500);
   }, [location, count]);
 
-  //? if prevTracks.length != tracks.length dont run it
   useEffect(() => {
-    console.log("gettin rekoms");
-    getRecommendations(tracks).then((data) => {
-      console.log("gettin rekoms FOR REALLLLLLLLLLLLL");
+    if (tracks && playlist) {
+      refreshRecommendations(tracks);
+    }
+  }, [location, playlist]);
 
-      setRecommendedTracks(data);
-    });
-  }, [location]);
-
-
-
-  function refreshRecommendations() {
+  function refreshRecommendations(tracks) {
     getRecommendations(tracks).then((data) => {
       setRecommendedTracks(data);
     });
   }
-
-/*   if (!playlist)
-    return <div className="playlist">Loadingujemy kurwoooo zajebana</div>; */
 
   return (
     <Container>
@@ -147,7 +144,9 @@ function Playlist() {
               );
             })}
             <ToolbarMini>
-              <RefreshBtn onClick={refreshRecommendations}>Refresh</RefreshBtn>
+              <RefreshBtn onClick={() => refreshRecommendations(tracks)}>
+                Refresh
+              </RefreshBtn>
             </ToolbarMini>
           </>
         </>

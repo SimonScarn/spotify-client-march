@@ -1,4 +1,3 @@
-import "../styles/ShowRow.css";
 import {
   Container,
   Image,

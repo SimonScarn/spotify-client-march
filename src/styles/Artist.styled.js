@@ -9,7 +9,7 @@ const Header = styled.div`
 
 const ArtistInfo = styled.div`
   margin-top: auto;
-  margin-left: 20px;
+  padding-left: 20px;
   padding-bottom: 20px;
 
   > div {

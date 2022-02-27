@@ -63,3 +63,8 @@ body {
   font-size: 3rem !important;
   color: #966ea3 !important;
 }
+
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: black; /* Firefox */
+}

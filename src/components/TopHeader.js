@@ -8,16 +8,15 @@ import {
 import { useState, useEffect, useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { GlobalContext } from "../GlobalContext";
-import { Avatar, IconButton } from "@mui/material";
+import { Avatar } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 function TopHeader({ changeQuery }) {
-  const { userInfo, dispatch } = useContext(GlobalContext);
-
   const navigate = useNavigate();
   const { state } = useLocation();
+  const { userInfo, dispatch } = useContext(GlobalContext);
   const [prevPath, setPrevPath] = useState(null);
 
   useEffect(() => {
@@ -33,9 +32,6 @@ function TopHeader({ changeQuery }) {
       navigate(-1);
     }
   }
-
- 
-
 
   return (
     <Container>
@@ -55,27 +51,11 @@ function TopHeader({ changeQuery }) {
         />
       ) : (
         <div>
-          <LibaryLink
-            to="/collection/playlists"
-          >
-            Playlists
-          </LibaryLink>
-          <LibaryLink
-            to="/collection/albums"
-          >
-            Albums
-          </LibaryLink>
+          <LibaryLink to="/collection/playlists">Playlists</LibaryLink>
+          <LibaryLink to="/collection/albums">Albums</LibaryLink>
 
-          <LibaryLink
-            to="/collection/artists"
-          >
-            Artists
-          </LibaryLink>
-          <LibaryLink
-            to="/collection/shows"
-          >
-            Shows
-          </LibaryLink>
+          <LibaryLink to="/collection/artists">Artists</LibaryLink>
+          <LibaryLink to="/collection/shows">Shows</LibaryLink>
         </div>
       )}
 
