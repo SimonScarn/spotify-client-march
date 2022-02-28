@@ -1,4 +1,10 @@
-import { Row, Toolbar } from "../styles/Global.styled.js";
+import {
+  Wrapper,
+  Row,
+  Toolbar,
+  FollowBtn,
+  PlayBtn,
+} from "../styles/Global.styled.js";
 import { Header, ArtistInfo, Body, Section } from "../styles/Artist.styled.js";
 import { useState, useEffect, useLayoutEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
@@ -6,11 +12,10 @@ import { spotifyAPI } from "../spotify";
 import TopHeader from "./TopHeader";
 import AlbumRow from "./AlbumRow";
 import SearchResult from "./SearchResult";
-import { Button, IconButton } from "@mui/material";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import PlayCircleFilledIcon from "@mui/icons-material/PlayCircleFilled";
+import Loader from "./Loader.js";
+import { IconButton } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import { FollowBtn, PlayBtn, Wrapper } from "../styles/Global.styled";
+
 
 function Artist() {
   const { pathname } = useLocation();
@@ -85,70 +90,76 @@ function Artist() {
   return (
     <Wrapper>
       <TopHeader />
-      <Header>
-        <ArtistInfo>
-          <h1>{artist?.name}</h1>
-          <div>
-            {artist?.genres.map((e) => {
-              return <span>#{e}</span>;
-            })}
-          </div>
-          <p>{artist?.followers.total} followers</p>
-        </ArtistInfo>
-      </Header>
-      <Toolbar>
-        <PlayBtn />
-        <FollowBtn onClick={followArtist}>
-          {isFollowing ? "UNFOLLOW" : "FOLLOW"}
-        </FollowBtn>
-      </Toolbar>
-      <Body>
-        <div>
-          <div style={{ display: "flex" }}>
-            <h2>Popular</h2>
-            <IconButton onClick={toggleTracks}>
-              <ArrowDropDownIcon style={{ color: "whitesmoke" }} />
-            </IconButton>
-          </div>
-          {!hideTracks &&
-            popularTracks?.map((item) => {
-              return <AlbumRow item={item} key={item.id} popular={true} />;
-            })}
-        </div>
-        <hr />
-        {artistAlbums?.length > 0 && (
-          <>
-            <Section>
-              <h2>Albums by {artist?.name}</h2>
-              <Link to={"discography/album"} state={{ type: "albums" }}>
+      {popularTracks.length == 0 ? (
+        <Loader />
+      ) : (
+        <>
+          <Header>
+            <ArtistInfo>
+              <h1>{artist?.name}</h1>
+              <div>
+                {artist?.genres.map((e) => {
+                  return <span>#{e}</span>;
+                })}
+              </div>
+              <p>{artist?.followers.total} followers</p>
+            </ArtistInfo>
+          </Header>
+          <Toolbar>
+            <FollowBtn onClick={followArtist}>
+              {isFollowing ? "UNFOLLOW" : "FOLLOW"}
+            </FollowBtn>
+          </Toolbar>
+          <Body>
+            <div>
+              <div style={{ display: "flex" }}>
+                <h2>Popular</h2>
+                <IconButton onClick={toggleTracks}>
+                  <ArrowDropDownIcon style={{ color: "whitesmoke" }} />
+                </IconButton>
+              </div>
+              {!hideTracks &&
+                popularTracks?.map((item) => {
+                  return <AlbumRow item={item} key={item.id} popular={true} />;
+                })}
+            </div>
+            <hr />
+            {artistAlbums?.length > 0 && (
+              <>
+                <Section>
+                  <h2>Albums by {artist?.name}</h2>
+                  <Link to={"discography/album"} state={{ type: "albums" }}>
+                    Show all
+                  </Link>
+                </Section>
+                <Row>
+                  {artistAlbums?.map((item) => {
+                    return (
+                      <SearchResult key={item.id} item={item} view="artist" />
+                    );
+                  })}
+                </Row>
+              </>
+            )}
+            {related?.artists?.length > 0 && (
+              <>
+                <Section>
+                  <h2>Related</h2>
+                  <Link to={"related"} state={{ type: "related" }}>
+                    Show all
+                  </Link>
+                </Section>
 
-                Show all
-              </Link>
-            </Section>
-            <Row>
-              {artistAlbums?.map((item) => {
-                return <SearchResult key={item.id} item={item} view="artist" />;
-              })}
-            </Row>
-          </>
-        )}
-        {related?.artists?.length > 0 && (
-          <>
-            <Section>
-              <h2>Related</h2>
-              <Link to={"related"} state={{ type: "related" }}>
-                Show all
-              </Link>
-            </Section>
-
-            <Row>
-              {related.artists.map((item) => {
-                return <SearchResult key={item.id} item={item} />;
-              })}
-            </Row>
-          </>
-        )}
-      </Body>
+                <Row>
+                  {related.artists.map((item) => {
+                    return <SearchResult key={item.id} item={item} />;
+                  })}
+                </Row>
+              </>
+            )}
+          </Body>
+        </>
+      )}
     </Wrapper>
   );
 }

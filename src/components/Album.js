@@ -2,12 +2,10 @@ import { Wrapper, Toolbar } from "../styles/Global.styled.js";
 import {
   Image,
   Header,
-  ArtistInfo,
   ArtistLink,
   Title,
-  AlbumInfo,
+  Label,
   AlbumDetails,
-  Controls,
   TracksContainer,
   PlayBtn,
 } from "../styles/Album.styled.js";
@@ -18,7 +16,6 @@ import { spotifyAPI } from "../spotify";
 import { getAlbumDuration, getReleaseDate } from "../utils/ApiData";
 import AlbumRow from "./AlbumRow";
 import TopHeader from "./TopHeader";
-import { IconButton } from "@mui/material";
 import PlayCircleFilledIcon from "@mui/icons-material/PlayCircleFilled";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -26,6 +23,8 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import MusicNoteIcon from "@mui/icons-material/MusicNote";
 import TimerIcon from "@mui/icons-material/Timer";
 import PauseIcon from "@mui/icons-material/Pause";
+import DateRangeIcon from "@mui/icons-material/DateRange";
+import Loader from "./Loader.js";
 
 function Album() {
   const location = useLocation();
@@ -81,66 +80,71 @@ function Album() {
   return (
     <Wrapper>
       <TopHeader />
-      <Header>
-        <Image alt="album cover" src={album?.images[1].url} />
-        <div>
-          <p style={{ textTransform: "uppercase" }}>{album?.["album_type"]}</p>
-          <AlbumDetails>
-            <Title>{album?.name}</Title>
-            <p>{getReleaseDate(album?.['release_date'])}</p>
-            <Controls>
+      {!album ? (
+        <Loader />
+      ) : (
+        <>
+          <Header>
+            <Image alt="album cover" src={album?.images[1].url} />
+            <AlbumDetails>
+              <p>{album?.["album_type"]}</p>
+              <Title>{album?.name}</Title>
               <div>
-                <MusicNoteIcon />
-                <span>{album?.tracks.total}</span>
-                {album?.tracks.total > 1 ? "tracks" : "track"}
+                {album?.artists.map((artist) => (
+                  <ArtistLink to={`/artist/${artist.id}`}>
+                    <span>{artist.name}</span>
+                  </ArtistLink>
+                ))}
               </div>
               <div>
-                <TimerIcon />
-                <span>{albumDuration}</span>
+                <div>
+                  <MusicNoteIcon />
+                  <span>{album?.tracks.total}</span>
+                  {album?.tracks.total > 1 ? "tracks" : "track"}
+                </div>
+                |
+                <div>
+                  <TimerIcon />
+                  <span>{albumDuration}</span>
+                </div>
               </div>
-            </Controls>
-          </AlbumDetails>
-          <ArtistInfo>
-            {album?.artists.map((artist) => (
-              <ArtistLink to={`/artist/${artist.id}`}>
-                <span>{artist.name}</span>
-              </ArtistLink>
-            ))}
-          </ArtistInfo>
-          <AlbumInfo>
-            <span>{album?.label}</span>
-          </AlbumInfo>
-        </div>
-      </Header>
-      <Toolbar>
-        <PlayBtn onClick={playAlbum} size="large">
-          {isPlaying ? (
-            <PauseIcon fontSize="large" />
-          ) : (
-            <PlayCircleFilledIcon fontSize="large" />
-          )}
-        </PlayBtn>
-        {favorite ? (
-          <FavoriteIcon
-            style={{ cursor: "pointer" }}
-            onClick={removeFavorite}
-            fontSize="large"
-          />
-        ) : (
-          <FavoriteBorderIcon
-            style={{ cursor: "pointer" }}
-            onClick={addFavorite}
-            fontSize="large"
-          />
-        )}
-
-        <MoreHorizIcon />
-      </Toolbar>
-      <TracksContainer>
-        {album?.tracks.items.map((item) => {
-          return <AlbumRow key={item.id} item={item} />;
-        })}
-      </TracksContainer>
+              <div>
+                <DateRangeIcon />
+                <h3>{getReleaseDate(album?.["release_date"])}</h3>
+              </div>
+            </AlbumDetails>
+          </Header>
+          <Toolbar>
+            <PlayBtn onClick={playAlbum} size="large">
+              {isPlaying ? (
+                <PauseIcon fontSize="large" />
+              ) : (
+                <PlayCircleFilledIcon fontSize="large" />
+              )}
+            </PlayBtn>
+            {favorite ? (
+              <FavoriteIcon
+                style={{ cursor: "pointer" }}
+                onClick={removeFavorite}
+                fontSize="large"
+              />
+            ) : (
+              <FavoriteBorderIcon
+                style={{ cursor: "pointer" }}
+                onClick={addFavorite}
+                fontSize="large"
+              />
+            )}
+            <MoreHorizIcon />
+          </Toolbar>
+          <TracksContainer>
+            {album?.tracks.items.map((item) => {
+              return <AlbumRow key={item.id} item={item} />;
+            })}
+          </TracksContainer>
+          <Label>{album?.label}</Label>
+        </>
+      )}
     </Wrapper>
   );
 }

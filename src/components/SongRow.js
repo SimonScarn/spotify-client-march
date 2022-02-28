@@ -1,7 +1,7 @@
+import { PlaylistShowBtn } from "../styles/Global.styled.js";
 import {
   Container,
   Details,
-  Artists,
   Toolbar,
   Album,
   ItemLink,
@@ -11,23 +11,19 @@ import {
   PlayIcon,
   RemoveBtn,
   AddToPlaylistBtn,
-  PlaylistShowBtn,
   Index,
-} from "../styles/SongRow.styled";
+} from "../styles/SongRow.styled.js";
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { spotifyAPI } from "../spotify";
 import { getItemDuration, getArtists } from "../utils/ApiData";
 import Modal from "./Modal";
-import { Button, IconButton } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import PauseIcon from "@mui/icons-material/Pause";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
-import AudiotrackIcon from "@mui/icons-material/Audiotrack";
 import ClearIcon from "@mui/icons-material/Clear";
 import { Tooltip } from "@mui/material";
+import { ArtistsContainer } from "../styles/Global.styled";
 
 function SongRow({
   id,
@@ -45,15 +41,18 @@ function SongRow({
   const [favorite, setFavorite] = useState(true);
   const [isAdded, setIsAdded] = useState(false);
   const [checked, setChecked] = useState(true);
-  
-   /* useEffect(() => {
-    spotifyAPI.containsMySavedTracks([song.id])
+
+   useEffect(() => {
+     console.log(checkboxState[song.id])
+   /*  spotifyAPI.containsMySavedTracks([song.id])
       .then(res => {
         if (res[0] === false) {
           setFavorite(false);
         }
-      }); 
-  }, [checkboxState]);*/
+      });  */
+  }, [checkboxState]);
+
+
 
   function showPlaylistModal() {
     setOpen(true);
@@ -86,7 +85,6 @@ function SongRow({
     setChecked((prev) => !prev);
   }
 
-
   if (!favorite || isAdded) return null;
   return (
     <Container>
@@ -101,10 +99,10 @@ function SongRow({
       </Tooltip>
       <Details>
         <div>
-          <Tooltip title={song.name} placement="top-start" >
+          <Tooltip title={song.name} placement="top-start">
             <h3>{song.name}</h3>
           </Tooltip>
-            <Artists>{getArtists(song.artists)}</Artists>
+          <ArtistsContainer>{getArtists(song.artists)}</ArtistsContainer>
         </div>
         <Album>
           <ItemLink to={`/album/${song.album.id}`} white>
@@ -119,16 +117,13 @@ function SongRow({
           <CheckBox
             value={checkboxState[song.id]}
             onChange={() => checkboxOnChange(song.id)}
+            checked={checkboxState[song.id]}
           />
         </div>
       )}
       {recommended ? (
         <Toolbar>
-          <AddToPlaylistBtn
-            onClick={handleAddToPlaylist}
-          >
-            ADD
-          </AddToPlaylistBtn>
+          <AddToPlaylistBtn onClick={handleAddToPlaylist}>ADD</AddToPlaylistBtn>
         </Toolbar>
       ) : (
         <Toolbar>
@@ -137,14 +132,16 @@ function SongRow({
             handleClose={hidePlaylistModal}
             songID={song.uri}
           />
-            
+
           <PlaylistShowBtn onClick={showPlaylistModal}>
-          <LibraryAddIcon
-          />
+            <LibraryAddIcon />
           </PlaylistShowBtn>
-         
+
           <div>
-            <FavoriteIcon style={{color: "#966ea3", cursor: "pointer"}} onClick={removeFavorite} />
+            <FavoriteIcon
+              style={{ color: "#966ea3", cursor: "pointer" }}
+              onClick={removeFavorite}
+            />
             <span>{() => getItemDuration(song["duration_ms"])}</span>
           </div>
         </Toolbar>

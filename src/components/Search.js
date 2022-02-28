@@ -36,7 +36,9 @@ function Search() {
   //?-----------------------------
 
   useEffect(() => {
+    console.log('SEARCH ==== > ', pathname)
     if (pathname) {
+      console.log('splitttinh ', pathname.split('/'))
       setQuery(pathname.split("/")[2]);
     }
 
@@ -86,7 +88,7 @@ function Search() {
 
   return (
     <Wrapper>
-      <TopHeader changeQuery={(query) => setQuery(query)} />
+      <TopHeader query={query} changeQuery={(query) => setQuery(query)} />
       {query ? (
         <SearchResults>
           {/*-----------tracks-----------*/}

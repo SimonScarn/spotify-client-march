@@ -13,7 +13,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
-function TopHeader({ changeQuery }) {
+function TopHeader({ query, changeQuery }) {
   const navigate = useNavigate();
   const { state } = useLocation();
   const { userInfo, dispatch } = useContext(GlobalContext);
@@ -46,6 +46,7 @@ function TopHeader({ changeQuery }) {
 
       {changeQuery ? (
         <Input
+          value={query}
           onChange={(e) => changeQuery(e.target.value)}
           placeholder="Search for a song etc. ..."
         />

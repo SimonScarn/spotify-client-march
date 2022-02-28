@@ -51,18 +51,45 @@ const Header = styled.div`
   }
 `;
 
-const ArtistInfo = styled.div`
+const AlbumDetails = styled.div`
   display: flex;
-  gap: 10px;
-  margin-top: 0.75rem;
-  margin-bottom: 0.25rem;
+  flex-direction: column;
+  gap: 40px;
+  gap: 20px;
+
+  div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  & > p {
+    margin: 0;
+    padding: 0;
+    font-size: 0.7rem;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  & > h3 {
+    font-size: 1rem;
+  }
+`;
+
+const TracksContainer = styled.div`
+  padding: 20px;
+  border-top: 1px solid whitesmoke;
 `;
 
 const ArtistLink = styled(Link)`
   color: inherit;
   text-decoration: none;
 
-`
+  &:hover {
+    color: ${(props) => props.theme.colors.colorSecondary};
+    text-decoration: underline;
+  }
+`;
 
 const Title = styled.h1`
   margin: 0;
@@ -73,38 +100,9 @@ const Title = styled.h1`
   color: whitesmoke;
 `;
 
-const AlbumInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const AlbumDetails = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-  gap: 20px;
-
-  & > p {
-    margin: 0;
-    padding: 0;
-    font-weight: 700;
-}
-`;
-const Controls = styled.div`
-  display: flex;
-  gap: 40px;
-  margin-bottom: 20px;
-
-  & > div {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-`;
-
-const TracksContainer = styled.div`
-  padding: 20px 20px 80px 20px;
-  border-top: 1px solid whitesmoke;
+const Label = styled.p`
+  margin-left: 20px;
+  font-style: italic;
 `;
 
 const PlayBtn = styled(IconButton)`
@@ -117,12 +115,10 @@ export {
   Container,
   Image,
   Header,
-  ArtistInfo,
+  AlbumDetails,
+  TracksContainer,
   ArtistLink,
   Title,
-  AlbumInfo,
-  AlbumDetails,
-  Controls,
-  TracksContainer,
+  Label,
   PlayBtn,
 };

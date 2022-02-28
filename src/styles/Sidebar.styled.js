@@ -42,10 +42,11 @@ const Toolbar = styled.div`
 `;
 
 const SearchSection = styled.div`
+  display: flex;
+  align-items: center;
   margin-top: 5px;
   padding: 15px 0 5px 0;
   border-top: 1px solid whitesmoke;
-  
 `;
 
 const Input = styled.input`

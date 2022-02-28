@@ -1,15 +1,12 @@
-import "../styles/SongRow.css";
-import { LoadingRow } from "../styles/Global.styled.js";
 import { useEffect, useState, useRef, useCallback } from "react";
 import useFavoriteTracks from "../hooks/useFavoriteTracks";
+import { spotifyAPI } from "../spotify";
+import Loader from "./Loader";
 import SongRow from "../components/SongRow";
-import Checkbox from "@mui/material/Checkbox";
 import { IconButton } from "@mui/material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import { spotifyAPI } from "../spotify";
-import useCheckedTracks from "../hooks/useCheckedTracks";
-import Loader from "react-loader-spinner";
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import CachedIcon from '@mui/icons-material/Cached';
+
 
 function FavoritesTracks() {
   const [offset, setOffset] = useState(0);
@@ -46,6 +43,10 @@ function FavoritesTracks() {
     setCheckedTracks([]);
   }
 
+  useEffect(() => {
+    console.log('LUDA ', checkedTracks)
+  }, [checkedTracks])
+
   return (
     <>
       <div
@@ -55,39 +56,41 @@ function FavoritesTracks() {
           justifyContent: "space-between",
         }}
       >
-        <h2 style={{ marginLeft: "5%" }}>Your favorite tracks</h2>
-        <div className="checkBox__controls" style={{ marginRight: "5%" }}>
+        <h2 style={{ marginLeft: "20px" }}>Your favorite tracks</h2>
+        <div style={{ marginRight: "20px" }}>
+          <IconButton>
+            <CachedIcon style={{ color: "white" }}/>
+          </IconButton>
           <IconButton onClick={removeTracks}>
             <DeleteForeverIcon style={{ color: "white" }} />
           </IconButton>
         </div>
       </div>
-      <div className="section__Rows">
-        {favoritesTracks?.map((item, idx) => {
-          if (favoritesTracks.length === idx + 1) {
-            return (
-              <LoadingRow ref={lastTrackRef}>
-                <Loader
-                  type="Oval"
-                  color="rgb(164, 109, 200)"
-                  height={40}
-                  width={100}
-                  timeout={3000}
+      {favoritesTracks.length == 0 ? (
+        <Loader />
+      ) : (
+        <div>
+          {favoritesTracks?.map((item, idx) => {
+            if (favoritesTracks.length === idx + 1) {
+              return (
+                <div ref={lastTrackRef}>
+                  <Loader row />
+                </div>
+              );
+            } else {
+              return (
+                <SongRow
+                  key={item.track.id}
+                  id={idx+1}
+                  song={item.track}
+                  checkboxState={checkedTracks}
+                  checkboxOnChange={checkboxOnChange}
                 />
-              </LoadingRow>
-            );
-          } else {
-            return (
-              <SongRow
-                key={item.track.id}
-                song={item.track}
-                checkboxState={checkedTracks}
-                checkboxOnChange={checkboxOnChange}
-              />
-            );
-          }
-        })}
-      </div>
+              );
+            }
+          })}
+        </div>
+      )}
     </>
   );
 }

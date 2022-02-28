@@ -18,6 +18,9 @@ import Favorite from "@mui/icons-material/Favorite";
 import EqualizerIcon from "@mui/icons-material/Equalizer";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import AddIcon from "@mui/icons-material/Add";
+import CachedIcon from '@mui/icons-material/Cached';
+import { IconButton } from "@mui/material";
+import { getUserPlaylists } from "../utils/ApiCalls.js";
 
 export default function Sidebar() {
   const { userInfo, dispatch } = useContext(GlobalContext);
@@ -25,19 +28,23 @@ export default function Sidebar() {
   const [searchedPlaylists, setSearchedPlaylists] = useState([]);
 
   useEffect(() => {
-    setSearchedPlaylists(userInfo.playlists);
-  }, [userInfo.playlists]);
+    console.log('wehighgh : ', query, searchedPlaylists)
+  }, [searchedPlaylists, query])
 
   useEffect(() => {
-    if (query == "") {
-      setSearchedPlaylists(userInfo.playlists);
+    setSearchedPlaylists([...userInfo.playlists]);
+  }, [userInfo.playlists]);
+
+   useEffect(() => {
+    if (query === "") {
+      setSearchedPlaylists([...userInfo.playlists]);
     } else {
       const items = [...userInfo.playlists].filter((e) =>
         e.name.toLowerCase().includes(query)
       );
       setSearchedPlaylists(items);
     }
-  }, [query]);
+  }, [query]); 
 
   function addSong(e) {
     e.preventDefault();
@@ -47,6 +54,13 @@ export default function Sidebar() {
   function togglePlaylist(e, id) {
     e.preventDefault();
     dispatch({ type: "SET_PLAYER_TRACK", payload: [`spotify:playlist:${id}`] });
+  }
+
+  function refetchPlaylists() {
+    console.log(userInfo.playlists[0].name)
+    setSearchedPlaylists([...userInfo.playlists]);
+    setQuery("");
+
   }
 
 
@@ -74,6 +88,9 @@ export default function Sidebar() {
       </SidebarLink>
 
       <SearchSection>
+        <IconButton style={{color: "white"}} onClick={refetchPlaylists}>
+          <CachedIcon/>
+        </IconButton>
         <Input
           value={query}
           onChange={(e) => setQuery(e.target.value)}

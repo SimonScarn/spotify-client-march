@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Checkbox from "@mui/material/Checkbox";
 import { IconButton } from "@mui/material";
+import { PlaylistShowBtn } from "./Global.styled.js";
 
 const RemoveBtn = styled(IconButton)`
   && {
@@ -15,12 +16,16 @@ const RemoveBtn = styled(IconButton)`
   }
 `;
 
-const PlaylistShowBtn = styled(IconButton)`
+const CheckBox = styled(Checkbox)`
   && {
-    visibility: hidden;
-    color: whitesmoke;
+    visibility: ${props => !props.checked ? "hidden" : "visible"};
+    color: white;
+    width: min-content;
+    margin-left: auto;
+    box-shadow: rgb(164, 109, 200);
   }
 `;
+
 
 const Index = styled.div``;
 
@@ -65,7 +70,8 @@ const Container = styled.div`
     display: none;
   }
 
-  &:hover ${PlaylistShowBtn} {
+  &:hover ${PlaylistShowBtn},
+  &:hover ${CheckBox} {
     visibility: visible;
   }
 `;
@@ -85,14 +91,6 @@ const Details = styled.div`
     text-overflow: ellipsis;
     cursor: default;
   }
-`;
-
-const Artists = styled.div`
-  max-height: 30px;
-  max-width: 400px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
 `;
 
 const Toolbar = styled.div`
@@ -154,17 +152,10 @@ const Player = styled.div`
   place-items: center;
 `;
 
-const CheckBox = styled(Checkbox)`
-  color: white;
-  width: min-content;
-  margin-left: auto;
-  box-shadow: rgb(164, 109, 200);
-`;
 
 export {
   Container,
   Details,
-  Artists,
   Toolbar,
   Album,
   ItemLink,
@@ -174,6 +165,5 @@ export {
   PlayIcon,
   RemoveBtn,
   AddToPlaylistBtn,
-  PlaylistShowBtn,
   Index,
 };

@@ -14,7 +14,8 @@ const Header = styled.div`
   display: flex;
   align-items: center;
   gap: 30px;
-  padding-top: 3em;
+  margin-bottom: 30px;
+  padding-top: 60px;
   padding-left: 60px;
 
   img {
@@ -35,15 +36,7 @@ const Name = styled.h2`
   font-size: 5em;
 `;
 
-const Toolbar = styled.div`
-  display: flex;
-  align-items: center;
-  height: 80px;
-  padding-left: 60px;
 
-  
-
-`;
 
 const RefreshBtn = styled(Button)`
   && {
@@ -75,20 +68,13 @@ const ToolbarMini = styled.div`
   place-items: center;
 `;
 
-/*   .playlist__toolbar .MuiSvgIcon-root {
-    margin-left: 20px;
-    color: pink !important;
-    font-size: 2em;
-    cursor: pointer;
-  }
-   */
+
 
 export {
   Container,
   Header,
   Details,
   Name,
-  Toolbar,
   RefreshBtn,
   Tracks,
   ToolbarMini,

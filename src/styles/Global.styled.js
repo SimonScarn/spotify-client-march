@@ -62,6 +62,14 @@ const Toolbar = styled.div`
   padding-left: 20px;
 `;
 
+const ArtistsContainer = styled.div`
+  max-height: 30px;
+  max-width: 400px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`;
+
 const HeaderTitle = styled.h2`
   display: flex;
   align-items: center;
@@ -90,14 +98,14 @@ const ColorLink = styled(Link)`
 const PlayBtn = styled(IconButton)`
   && {
     position: absolute;
-    top: ${props => props.left ? "50%" : "calc(65% - 15px)"};
-    left: ${props => props.left ? "90%" : "calc(50% - 15px)"};
+    top: ${(props) => (props.left ? "50%" : "calc(65% - 15px)")};
+    left: ${(props) => (props.left ? "90%" : "calc(50% - 15px)")};
     gap: 15px;
     width: 40px;
     height: 40px;
     color: black;
     visibility: hidden;
-    transform: ${props => !props.left && "translate(110%, -20%)"};
+    transform: ${(props) => !props.left && "translate(110%, -20%)"};
     opacity: 0.1;
     cursor: default;
     transition: 0.2s;
@@ -117,6 +125,23 @@ const FollowBtn = styled(Button)`
   }
 `;
 
+const PlaylistShowBtn = styled(IconButton)`
+  && {
+    visibility: hidden;
+    color: whitesmoke;
+  }
+`;
+
+const FavoriteBtn = styled(IconButton)`
+  && {
+    visibility: ${props => (props.favorite === false) && "hidden"};
+    color: ${(props) => props.theme.colors.colorSecondary};
+  }
+`;
+
+
+
+
 export {
   LoaderContainer,
   LoadingRow,
@@ -125,8 +150,11 @@ export {
   Row,
   Grid,
   Toolbar,
+  ArtistsContainer,
   HeaderTitle,
   ColorLink,
   PlayBtn,
   FollowBtn,
+  PlaylistShowBtn,
+  FavoriteBtn,
 };

@@ -80,6 +80,8 @@ const getDescription = (item, view) => {
       return item?.publisher;
     case undefined:
       return getArtists(item.artists);
+    default:
+      break;
   }
 };
 

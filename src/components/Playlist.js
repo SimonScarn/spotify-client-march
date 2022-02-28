@@ -1,10 +1,9 @@
-import { LoaderContainer } from "../styles/Global.styled.js";
+import { LoaderContainer, Toolbar } from "../styles/Global.styled.js";
 import {
   Container,
   Header,
   Details,
   Name,
-  Toolbar,
   RefreshBtn,
   Tracks,
   ToolbarMini,
@@ -18,14 +17,12 @@ import {
   getRecommendations,
   getPlaylistData,
 } from "../utils/playlist";
-
 import TopHeader from "./TopHeader";
 import SongRow from "./SongRow";
-import PlayCircleFilledIcon from "@mui/icons-material/PlayCircleFilled";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import Loader from "./Loader.js";
 import defaultImgSrc from "../assets/defaultimgsrc.png";
-import Loader from "react-loader-spinner";
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import { IconButton } from "@mui/material";
+import PlayCircleFilledIcon from "@mui/icons-material/PlayCircleFilled";
 
 function Playlist() {
   const location = useLocation();
@@ -74,15 +71,7 @@ function Playlist() {
     <Container>
       <TopHeader />
       {isLoading ? (
-        <LoaderContainer>
-          <Loader
-            type="Audio"
-            color="pink"
-            height={100}
-            width={100}
-            timeout={3000}
-          />
-        </LoaderContainer>
+        <Loader />
       ) : (
         <>
           <Header>
@@ -107,8 +96,7 @@ function Playlist() {
             </div>
           </Header>
           <Toolbar>
-            <PlayCircleFilledIcon />
-            <MoreHorizIcon />
+            <IconButton size="large" style={{color: "white"}}><PlayCircleFilledIcon fontSize="large"/></IconButton>
           </Toolbar>
           <hr />
           <Tracks>
@@ -128,7 +116,7 @@ function Playlist() {
               })}
           </Tracks>
           <hr />
-          <h3 style={{ marginLeft: "5%", fontSize: "30px" }}>Recommended: </h3>
+          <h3 style={{ marginLeft: "20px", fontSize: "30px" }}>Recommended: </h3>
           <>
             {recommendedTracks?.map((item) => {
               return (

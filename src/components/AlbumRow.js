@@ -1,19 +1,16 @@
 import {
-  Index,
-Container,
-Toolbar,
-Info,
-} from "../styles/AlbumRow.styled.js"
-
-import { useState, useEffect, useContext, useReducer } from "react";
-import { Link } from "react-router-dom";
+  ArtistsContainer,
+  PlaylistShowBtn,
+  FavoriteBtn,
+} from "../styles/Global.styled.js";
+import { Index, Container, Player, Toolbar, Info, PlayIcon } from "../styles/AlbumRow.styled.js";
+import { useState, useEffect, useContext } from "react";
 import { spotifyAPI } from "../spotify";
 import { GlobalContext } from "../GlobalContext";
 import { getItemDuration, getArtists } from "../utils/ApiData";
 import Modal from "./Modal";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
@@ -33,7 +30,6 @@ function AlbumRow({ item, popular }) {
       .catch((err) => console.error(err));
   }, [state]);
 
-  
   function addFavorite() {
     spotifyAPI
       .addToMySavedTracks([item.id])
@@ -77,7 +73,6 @@ function AlbumRow({ item, popular }) {
     }
   }
 
-
   return (
     <Container>
       {popular ? (
@@ -85,33 +80,32 @@ function AlbumRow({ item, popular }) {
           <img src={item.album.images[0].url} />
         </div>
       ) : (
-        <Index>
-          {item["track_number"]}
-          {isPlaying ? (
-            <PauseIcon onClick={playItem}/>
+        <Player>
+          <Index>{item["track_number"]}</Index>
+         <PlayIcon> {isPlaying ? (
+            <PauseIcon onClick={playItem} />
           ) : (
             <PlayArrowIcon onClick={playItem} />
-          )}
-        </Index>
+          )}</PlayIcon>
+        </Player>
       )}
       <Info>
         <h3>{item.name}</h3>
-        <p>{getArtists(item.artists)}</p>
+        <ArtistsContainer>{getArtists(item.artists)}</ArtistsContainer>
       </Info>
       <Toolbar>
         <Modal open={open} handleClose={hidePlaylistModal} songID={item.uri} />
-        <LibraryAddIcon
-          onClick={showPlaylistModal}
-        />
-        {favorite ? (
-          <FavoriteIcon onClick={removeFavorite} />
-        ) : (
-          <FavoriteBorderIcon
-            onClick={addFavorite}
-          />
-        )}
+        <PlaylistShowBtn onClick={showPlaylistModal}>
+          <LibraryAddIcon />
+        </PlaylistShowBtn>
+        <FavoriteBtn favorite={favorite}>
+          {favorite ? (
+            <FavoriteIcon onClick={removeFavorite} />
+          ) : (
+            <FavoriteBorderIcon onClick={addFavorite} />
+          )}
+        </FavoriteBtn>
         <span>{getItemDuration(item["duration_ms"])}</span>
-        <MoreHorizIcon  />
         {popular && (
           <p>
             <ArrowCircleUpIcon />

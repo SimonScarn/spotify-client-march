@@ -12,8 +12,6 @@ import { spotifyAPI } from "../spotify";
 import { getArtists, getDescription, getReleaseDate } from "../utils/ApiData";
 import PlayCircleIcon from "@mui/icons-material/PlayArrow";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
-import Loader from "react-loader-spinner";
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import defaultImgSrc from "../assets/defaultimgsrc.png";
 
 function SearchResult({ item, view }) {
