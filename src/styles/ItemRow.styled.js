@@ -29,6 +29,7 @@ const Container = styled.div`
   height: 80%;
   padding: 0.5em;
   transition: 0.3s ease-in-out;
+  border-radius: 5px;
 
   &:hover {
     cursor: pointer;
@@ -38,7 +39,7 @@ const Container = styled.div`
   &:hover ${PlayBtn} {
     visibility: visible;
     opacity: 1;
-    transform: translateX(380%) translateY(-50%);
+    transform:  ${props => !props.left && "translateX(380%) translateY(-50%)"};
   }
 
   &:before {
@@ -51,6 +52,7 @@ const Container = styled.div`
     height: 100%;
     opacity: 0.1;
     background-color: #c0a1cd;
+    border-radius: 5px;
     transition: 0.3s ease-in;
   }
 

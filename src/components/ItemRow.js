@@ -1,12 +1,10 @@
-import "../styles/Item.css";
 import { PlayBtn } from "../styles/Global.styled.js";
-import "../styles/global.css";
 import {
 Container,
 Image,
 ItemLink,
 Details,
-} from "../styles/Item.styled.js"
+} from "../styles/ItemRow.styled.js"
 import { getArtists } from "../utils/ApiData";
 import { Tooltip } from "@mui/material";
 import PlayCircleIcon from "@mui/icons-material/PlayArrow";
@@ -29,14 +27,14 @@ function Item({ item }) {
     >
       <Container>
       <Tooltip title={`${item?.album?.name} (${item?.album?.['release_date'].slice(0,4)})`} placement="top">
-        <Image src={isLoading ? defaultImgSrc : (item.album ? item.album.images[0].url : item.images[0].url)} onLoad={() => setIsLoading(false)}/>
+        <Image alt="track img" src={isLoading ? defaultImgSrc : (item.album ? item.album.images[0].url : item.images[0].url)} onLoad={() => setIsLoading(false)}/>
       </Tooltip>
         <Details>
           <h2>{item.name}</h2>
           <p>{getArtists(item.artists)}</p>
         </Details>
-        <PlayBtn>
-          <PlayCircleIcon className="item__playIcon" />
+        <PlayBtn left>
+          <PlayCircleIcon />
         </PlayBtn>
       </Container>
     </ItemLink>

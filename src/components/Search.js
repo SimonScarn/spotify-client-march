@@ -16,7 +16,7 @@ import {
 import { filterAlbums } from "../utils/ApiData";
 import TopHeader from "./TopHeader";
 import SearchResult from "./SearchResult";
-import Item from "./Item";
+import ItemRow from "./ItemRow";
 
 function Search() {
   const navigate = useNavigate();
@@ -72,7 +72,10 @@ function Search() {
     getTracks(query).then((data) => setTracks(data));
     getAlbums(query).then((data) => setAlbums(filterAlbums(data)));
     getArtists(query).then((data) => setArtists(data));
-    getPlaylists(query).then((data) => setPlaylists(data));
+    getPlaylists(query).then((data) => {
+      console.log(data)
+      setPlaylists(data)
+    });
     getShows(query).then((data) => setShows(data));
     getEpisodes(query).then((data) => setEpisodes(data));
   }
@@ -94,9 +97,8 @@ function Search() {
               </div>
               <Row double>
                 {tracks?.map((track) => {
-                  return <Item key={track.id} item={track} />;
+                  return <ItemRow key={track.id} item={track} />;
                 })}
-                //
               </Row>
             </>
           )}

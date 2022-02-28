@@ -1,4 +1,3 @@
-import "../styles/Discography.css";
 import {
   AlbumContainer,
   AlbumHeader,
@@ -46,7 +45,7 @@ function AlbumSection({ album }) {
             <span>{album?.["total_tracks"]}</span> tracks
           </p>
         </AlbumDetails>
-        <AlbumIcons>
+        <AlbumIcons >
           <PlayCircleFilledIcon fontSize="large" />
           {favorite ? (
             <FavoriteIcon fontSize="large" />

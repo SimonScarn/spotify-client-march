@@ -16,11 +16,11 @@ const RemoveBtn = styled(IconButton)`
 `;
 
 const PlaylistShowBtn = styled(IconButton)`
-    && {
-      visibility: hidden;
-      color: whitesmoke;
-    }
-`
+  && {
+    visibility: hidden;
+    color: whitesmoke;
+  }
+`;
 
 const Index = styled.div``;
 
@@ -42,45 +42,33 @@ const Container = styled.div`
 
   &:hover {
     background-image: linear-gradient(55deg, #000000 0%, #202020 74%);
-
-    &:before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0.05;
-      z-index: -1;
-      background-color: #c0a1cd;
-      transition: 0.3s ease-in;
-    }
-
-    &:hover ${RemoveBtn},
-    &:hover ${PlayIcon}{
-      display: grid;
-      place-items: center;
-    }
-
-    &:hover ${Index} {
-        display: none;
+  }
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.05;
+    z-index: -1;
+    background-color: #c0a1cd;
+    transition: 0.3s ease-in;
   }
 
-    &:hover ${PlaylistShowBtn} {
-      visibility: visible;
-    }
-`;
+  &:hover ${RemoveBtn}, &:hover ${PlayIcon} {
+    display: grid;
+    place-items: center;
+  }
 
-/*    .songRow__details {
-    display: flex;
-    align-items: center;
-    min-width: 60%;
-  } 
-  
-  .songRow__songInfo p,
-  .songRow__songInfo h3 {
-    margin: 4px;
-  }*/
+  &:hover ${Index} {
+    display: none;
+  }
+
+  &:hover ${PlaylistShowBtn} {
+    visibility: visible;
+  }
+`;
 
 const Details = styled.div`
   display: grid;
@@ -105,9 +93,7 @@ const Artists = styled.div`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-
-
-`
+`;
 
 const Toolbar = styled.div`
   display: flex;
@@ -144,18 +130,18 @@ const ItemLink = styled(Link)`
 `;
 
 const AddToPlaylistBtn = styled.div`
-&& {
-  padding: 0.5em 3em;
-  color: pink;
-  border: 1px solid rgb(164, 109, 200);
-  border-radius: 100px;
-  transition: 0.2s ease-in-out;
-  cursor: pointer;
+  && {
+    padding: 0.5em 3em;
+    color: pink;
+    border: 1px solid rgb(164, 109, 200);
+    border-radius: 100px;
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
 
-  &:hover {
-    transform: scale(1.1);
+    &:hover {
+      transform: scale(1.1);
+    }
   }
-} 
 `;
 
 const ItemImg = styled.img`
@@ -174,7 +160,6 @@ const CheckBox = styled(Checkbox)`
   margin-left: auto;
   box-shadow: rgb(164, 109, 200);
 `;
-
 
 export {
   Container,

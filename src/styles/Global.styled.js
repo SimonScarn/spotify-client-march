@@ -5,9 +5,9 @@ import { Button, IconButton } from "@mui/material";
 const LoaderContainer = styled.div`
   display: grid;
   place-content: center;
-  min-height: ${props => props.full ? "100vh" : "75vh"};
-  background: ${props => props.full && "#121212"};
-  transition: background .3s ease-in-out;
+  min-height: ${(props) => (props.full ? "100vh" : "75vh")};
+  background: ${(props) => props.full && "#121212"};
+  transition: background 0.3s ease-in-out;
 `;
 
 const LoadingRow = styled.div`
@@ -57,6 +57,7 @@ const Grid = styled.div`
 const Toolbar = styled.div`
   display: flex;
   align-items: center;
+  gap: 15px;
   height: 60px;
   padding-left: 20px;
 `;
@@ -89,15 +90,14 @@ const ColorLink = styled(Link)`
 const PlayBtn = styled(IconButton)`
   && {
     position: absolute;
-    top: calc(65% - 15px);
-    left: calc(50% - 15px);
+    top: ${props => props.left ? "50%" : "calc(65% - 15px)"};
+    left: ${props => props.left ? "90%" : "calc(50% - 15px)"};
     gap: 15px;
     width: 40px;
     height: 40px;
     color: black;
-    background-color: ${(props) => props.theme.colors.linkSecondary};
     visibility: hidden;
-    transform: translate(110%, -20%);
+    transform: ${props => !props.left && "translate(110%, -20%)"};
     opacity: 0.1;
     cursor: default;
     transition: 0.2s;

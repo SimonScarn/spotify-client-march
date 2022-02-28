@@ -1,4 +1,3 @@
-import "../styles/Login.css";
 import { Container, Image, LoginBtn, CodeBtn } from "../styles/Login.styled.js";
 import { loginURL } from "../spotify.js";
 import GitHubIcon from "@mui/icons-material/GitHub";

@@ -1,9 +1,12 @@
+import { IconButton } from "@mui/material";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
   flex: 0.8;
   height: 100%;
   width: 100%;
+  padding-bottom: 40px;
   overflow-y: auto;
   background-color: var(--bg-color);
   color: var(--info-color);
@@ -54,8 +57,17 @@ const ArtistInfo = styled.div`
   margin-top: 0.75rem;
   margin-bottom: 0.25rem;
 `;
+
+const ArtistLink = styled(Link)`
+  color: inherit;
+  text-decoration: none;
+
+`
+
 const Title = styled.h1`
-  font-size: 2rem;
+  margin: 0;
+  padding: 0;
+  font-size: 2.1rem;
   font-weight: 900;
   font-style: oblique;
   color: whitesmoke;
@@ -72,29 +84,33 @@ const AlbumDetails = styled.div`
   gap: 40px;
   gap: 20px;
 
-  & > h1 {
+  & > p {
     margin: 0;
     padding: 0;
-    font-size: 7vh;
-  }
+    font-weight: 700;
+}
 `;
 const Controls = styled.div`
-  .album__albumDetails > div {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 20px;
+  display: flex;
+  gap: 40px;
+  margin-bottom: 20px;
 
-    & > div {
-        display: flex;
+  & > div {
+    display: flex;
     align-items: center;
-    gap: 3px;
-    }
+    gap: 5px;
+  }
 `;
 
 const TracksContainer = styled.div`
-  padding-top: 20px;
-  padding-bottom: 100px;
+  padding: 20px 20px 80px 20px;
   border-top: 1px solid whitesmoke;
+`;
+
+const PlayBtn = styled(IconButton)`
+  && {
+    color: white;
+  }
 `;
 
 export {
@@ -102,20 +118,11 @@ export {
   Image,
   Header,
   ArtistInfo,
+  ArtistLink,
   Title,
   AlbumInfo,
   AlbumDetails,
   Controls,
   TracksContainer,
+  PlayBtn,
 };
-
-/* 
-
-  .album__toolbar .MuiSvgIcon-root {
-    margin-left: 20px;
-    color: pink !important;
-    font-size: 40px;
-    cursor: pointer;
-  }
-
-   */

@@ -13,14 +13,13 @@ const Container = styled.div`
   padding: 20px;
   cursor: pointer;
   object-fit: contain;
+  border-radius: 5px;
 
   &:hover ${PlayBtn} {
     visibility: visible;
     transform: translate(110%, -50%);
     opacity: 1;
-    
   }
-
 
   &:before {
     content: "";
@@ -32,6 +31,7 @@ const Container = styled.div`
     opacity: 0.1;
     z-index: -1;
     background-color: #c0a1cd;
+    border-radius: 5px;
     transition: 0.3s ease-in;
   }
 

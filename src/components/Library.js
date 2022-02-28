@@ -1,5 +1,3 @@
-import "../styles/SongRow.css";
-import "../styles/global.css";
 import {
   Wrapper,
   Grid,

@@ -1,11 +1,10 @@
-import "../styles/global.css";
 import { Wrapper, Section, Row, ContentGrid } from "../styles/Global.styled.js";
 import { useState, useEffect, useContext } from "react";
 import { spotifyAPI } from "../spotify";
 import { GlobalContext } from "../GlobalContext";
 import SearchResult from "./SearchResult";
 import TopHeader from "./TopHeader";
-import Item from "./Item";
+import ItemRow from "./ItemRow";
 
 function Home() {
   const [topArtists, setTopArtists] = useState([]);
@@ -79,7 +78,7 @@ function Home() {
         <h2>Recently played</h2>
         <Row double>
           {recentlyPlayed?.map((item) => {
-            return <Item key={item.id} item={item} />;
+            return <ItemRow key={item.id} item={item} />;
           })}
         </Row>
       </Section>
@@ -87,7 +86,7 @@ function Home() {
         <h2>Your top tracks</h2>
         <Row double>
           {topTracks?.map((item) => {
-            return <Item key={item.id} item={item} />;
+            return <ItemRow key={item.id} item={item} />;
           })}
         </Row>
       </Section>
@@ -96,7 +95,7 @@ function Home() {
         <h3>New singles</h3>
         <Row double>
           {newReleases?.singles.map((item) => {
-            return <Item key={item.id} item={item} />;
+            return <ItemRow key={item.id} item={item} />;
           })}
         </Row>
         <br />

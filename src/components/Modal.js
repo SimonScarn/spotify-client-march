@@ -1,10 +1,9 @@
-import "../styles/Modal.css";
 import {
   Container,
-Input,
-Body,
-ListContainer,
-} from "../styles/Modal.styled.js"
+  Input,
+  Body,
+  ListContainer,
+} from "../styles/Modal.styled.js";
 import ReactDom from "react-dom";
 import { useState, useEffect, useContext } from "react";
 import { GlobalContext } from "../GlobalContext";

@@ -1,4 +1,3 @@
-import "../styles/SearchResult.css";
 import { PlayBtn } from "../styles/Global.styled.js";
 import {
   Container,
@@ -109,8 +108,17 @@ function SearchResult({ item, view }) {
   return (
     <Container onClick={(e) => openSearchResult(e, item)}>
       <div>
-        {isLoading && <Image src={defaultImgSrc} cover />}
+        {isLoading && (
+          <Image
+            src={defaultImgSrc}
+            style={{
+              borderRadius: item.type == "artist" && "50%",
+            }}
+            cover
+          />
+        )}
         <Image
+          alt="item image"
           src={
             !isLoading || item?.images[0]?.url
               ? item?.images[0]?.url
@@ -124,6 +132,7 @@ function SearchResult({ item, view }) {
         />
         <h2>{item.name}</h2>
         {item.publisher && <h3>{item.publisher}</h3>}
+        {item.owner && <h3>{item.owner["display_name"]}</h3>}
 
         {view === "artist" ? (
           <Title>{getReleaseDate(item?.["release_date"])}</Title>
@@ -132,15 +141,12 @@ function SearchResult({ item, view }) {
         )}
         {view == "collection" && (
           <DeleteBtn onClick={deleteItem}>
-            <HighlightOffIcon className="searchResult__deleteIcon" />
+            <HighlightOffIcon />
           </DeleteBtn>
         )}
 
         <PlayBtn onClick={playItem}>
-          <PlayCircleIcon
-            className="searchResult__playIcon"
-            onClick={playItem}
-          />
+          <PlayCircleIcon onClick={playItem} />
         </PlayBtn>
       </div>
     </Container>

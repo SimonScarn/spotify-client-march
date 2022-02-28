@@ -1,4 +1,3 @@
-import "../styles/ListItem.css";
 import {
   Container,
 Image,
@@ -44,7 +43,7 @@ function ListItem({ item, itemID }) {
 
   return (
     <Container onClick={addToPlaylist}>
-      <Image src={item?.images[0]?.url} className="listItem__img" />
+      <Image alt="playlist img" src={item?.images[0]?.url} />
       <div>
         <Title>{item.name}</Title>
         <p>

@@ -1,17 +1,18 @@
-import { Toolbar } from "../styles/Global.styled.js";
+import { Wrapper, Toolbar } from "../styles/Global.styled.js";
 import {
-  Container,
   Image,
   Header,
   ArtistInfo,
+  ArtistLink,
   Title,
   AlbumInfo,
   AlbumDetails,
   Controls,
   TracksContainer,
+  PlayBtn,
 } from "../styles/Album.styled.js";
 import { useEffect, useState, useContext } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { GlobalContext } from "../GlobalContext";
 import { spotifyAPI } from "../spotify";
 import { getAlbumDuration, getReleaseDate } from "../utils/ApiData";
@@ -32,7 +33,6 @@ function Album() {
   const [album, setAlbum] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [albumDuration, setAlbumDuration] = useState(0);
-  const [releaseDate, setReleaseDate] = useState("");
   const [favorite, setFavorite] = useState(false);
 
   useEffect(() => {
@@ -42,7 +42,6 @@ function Album() {
       .then((data) => {
         setAlbum(data);
         setAlbumDuration(() => getAlbumDuration(data.tracks));
-        setReleaseDate(() => getReleaseDate(data["release_date"]));
       })
       .catch((err) => console.error(err));
     spotifyAPI
@@ -80,7 +79,7 @@ function Album() {
   }
 
   return (
-    <Container>
+    <Wrapper>
       <TopHeader />
       <Header>
         <Image alt="album cover" src={album?.images[1].url} />
@@ -88,6 +87,7 @@ function Album() {
           <p style={{ textTransform: "uppercase" }}>{album?.["album_type"]}</p>
           <AlbumDetails>
             <Title>{album?.name}</Title>
+            <p>{getReleaseDate(album?.['release_date'])}</p>
             <Controls>
               <div>
                 <MusicNoteIcon />
@@ -102,25 +102,36 @@ function Album() {
           </AlbumDetails>
           <ArtistInfo>
             {album?.artists.map((artist) => (
-              <Link to={`/artist/${artist.id}`} className="itemLink">
+              <ArtistLink to={`/artist/${artist.id}`}>
                 <span>{artist.name}</span>
-              </Link>
+              </ArtistLink>
             ))}
           </ArtistInfo>
           <AlbumInfo>
-            <span>{releaseDate}</span>
             <span>{album?.label}</span>
           </AlbumInfo>
         </div>
       </Header>
       <Toolbar>
-        <IconButton onClick={playAlbum}>
-          {isPlaying ? <PauseIcon /> : <PlayCircleFilledIcon />}
-        </IconButton>
+        <PlayBtn onClick={playAlbum} size="large">
+          {isPlaying ? (
+            <PauseIcon fontSize="large" />
+          ) : (
+            <PlayCircleFilledIcon fontSize="large" />
+          )}
+        </PlayBtn>
         {favorite ? (
-          <FavoriteIcon onClick={removeFavorite} />
+          <FavoriteIcon
+            style={{ cursor: "pointer" }}
+            onClick={removeFavorite}
+            fontSize="large"
+          />
         ) : (
-          <FavoriteBorderIcon onClick={addFavorite} />
+          <FavoriteBorderIcon
+            style={{ cursor: "pointer" }}
+            onClick={addFavorite}
+            fontSize="large"
+          />
         )}
 
         <MoreHorizIcon />
@@ -130,7 +141,7 @@ function Album() {
           return <AlbumRow key={item.id} item={item} />;
         })}
       </TracksContainer>
-    </Container>
+    </Wrapper>
   );
 }
 

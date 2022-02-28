@@ -1,4 +1,3 @@
-import "../styles/AlbumRow.css";
 import {
   Index,
 Container,
@@ -89,9 +88,9 @@ function AlbumRow({ item, popular }) {
         <Index>
           {item["track_number"]}
           {isPlaying ? (
-            <PauseIcon onClick={playItem} className="albumRow__playIcon" />
+            <PauseIcon onClick={playItem}/>
           ) : (
-            <PlayArrowIcon onClick={playItem} className="albumRow__playIcon" />
+            <PlayArrowIcon onClick={playItem} />
           )}
         </Index>
       )}
@@ -102,19 +101,17 @@ function AlbumRow({ item, popular }) {
       <Toolbar>
         <Modal open={open} handleClose={hidePlaylistModal} songID={item.uri} />
         <LibraryAddIcon
-          className="icon__addLibrary "
           onClick={showPlaylistModal}
         />
         {favorite ? (
-          <FavoriteIcon className="icon__favorite" onClick={removeFavorite} />
+          <FavoriteIcon onClick={removeFavorite} />
         ) : (
           <FavoriteBorderIcon
-            className="icon__favorite icon__favorite--remove"
             onClick={addFavorite}
           />
         )}
         <span>{getItemDuration(item["duration_ms"])}</span>
-        <MoreHorizIcon className="icon__moreHorizon" />
+        <MoreHorizIcon  />
         {popular && (
           <p>
             <ArrowCircleUpIcon />
