@@ -17,6 +17,7 @@ import { filterAlbums } from "../utils/ApiData";
 import TopHeader from "./TopHeader";
 import SearchResult from "./SearchResult";
 import ItemRow from "./ItemRow";
+import Loader from "./Loader";
 
 function Search() {
   const navigate = useNavigate();
@@ -36,9 +37,9 @@ function Search() {
   //?-----------------------------
 
   useEffect(() => {
-    console.log('SEARCH ==== > ', pathname)
+    console.log("SEARCH ==== > ", pathname);
     if (pathname) {
-      console.log('splitttinh ', pathname.split('/'))
+      console.log("splitttinh ", pathname.split("/"));
       setQuery(pathname.split("/")[2]);
     }
 
@@ -53,7 +54,7 @@ function Search() {
 
   useEffect(() => {
     if (query === undefined) {
-      setQuery('');
+      setQuery("");
     }
     searchItem(query);
   }, [query]);
@@ -75,8 +76,8 @@ function Search() {
     getAlbums(query).then((data) => setAlbums(filterAlbums(data)));
     getArtists(query).then((data) => setArtists(data));
     getPlaylists(query).then((data) => {
-      console.log(data)
-      setPlaylists(data)
+      console.log(data);
+      setPlaylists(data);
     });
     getShows(query).then((data) => setShows(data));
     getEpisodes(query).then((data) => setEpisodes(data));
@@ -165,26 +166,10 @@ function Search() {
               </Row>
             </>
           )}
-          {/*-----------episodes-----------*/}
-          {/*           {episodes.length > 0 && (
-            <>
-              <div style={{ display: "flex" }}>
-                <h2>Episodes</h2>
-              </div>
-                
-              <div className="contentRow">
-                {episodes?.map((episode) => {
-                  return <SearchResult key={episode.id} item={episode} />;
-                })}
-                //
-              </div>
-            </>
-          )} */}
         </SearchResults>
       ) : (
         <Categories>
           <h2>Categories</h2>
-
           <p>categories & recommendations coming soon</p>
         </Categories>
       )}

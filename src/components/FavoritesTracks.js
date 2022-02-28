@@ -3,10 +3,8 @@ import useFavoriteTracks from "../hooks/useFavoriteTracks";
 import { spotifyAPI } from "../spotify";
 import Loader from "./Loader";
 import SongRow from "../components/SongRow";
-import { IconButton } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import CachedIcon from '@mui/icons-material/Cached';
-
 
 function FavoritesTracks() {
   const [offset, setOffset] = useState(0);
@@ -39,13 +37,9 @@ function FavoritesTracks() {
   function removeTracks() {
     checkedTracks.forEach((e) => e);
     spotifyAPI.removeFromMySavedTracks(checkedTracks);
-    setReload((prev) => !prev);
+    setReload(true);
     setCheckedTracks([]);
   }
-
-  useEffect(() => {
-    console.log('LUDA ', checkedTracks)
-  }, [checkedTracks])
 
   return (
     <>
@@ -57,14 +51,15 @@ function FavoritesTracks() {
         }}
       >
         <h2 style={{ marginLeft: "20px" }}>Your favorite tracks</h2>
-        <div style={{ marginRight: "20px" }}>
-          <IconButton>
-            <CachedIcon style={{ color: "white" }}/>
-          </IconButton>
+        <Tooltip
+          title="Click to remove CHECKED tracks (checkbox appears on Song hover)"
+          placement="left"
+          style={{ marginRight: "20px" }}
+        >
           <IconButton onClick={removeTracks}>
             <DeleteForeverIcon style={{ color: "white" }} />
           </IconButton>
-        </div>
+        </Tooltip>
       </div>
       {favoritesTracks.length == 0 ? (
         <Loader />
@@ -81,9 +76,9 @@ function FavoritesTracks() {
               return (
                 <SongRow
                   key={item.track.id}
-                  id={idx+1}
+                  id={idx + 1}
                   song={item.track}
-                  checkboxState={checkedTracks}
+                  checkboxState={checkedTracks.includes(item.track.id)}
                   checkboxOnChange={checkboxOnChange}
                 />
               );

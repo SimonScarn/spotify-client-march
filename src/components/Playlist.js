@@ -31,6 +31,8 @@ function Playlist() {
   const [tracks, setTracks] = useState([]);
   const [recommendedTracks, setRecommendedTracks] = useState([]);
   const [initial, setInitial] = useState(false);
+  const [favoritesMap, setFavoritesMap] = useState([]);
+
 
   const [count, setCount] = useState(1);
 
@@ -61,11 +63,28 @@ function Playlist() {
     }
   }, [location, playlist]);
 
+  useEffect(() => {
+    checkFavorites(tracks)
+  }, [tracks])
+
   function refreshRecommendations(tracks) {
     getRecommendations(tracks).then((data) => {
       setRecommendedTracks(data);
     });
   }
+
+  function checkFavorites(tracks) {
+    spotifyAPI.containsMySavedTracks([tracks.map(e => e.track.id)])
+      .then((data) => {
+        console.log('ludddxxddd', data)
+        setFavoritesMap(data)
+      })
+  }
+
+  useEffect( () => {
+    console.log(favoritesMap)
+  }, [favoritesMap])
+
 
   return (
     <Container>
@@ -108,6 +127,7 @@ function Playlist() {
                     key={item.id}
                     id={item.id}
                     song={item.track}
+                    isFavorite={favoritesMap[item.id - 1]}
                     playlistId={playlist.id}
                     removeFromPlaylist={removeFromPlaylist}
                     setCount={setCount}

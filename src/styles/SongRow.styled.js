@@ -6,11 +6,14 @@ import { PlaylistShowBtn } from "./Global.styled.js";
 
 const RemoveBtn = styled(IconButton)`
   && {
-    color: red;
     display: none;
+    place-content: center;
+    height: 25px;
+    width: 25px;
+    color: red;
 
     &:hover {
-      transform: scale(1.2);
+      transform: scale(1.1);
       box-shadow: 0px 4px 4px -2px rgba(0, 0, 0, 0.24);
     }
   }
@@ -18,7 +21,7 @@ const RemoveBtn = styled(IconButton)`
 
 const CheckBox = styled(Checkbox)`
   && {
-    visibility: ${props => !props.checked ? "hidden" : "visible"};
+    visibility: ${props => !props.value ? "hidden" : "visible"};
     color: white;
     width: min-content;
     margin-left: auto;
