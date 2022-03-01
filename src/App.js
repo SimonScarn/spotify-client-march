@@ -1,7 +1,7 @@
 import "./App.css";
 import { theme } from "./styles/theme";
 import { ThemeProvider } from "styled-components";
-import {AppContainer} from './styles/Global.styled'
+import { AppContainer } from "./styles/Global.styled";
 import { useState, useEffect, useContext } from "react";
 import { BrowserRouter as Router, HashRouter } from "react-router-dom";
 import axios from "axios";
@@ -15,8 +15,7 @@ function App() {
   const [code, setCode] = useState(null);
   const { userInfo, dispatch } = useContext(GlobalContext);
 
-   useEffect(() => {
-
+  useEffect(() => {
     apiRequest.get("/status").then((res) => {
       dispatch({ type: "SET_APP_STATUS", payload: res.data.isRunning });
       if (res.data.isRunning === true) {
@@ -27,11 +26,7 @@ function App() {
         return;
       }
     });
-  }, []); 
-
-  useEffect(() => {
-    setCode(new URLSearchParams(window.location.search).get("code"));
-  }, [code]);
+  }, []);
 
   return (
     <Router>
