@@ -9,12 +9,9 @@ export default function useAuth(code) {
   const [refreshToken, setRefreshToken] = useState(null);
   const [expiresIn, setExpiresIn] = useState(null);
 
-
-
-
-
   useEffect(() => {
     if (code === "custom") {
+      console.log("custom");
       apiRequest.get("/token").then((res) => {
         dispatch({ type: "SET_ACCESS_TOKEN", payload: res.data.accessToken });
         dispatch({
@@ -24,9 +21,10 @@ export default function useAuth(code) {
 
         setAccessToken(res.data.accessToken);
         setRefreshToken(res.data.refreshToken);
-        setExpiresIn(3600);
-      }); 
+        setExpiresIn(80);
+      });
     } else {
+      console.log("login");
       apiRequest
         .post("/login", {
           code: code,
@@ -42,14 +40,14 @@ export default function useAuth(code) {
           });
           setAccessToken(res.data.accessToken);
           setRefreshToken(res.data.refreshToken);
-          setExpiresIn(3600);
+          setExpiresIn(80);
           window.history.pushState({}, null, "/");
-           return apiRequest.put("/token", {
+          return apiRequest.put("/token", {
             userId: "305",
             code: code,
             accessToken: res.data.accessToken,
             refreshToken: res.data.refreshToken,
-          }); 
+          });
         })
         .catch((err) => {
           console.error(err);
@@ -61,7 +59,7 @@ export default function useAuth(code) {
   //!2121212121
 
   useEffect(() => {
-    if (!refreshToken || !expiresIn) return; 
+    if (!refreshToken || !expiresIn) return;
     const interval = setInterval(() => {
       apiRequest
         .post("/refresh", {
@@ -69,10 +67,10 @@ export default function useAuth(code) {
         })
         .then((res) => {
           setAccessToken(res.data.accessToken);
-          setExpiresIn(3600);
-           return apiRequest.put("/token", {
+          setExpiresIn(80);
+          return apiRequest.put("/token", {
             accessToken: res.data.accessToken,
-          }); 
+          });
         })
         .catch(() => {
           window.location = "/";
