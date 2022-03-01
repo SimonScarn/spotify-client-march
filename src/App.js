@@ -15,7 +15,7 @@ function App() {
   const [code, setCode] = useState(null);
   const { userInfo, dispatch } = useContext(GlobalContext);
 
-  /*   useEffect(() => {
+   useEffect(() => {
 
     apiRequest.get("/status").then((res) => {
       dispatch({ type: "SET_APP_STATUS", payload: res.data.isRunning });
@@ -27,7 +27,7 @@ function App() {
         return;
       }
     });
-  }, []); */
+  }, []); 
 
   useEffect(() => {
     setCode(new URLSearchParams(window.location.search).get("code"));
