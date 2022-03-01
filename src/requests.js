@@ -4,5 +4,5 @@ const localhost = "http://localhost:8000"
 const BASE_URL = "https://spoti--server.herokuapp.com";
 
 export const apiRequest = axios.create({
-  baseURL: localhost,
+  baseURL: BASE_URL,
 });
