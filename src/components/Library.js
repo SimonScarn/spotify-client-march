@@ -1,29 +1,20 @@
-import {
-  Wrapper,
-  Grid,
-  HeaderTitle,
-  LoadingRow,
-} from "../styles/Global.styled.js";
-import { useState, useEffect, useRef, useContext, useCallback } from "react";
+import { Wrapper, Grid, HeaderTitle } from "../styles/Global.styled.js";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { spotifyAPI } from "../spotify";
 import { useParams, useNavigate } from "react-router-dom";
-import { GlobalContext } from "../GlobalContext";
 import TopHeader from "./TopHeader";
 import SearchResult from "./SearchResult";
 import FavoritesTracks from "./FavoritesTracks";
 import LibraryMusic from "@mui/icons-material/LibraryMusic";
-import Loader from "react-loader-spinner";
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from "./Loader";
 
 function Library() {
   const navigate = useNavigate();
   const { category } = useParams() || "playlists";
-  const { userInfo, dispatch } = useContext(GlobalContext);
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [offset, setOffset] = useState(0);
 
-  //!--------------------------------------------------------------------------------------------------------------------------------
   const observer = useRef();
   const lastItemRef = useCallback(
     (node) => {
@@ -40,15 +31,7 @@ function Library() {
   );
 
   useEffect(() => {
-    /*  console.log("offset ", offset);
-      console.log("items length : ", items.length); */
-  }, [items, offset]);
-
-  //!--------------------------------------------------------------------------------------------------------------------------------
-  useEffect(() => {
-    console.log("switchin");
     switch (category) {
-      //?------------[artists]--------------------------
       case "artists":
         setLoading(true);
         spotifyAPI.getFollowedArtists({ offset, limit: 50 }).then((data) => {
@@ -106,8 +89,9 @@ function Library() {
     setItems([]);
   }, [category]);
 
+  //? -----ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ-----------------
   useEffect(() => {
-    console.log(items);
+    console.log("library items : ", items);
   }, [items]);
 
   function checkItems(data, items, setItems) {
@@ -141,7 +125,7 @@ function Library() {
         <FavoritesTracks />
       ) : category == "episodes" ? (
         <>
-          <p style={{ marginLeft: "5%" }}>coming soon</p>
+          <p style={{ marginLeft: "20px" }}>coming soon</p>
         </>
       ) : (
         <>
@@ -152,15 +136,9 @@ function Library() {
             {items?.map((item, idx) => {
               if (items.length === idx + 1) {
                 return (
-                  <LoadingRow ref={lastItemRef}>
-                    <Loader
-                      type="Oval"
-                      color="rgb(164, 109, 200)"
-                      height={40}
-                      width={100}
-                      timeout={3000}
-                    />
-                  </LoadingRow>
+                  <div ref={lastItemRef} style={{gridColumn: "1 / -1"}}>
+                    <Loader row/>
+                  </div>
                 );
               } else {
                 return (

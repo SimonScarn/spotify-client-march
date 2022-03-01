@@ -73,7 +73,9 @@ function SearchResult({ item, view }) {
   };
 
   function playItem(e) {
+    e.preventDefault();
     e.stopPropagation();
+    console.log('play/pause coming soon')
     dispatch({ type: "SET_CURRENT_TRACK", payload: [item.uri] });
   }
 
@@ -118,7 +120,7 @@ function SearchResult({ item, view }) {
         <Image
           alt="item image"
           src={
-            !isLoading || item?.images[0]?.url
+            (!isLoading || item?.images[0]?.url)
               ? item?.images[0]?.url
               : defaultImgSrc
           }

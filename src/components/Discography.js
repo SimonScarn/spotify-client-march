@@ -62,7 +62,7 @@ function Discography() {
       {/*------------RELATED ARTISTS------------*/}
       {path == "related" && (
         <>
-          <h2 style={{ marginLeft: "5%" }}>You may like</h2>
+          <h2 style={{ marginLeft: "20px" }}>You may like</h2>
           <Grid>
             {related?.map((item) => (
               <SearchResult key={item.id} item={item} />

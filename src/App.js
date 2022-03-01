@@ -1,6 +1,7 @@
 import "./App.css";
 import { theme } from "./styles/theme";
 import { ThemeProvider } from "styled-components";
+import {AppContainer} from './styles/Global.styled'
 import { useState, useEffect, useContext } from "react";
 import { BrowserRouter as Router, HashRouter } from "react-router-dom";
 import axios from "axios";
@@ -38,9 +39,9 @@ function App() {
         {!code ? (
           <Login />
         ) : (
-          <div className="App">
+          <AppContainer>
             <Player code={code} />
-          </div>
+          </AppContainer>
         )}
       </ThemeProvider>
     </Router>

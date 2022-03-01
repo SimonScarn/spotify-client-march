@@ -28,8 +28,8 @@ const Image = styled.img`
   margin-bottom: 30px;
   padding: 5px;
   background: ${props => props.theme.colors.colorSecondary};
-  outline: 10px solid ${props => props.theme.colors.colorSecondary};
-  outline-offset: -8px;
+  outline: 5px solid ${props => props.theme.colors.colorSecondary};
+  outline-offset: -7px;
   border-radius: 50%;
 `;
 

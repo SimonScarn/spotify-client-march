@@ -1,7 +1,5 @@
-import { LoaderContainer } from "../styles/Global.styled.js";
-import Loader from "react-loader-spinner";
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-
+import { PlayerContainer } from "../styles/Global.styled.js";
+import Loader from "./Loader";
 import Sidebar from "./Sidebar";
 import Home from "./Home";
 import Footer from "./Footer";
@@ -54,45 +52,31 @@ export default function Player({ code }) {
     }
   }, [userInfo.playlists]);
 
-  if (userInfo.playlists.length == 0)
-    return (
-      <LoaderContainer full>
-        <Loader
-          type="Oval"
-          color="rgb(164, 109, 200)"
-          height={40}
-          width={100}
-          timeout={3000}
-        />
-      </LoaderContainer>
-    );
+
+  
+  if (userInfo.playlists.length == 0) return <Loader full/>;
 
   return (
-    <div className="player">
-      <div className="player__body">
-        <Sidebar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="/search/:id" element={<Search />} />
-          <Route path="/album" element={<Album />} />
-          <Route path="/album/:id" element={<Album />} />
-          <Route path="/playlist" element={<Playlist />} />
-          <Route path="/playlist/:id" element={<Playlist />} />
-          <Route path="/show" element={<Show />} />
-          <Route path="/show/:id" element={<Show />} />
-          <Route path="/artist" element={<Artist />} />
-          <Route path="/artist/:id" element={<Artist />} />
-          <Route
-            path="/artist/:id/discography/album"
-            element={<Discography />}
-          />
-          <Route path="/artist/:id/related" element={<Discography />} />
-          <Route path="/collection" element={<Library />} />
-          <Route path="/collection/:category" element={<Library />} />
-        </Routes>
-        <Footer />
-      </div>
-    </div>
+    <PlayerContainer>
+      <Sidebar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/search/:id" element={<Search />} />
+        <Route path="/album" element={<Album />} />
+        <Route path="/album/:id" element={<Album />} />
+        <Route path="/playlist" element={<Playlist />} />
+        <Route path="/playlist/:id" element={<Playlist />} />
+        <Route path="/show" element={<Show />} />
+        <Route path="/show/:id" element={<Show />} />
+        <Route path="/artist" element={<Artist />} />
+        <Route path="/artist/:id" element={<Artist />} />
+        <Route path="/artist/:id/discography/album" element={<Discography />} />
+        <Route path="/artist/:id/related" element={<Discography />} />
+        <Route path="/collection" element={<Library />} />
+        <Route path="/collection/:category" element={<Library />} />
+      </Routes>
+      <Footer />
+    </PlayerContainer>
   );
 }

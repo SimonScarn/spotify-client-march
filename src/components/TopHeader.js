@@ -12,6 +12,8 @@ import { Avatar } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import defaultImgSrc from "../assets/defaultimgsrc.png";
+
 
 function TopHeader({ query, changeQuery }) {
   const navigate = useNavigate();
@@ -51,17 +53,18 @@ function TopHeader({ query, changeQuery }) {
           placeholder="Search for a song etc. ..."
         />
       ) : (
-        <div>
+        <div style={{display: "flex"}}>
           <LibaryLink to="/collection/playlists">Playlists</LibaryLink>
           <LibaryLink to="/collection/albums">Albums</LibaryLink>
-
           <LibaryLink to="/collection/artists">Artists</LibaryLink>
           <LibaryLink to="/collection/shows">Shows</LibaryLink>
         </div>
       )}
 
       <UserInfo>
-        <Avatar>{userInfo?.user?.["display_name"][0]}</Avatar>
+        <Avatar alt="user avatar" src={userInfo?.user?.images[0]?.url ? userInfo.user.images[0].url : defaultImgSrc}>
+          {userInfo?.user?.["display_name"][0]}
+        </Avatar>
         <h4>{userInfo?.user?.["display_name"]}</h4>
         <ArrowDropDownIcon />
       </UserInfo>

@@ -70,6 +70,19 @@ const ArtistsContainer = styled.div`
   text-overflow: ellipsis;
 `;
 
+const PlayerContainer = styled.div`
+  display: flex;
+  height: 100vh;
+  min-height: 100%;
+`;
+
+const AppContainer = styled.div`
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0;
+  overflow-x: hidden;
+`;
+
 const HeaderTitle = styled.h2`
   display: flex;
   align-items: center;
@@ -97,20 +110,21 @@ const ColorLink = styled(Link)`
 
 const PlayBtn = styled(IconButton)`
   && {
-    position: absolute;
-    top: ${(props) => (props.left ? "50%" : "calc(65% - 15px)")};
-    left: ${(props) => (props.left ? "90%" : "calc(50% - 15px)")};
+    visibility: hidden;
     gap: 15px;
     width: 40px;
     height: 40px;
-    color: black;
-    visibility: hidden;
-    transform: ${(props) => !props.left && "translate(110%, -20%)"};
+    position: absolute;
+    top: ${(props) => (props.row ? "calc(50%-20px)" : "calc(65% - 15px)")};
+    left: ${(props) => (props.row ? "87%" : "calc(80% - 15px)")};
+    color: whitesmoke;
+    background-color: ${(props) => props.theme.colors.colorSecondary};
     opacity: 0.1;
     cursor: default;
-    transition: 0.2s;
+    transition: all 0.3s ease-in-out;
 
     &:hover {
+      color: black;
       background-color: ${(props) => props.theme.colors.colorSecondary};
     }
   }
@@ -134,13 +148,10 @@ const PlaylistShowBtn = styled(IconButton)`
 
 const FavoriteBtn = styled(IconButton)`
   && {
-    visibility: ${props => (props.favorite === false) && "hidden"};
+    visibility: ${(props) => props.favorite === false && "hidden"};
     color: ${(props) => props.theme.colors.colorSecondary};
   }
 `;
-
-
-
 
 export {
   LoaderContainer,
@@ -151,6 +162,8 @@ export {
   Grid,
   Toolbar,
   ArtistsContainer,
+  PlayerContainer,
+  AppContainer,
   HeaderTitle,
   ColorLink,
   PlayBtn,

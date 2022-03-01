@@ -1,4 +1,4 @@
-import { PlaylistShowBtn } from "../styles/Global.styled.js";
+import { PlaylistShowBtn, FavoriteBtn } from "../styles/Global.styled.js";
 import {
   Container,
   Details,
@@ -20,6 +20,7 @@ import { getItemDuration, getArtists } from "../utils/ApiData";
 import Modal from "./Modal";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
 import ClearIcon from "@mui/icons-material/Clear";
 import { Tooltip } from "@mui/material";
@@ -39,14 +40,16 @@ function SongRow({
 }) {
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
-  const [favorite, setFavorite] = useState(true);
+  const [favorite, setFavorite] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
 
-
   useEffect(() => {
-    console.log('checking .... ', isFavorite, song.name)
-  }, [isFavorite])
-/*   useEffect(() => {
+    if (isFavorite === true) {
+      console.log("checking .... ", isFavorite, song.name);
+    }
+    setFavorite(isFavorite);
+  }, []);
+  /*   useEffect(() => {
     spotifyAPI.containsMySavedTracks([song.id]).then((res) => {
       if (res[0] === true) {
         setFavorite(true);
@@ -82,7 +85,7 @@ function SongRow({
     setCount((prev) => (prev += 1));
   }
 
-  if (!favorite || isAdded) return null;
+  if (isAdded) return null;
 
   return (
     <Container>
@@ -92,7 +95,13 @@ function SongRow({
           <PlayArrowIcon onClick={playSong} />
         </PlayIcon>
       </Player>
-      <Tooltip title={song.album.name} placement="top-start">
+      <Tooltip
+        title={`${song.album.name} (${song?.album?.["release_date"].slice(
+          0,
+          4
+        )})`}
+        placement="top-start"
+      >
         <ItemImg src={song.album.images[0].url} />
       </Tooltip>
       <Details>
@@ -107,44 +116,47 @@ function SongRow({
         </Album>
       </Details>
       {/*-----------------------------PATHNAME = TRACKS-----------------------------*/}
-      {pathname.split("/")[2] ===
-        "tracks" /*  || pathname.split("/")[1] === "playlist" */ && (
-        <CheckBox
-          value={checkboxState}
-          onChange={() => checkboxOnChange(song.id)}
-          color="error"
-        />
-      )}
       {recommended ? (
         <Toolbar>
           <AddToPlaylistBtn onClick={handleAddToPlaylist}>ADD</AddToPlaylistBtn>
         </Toolbar>
       ) : (
-        <Toolbar>
-          <Modal
-            open={open}
-            handleClose={hidePlaylistModal}
-            songID={song.uri}
-          />
-
-          <PlaylistShowBtn onClick={showPlaylistModal}>
-            <LibraryAddIcon />
-          </PlaylistShowBtn>
-
-          <div>
-            <FavoriteIcon
-              style={{ color: "#966ea3", cursor: "pointer" }}
-              onClick={removeFavorite}
+        <>
+          <Toolbar>
+            {pathname.split("/")[2] ===
+              "tracks" /*  || pathname.split("/")[1] === "playlist" */ && (
+              <CheckBox
+                value={checkboxState}
+                onChange={() => checkboxOnChange(song.id)}
+                color="error"
+              />
+            )}
+            <Modal
+              open={open}
+              handleClose={hidePlaylistModal}
+              songID={song.uri}
             />
-            <span>{() => getItemDuration(song["duration_ms"])}</span>
+            <PlaylistShowBtn onClick={showPlaylistModal}>
+              <LibraryAddIcon />
+            </PlaylistShowBtn>
+            <FavoriteBtn favorite={favorite}>
+              {favorite ? (
+                <FavoriteIcon onClick={removeFavorite} />
+              ) : (
+                <FavoriteBorderIcon />
+              )}
+            </FavoriteBtn>
             {/*-----------------------------PATHNAME = PLAYLIST-------------------------------*/}
             {pathname.split("/")[1] === "playlist" && !recommended && (
               <RemoveBtn onClick={handleRemoveFromPlaylist} size="small">
                 <ClearIcon />
               </RemoveBtn>
             )}
-          </div>
-        </Toolbar>
+          </Toolbar>
+          <span style={{ display: "grid", placeContent: "center" }}>
+            {getItemDuration(song["duration_ms"])}
+          </span>
+        </>
       )}
     </Container>
   );

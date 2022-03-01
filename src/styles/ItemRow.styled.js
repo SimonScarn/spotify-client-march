@@ -3,21 +3,6 @@ import { Link } from "react-router-dom";
 import { IconButton } from "@mui/material";
 import { PlayBtn } from "./Global.styled.js";
 
-/* const PlayBtn = styled(IconButton)`
-  position: absolute;
-    top: 70%;
-    left: 85%;
-    gap: 15px;
-    width: 40px;
-    height: 40px;
-    opacity: 0.1;
-    cursor: default;
-    visibility: hidden;
-    background-color: aquamarine;
-    transform: translateX(-50%, -50%);
-    transition: 0.3s;
-    ` */
-
 const Container = styled.div`
   position: relative;
   display: grid;
@@ -39,7 +24,7 @@ const Container = styled.div`
   &:hover ${PlayBtn} {
     visibility: visible;
     opacity: 1;
-    transform:  ${props => !props.left && "translateX(380%) translateY(-50%)"};
+    transform: translateX(-8%);
   }
 
   &:before {

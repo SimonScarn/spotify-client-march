@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import "../styles/Footer.css";
+import {Container,  Controls, CurrentTime, TotalTime } from "../styles/Footer.styled";
 import FooterPlayer from "./SpotifyPlayer";
 import { GlobalContext } from "../GlobalContext";
 
@@ -7,10 +7,12 @@ export default function Footer() {
   const { userInfo, dispatch } = useContext(GlobalContext);
 
   return (
-    <div className="footer">
+    <Container>
       <FooterPlayer />
-      <span className="footer__player footer__player--currentTime">0:00</span>
-      <span className="footer__player footer__player--totalTime">3:33</span>
-    </div>
+      <Controls>
+        <CurrentTime>0:00</CurrentTime>
+        <TotalTime>3:33</TotalTime>
+      </Controls>
+    </Container>
   );
 }

@@ -3,7 +3,14 @@ import {
   PlaylistShowBtn,
   FavoriteBtn,
 } from "../styles/Global.styled.js";
-import { Index, Container, Player, Toolbar, Info, PlayIcon } from "../styles/AlbumRow.styled.js";
+import {
+  Index,
+  Container,
+  Player,
+  Toolbar,
+  Info,
+  PlayIcon,
+} from "../styles/AlbumRow.styled.js";
 import { useState, useEffect, useContext } from "react";
 import { spotifyAPI } from "../spotify";
 import { GlobalContext } from "../GlobalContext";
@@ -82,11 +89,14 @@ function AlbumRow({ item, popular }) {
       ) : (
         <Player>
           <Index>{item["track_number"]}</Index>
-         <PlayIcon> {isPlaying ? (
-            <PauseIcon onClick={playItem} />
-          ) : (
-            <PlayArrowIcon onClick={playItem} />
-          )}</PlayIcon>
+          <PlayIcon>
+            {" "}
+            {isPlaying ? (
+              <PauseIcon onClick={playItem} />
+            ) : (
+              <PlayArrowIcon onClick={playItem} />
+            )}
+          </PlayIcon>
         </Player>
       )}
       <Info>
@@ -105,7 +115,6 @@ function AlbumRow({ item, popular }) {
             <FavoriteBorderIcon onClick={addFavorite} />
           )}
         </FavoriteBtn>
-        <span>{getItemDuration(item["duration_ms"])}</span>
         {popular && (
           <p>
             <ArrowCircleUpIcon />
@@ -113,6 +122,8 @@ function AlbumRow({ item, popular }) {
           </p>
         )}
       </Toolbar>
+      <span>{getItemDuration(item["duration_ms"])}</span>
+
     </Container>
   );
 }

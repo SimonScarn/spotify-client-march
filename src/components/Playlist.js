@@ -33,7 +33,6 @@ function Playlist() {
   const [initial, setInitial] = useState(false);
   const [favoritesMap, setFavoritesMap] = useState([]);
 
-
   const [count, setCount] = useState(1);
 
   useEffect(() => {
@@ -63,10 +62,6 @@ function Playlist() {
     }
   }, [location, playlist]);
 
-  useEffect(() => {
-    checkFavorites(tracks)
-  }, [tracks])
-
   function refreshRecommendations(tracks) {
     getRecommendations(tracks).then((data) => {
       setRecommendedTracks(data);
@@ -74,17 +69,17 @@ function Playlist() {
   }
 
   function checkFavorites(tracks) {
-    spotifyAPI.containsMySavedTracks([tracks.map(e => e.track.id)])
+    console.log('checkin for ', tracks)
+    spotifyAPI
+      .containsMySavedTracks([tracks.map((e) => e.track.id)])
       .then((data) => {
-        console.log('ludddxxddd', data)
-        setFavoritesMap(data)
-      })
+        setFavoritesMap(data);
+      });
   }
 
-  useEffect( () => {
-    console.log(favoritesMap)
-  }, [favoritesMap])
-
+  useEffect(() => {
+    checkFavorites(tracks);
+  }, [tracks]);
 
   return (
     <Container>
@@ -115,7 +110,9 @@ function Playlist() {
             </div>
           </Header>
           <Toolbar>
-            <IconButton size="large" style={{color: "white"}}><PlayCircleFilledIcon fontSize="large"/></IconButton>
+            <IconButton size="large" style={{ color: "white" }}>
+              <PlayCircleFilledIcon fontSize="large" />
+            </IconButton>
           </Toolbar>
           <hr />
           <Tracks>
@@ -136,7 +133,9 @@ function Playlist() {
               })}
           </Tracks>
           <hr />
-          <h3 style={{ marginLeft: "20px", fontSize: "30px" }}>Recommended: </h3>
+          <h3 style={{ marginLeft: "20px", fontSize: "30px" }}>
+            Recommended:{" "}
+          </h3>
           <>
             {recommendedTracks?.map((item) => {
               return (

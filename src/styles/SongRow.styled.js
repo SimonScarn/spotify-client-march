@@ -2,11 +2,12 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Checkbox from "@mui/material/Checkbox";
 import { IconButton } from "@mui/material";
-import { PlaylistShowBtn } from "./Global.styled.js";
+import { PlaylistShowBtn, FavoriteBtn } from "./Global.styled.js";
 
 const RemoveBtn = styled(IconButton)`
   && {
-    display: none;
+    visibility: hidden;
+    display: grid;
     place-content: center;
     height: 25px;
     width: 25px;
@@ -21,7 +22,7 @@ const RemoveBtn = styled(IconButton)`
 
 const CheckBox = styled(Checkbox)`
   && {
-    visibility: ${props => !props.value ? "hidden" : "visible"};
+    visibility: ${(props) => (!props.value ? "hidden" : "visible")};
     color: white;
     width: min-content;
     margin-left: auto;
@@ -29,16 +30,22 @@ const CheckBox = styled(Checkbox)`
   }
 `;
 
-
-const Index = styled.div``;
-
 const PlayIcon = styled.span`
   display: none;
 `;
 
+const Player = styled.div`
+  display: grid;
+  place-items: center;
+  width: 25px;
+`;
+
+const Index = styled.div`
+`;
+
 const Container = styled.div`
   display: grid;
-  grid-template-columns: 50px 75px 6fr 0.5fr 1fr;
+  grid-template-columns: 50px 75px 6fr 1fr .5fr;
   position: relative;
   z-index: 1;
   width: 92%;
@@ -64,7 +71,11 @@ const Container = styled.div`
     transition: 0.3s ease-in;
   }
 
-  &:hover ${RemoveBtn}, &:hover ${PlayIcon} {
+  &:hover ${RemoveBtn} {
+    visibility: visible;
+  }
+
+  &:hover ${PlayIcon} {
     display: grid;
     place-items: center;
   }
@@ -73,10 +84,11 @@ const Container = styled.div`
     display: none;
   }
 
-  &:hover ${PlaylistShowBtn},
-  &:hover ${CheckBox} {
+  &:hover ${PlaylistShowBtn}, &:hover ${CheckBox}, &:hover ${FavoriteBtn} {
     visibility: visible;
   }
+
+
 `;
 
 const Details = styled.div`
@@ -103,13 +115,8 @@ const Toolbar = styled.div`
   gap: 15px;
   margin-left: auto;
   margin-right: auto;
-
-  & > div {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-  }
 `;
+
 const Album = styled.div`
   width: 200px;
   min-width: 100px;
@@ -149,12 +156,6 @@ const ItemImg = styled.img`
   height: 50px;
   margin: auto 1rem;
 `;
-
-const Player = styled.div`
-  display: grid;
-  place-items: center;
-`;
-
 
 export {
   Container,

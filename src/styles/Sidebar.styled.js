@@ -76,7 +76,7 @@ const SidebarLink = styled(NavLink)`
   color: inherit;
 
   &.active {
-    color: ${props => props.theme.colors.colorPrimary};
+    color: ${props => props.theme.colors.colorSecondary};
     font-weight: 900;
 }
 `;

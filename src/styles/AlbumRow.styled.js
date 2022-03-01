@@ -11,13 +11,13 @@ const Player = styled.div`
   width: 25px;
 `;
 
-const Index = styled.div`
-`;
+const Index = styled.div``;
 
 const Container = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
+  height: 50px;
   margin-bottom: 1px;
   padding: 5px 20px 5px 30px;
   color: whitesmoke;
@@ -41,6 +41,11 @@ const Container = styled.div`
     flex: 0.1;
   }
 
+  span:last-of-type {
+    display: grid;
+    place-content: center;
+  }
+
   &:hover ${PlaylistShowBtn}, &:hover ${FavoriteBtn} {
     visibility: visible;
   }
@@ -49,7 +54,7 @@ const Container = styled.div`
     display: grid;
     place-items: center;
   }
-  
+
   &:hover ${Index} {
     display: none;
   }

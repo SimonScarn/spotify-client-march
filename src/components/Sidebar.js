@@ -18,24 +18,23 @@ import Favorite from "@mui/icons-material/Favorite";
 import EqualizerIcon from "@mui/icons-material/Equalizer";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import AddIcon from "@mui/icons-material/Add";
-import CachedIcon from '@mui/icons-material/Cached';
-import { IconButton } from "@mui/material";
+import CachedIcon from "@mui/icons-material/Cached";
+import { IconButton, Tooltip } from "@mui/material";
 import { getUserPlaylists } from "../utils/ApiCalls.js";
 
 export default function Sidebar() {
   const { userInfo, dispatch } = useContext(GlobalContext);
   const [query, setQuery] = useState("");
   const [searchedPlaylists, setSearchedPlaylists] = useState([]);
+  const [playlists, setPlaylists] = useState([]);
 
   useEffect(() => {
-    console.log('wehighgh : ', query, searchedPlaylists)
-  }, [searchedPlaylists, query])
-
-  useEffect(() => {
+    console.log(userInfo.playlists);
+    setPlaylists([...userInfo.playlists]);
     setSearchedPlaylists([...userInfo.playlists]);
   }, [userInfo.playlists]);
 
-   useEffect(() => {
+  useEffect(() => {
     if (query === "") {
       setSearchedPlaylists([...userInfo.playlists]);
     } else {
@@ -44,7 +43,7 @@ export default function Sidebar() {
       );
       setSearchedPlaylists(items);
     }
-  }, [query]); 
+  }, [query]);
 
   function addSong(e) {
     e.preventDefault();
@@ -57,12 +56,10 @@ export default function Sidebar() {
   }
 
   function refetchPlaylists() {
-    console.log(userInfo.playlists[0].name)
-    setSearchedPlaylists([...userInfo.playlists]);
+    console.log(userInfo.playlists[0].name);
+    setSearchedPlaylists(playlists);
     setQuery("");
-
   }
-
 
   return (
     <Container>
@@ -88,9 +85,12 @@ export default function Sidebar() {
       </SidebarLink>
 
       <SearchSection>
-        <IconButton style={{color: "white"}} onClick={refetchPlaylists}>
-          <CachedIcon/>
-        </IconButton>
+        <Tooltip title="restore default playlists order" placement="top-end">
+          <IconButton style={{ color: "white" }} onClick={refetchPlaylists}>
+            <CachedIcon />
+          </IconButton>
+        </Tooltip>
+
         <Input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
@@ -102,9 +102,7 @@ export default function Sidebar() {
         {searchedPlaylists &&
           searchedPlaylists.map((playlist) => {
             return (
-              <SidebarLink
-                to={`/playlist/${playlist.id}`}
-              >
+              <SidebarLink to={`/playlist/${playlist.id}`}>
                 <PlaylistItem key={playlist.id}>
                   <p>{playlist.name}</p>
                   <Toolbar>

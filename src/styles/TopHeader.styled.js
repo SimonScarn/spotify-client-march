@@ -17,21 +17,19 @@ const Container = styled.div`
   background-image: linear-gradient(315deg, #6b0f1a 0%, #b91372 74%);
 `;
 
-
 const NavBtn = styled(IconButton)`
-&& {
-  margin-right: 0.75rem;
-  color: whitesmoke;
-  box-shadow: 0px 1px 1px 2px whitesmoke;
-  transition: color, background-color 0.2s ease-in-out;
-  cursor: pointer;
+  && {
+    margin-right: 0.75rem;
+    color: whitesmoke;
+    box-shadow: 0px 1px 1px 2px whitesmoke;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
 
-  &:hover {
-    color: black;
-    background-color: whitesmoke;
-/*   box-shadow: 0px 1px 1px 2px ${props => props.theme.colors.colorSecondary}; */
+    &:hover {
+      color: black;
+      background-color: whitesmoke;
+    }
   }
-}
 `;
 
 const UserInfo = styled.div`
@@ -43,13 +41,12 @@ const UserInfo = styled.div`
   padding: 5px;
   color: whitesmoke;
   border-radius: 25px;
-  transition: background 0.4s ease-in-out;
+  transition: all 0.3s ease-in-out;
 
   &:hover {
     cursor: pointer;
-    outline: 4px solid aqua;
+    outline: 2px solid ${(props) => props.theme.colors.colorSecondary};
     color: white;
-
     transition: all 0.3s ease-in-out;
   }
 `;
@@ -63,10 +60,10 @@ const Input = styled.input`
   margin: 10px 50px;
   margin-right: auto;
   padding-left: 1em;
-  transition: background 0.4s ease-in-out;
+  transition: all 0.3s ease-in-out;
 
   &:focus {
-    outline: 3px solid aqua;
+    outline: 3px solid ${(props) => props.theme.colors.colorSecondary};
     outline-offset: 4px;
     transition: outline-color 0.3s ease-out;
   }
@@ -74,16 +71,17 @@ const Input = styled.input`
 
 const LibaryLink = styled(NavLink)`
   position: relative;
-  text-decoration: none;
-  color: inherit;
+  display: block;
+  width: 60px;
   margin-left: 2rem;
   padding: 0.5em 1em;
   border-radius: 1rem;
-  color: white
-text-transform: capitalize 
+  color: inherit;
+  text-align: center;
+  text-decoration: none;
+  text-transform: capitalize 
   font-weight: 700;
   transition: background-color 0.2s ease-in-out;
-
 
   &:before {
     content: "";
@@ -92,7 +90,7 @@ text-transform: capitalize
     left: 0;
     right: 0;
     height: 2px;
-    background-color: aqua;
+    background-color: ${(props) => props.theme.colors.colorSecondary};
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.3s ease-in;
@@ -103,15 +101,9 @@ text-transform: capitalize
   }
 
   &.active {
-    color: aqua;
+    color: black;
+    font-weight: 900;
   }
 `;
 
 export { Container, NavBtn, UserInfo, Input, LibaryLink };
-
-/*  
-  
-  
-  .topHeader__navLink--selected .topHeader__navLink {
-    padding: 50px;
-  } */

@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { IconButton } from "@mui/material";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { PlayBtn } from "./Global.styled.js";
 
 const Container = styled.div`
@@ -17,7 +16,7 @@ const Container = styled.div`
 
   &:hover ${PlayBtn} {
     visibility: visible;
-    transform: translate(110%, -50%);
+    transform: translateY(-40%);
     opacity: 1;
   }
 
