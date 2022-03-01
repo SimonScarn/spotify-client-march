@@ -70,9 +70,9 @@ export default function useAuth(code) {
         .then((res) => {
           setAccessToken(res.data.accessToken);
           setExpiresIn(3600);
-        /*   return apiRequest.put("/token", {
+           return apiRequest.put("/token", {
             accessToken: res.data.accessToken,
-          }); */
+          }); 
         })
         .catch(() => {
           window.location = "/";
