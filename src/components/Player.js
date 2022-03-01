@@ -52,6 +52,12 @@ export default function Player({ code }) {
     }
   }, [userInfo.playlists]);
 
+  useEffect(() => {
+    if (code !== "custom") {
+      apiRequest.put("/status");
+    }
+  }, []);
+
 
   
   if (userInfo.playlists.length == 0) return <Loader full/>;
