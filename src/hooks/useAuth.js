@@ -11,7 +11,6 @@ export default function useAuth(code) {
 
   useEffect(() => {
     if (code === "custom") {
-      console.log("custom");
       apiRequest.get("/token").then((res) => {
         dispatch({ type: "SET_ACCESS_TOKEN", payload: res.data.accessToken });
         dispatch({
@@ -24,7 +23,6 @@ export default function useAuth(code) {
         setExpiresIn(80);
       });
     } else {
-      console.log("login");
       apiRequest
         .post("/login", {
           code: code,

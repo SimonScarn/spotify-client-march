@@ -74,7 +74,7 @@ export default function Sidebar() {
         <SidebarOption title="Library" Icon={LibraryMusic} />
       </SidebarLink>
       <br />
-      <SidebarLink to="#">
+      <SidebarLink style={{pointerEvents: "none"}}> 
         <SidebarOption title="Create new playlist" Icon={AddBox} />
       </SidebarLink>
       <SidebarLink to="/collection/tracks">
