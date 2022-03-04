@@ -11,8 +11,8 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 600px;
-    padding: 100px 120px;
+    height: 70vh;
+    padding: 70px 100px;
     background: white;
     border-radius: 20px;
     background: ${(props) => props.theme.colors.bgHeader};
