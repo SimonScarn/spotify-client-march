@@ -13,15 +13,22 @@ import ListItem from "./ListItem";
 function Modal({ open, handleClose, songID }) {
   const { userInfo, dispatch } = useContext(GlobalContext);
   const [query, setQuery] = useState("");
-  const [userPlaylists, setUserPlaylists] = useState([]);
+  const [searchedPlaylists, setSearchedPlaylists] = useState([]);
 
   useEffect(() => {
-    setUserPlaylists(sortPlaylists(userInfo.playlists));
+    setSearchedPlaylists(sortPlaylists([...userInfo.playlists]));
   }, []);
 
-  function searchPlaylists(e) {
-    setQuery(e.target.value);
-  }
+  useEffect(() => {
+    if (query === "") {
+      setSearchedPlaylists(sortPlaylists([...userInfo.playlists]));
+    } else {
+      const items = [...userInfo.playlists].filter((e) =>
+        e.name.toLowerCase().includes(query)
+      );
+      setSearchedPlaylists(items);
+    }
+  }, [query]);
 
   function sortPlaylists(playlists) {
     return playlists.sort((a, b) =>
@@ -38,12 +45,12 @@ function Modal({ open, handleClose, songID }) {
           <Input
             placeholder="Search playlists..."
             value={query}
-            onChange={searchPlaylists}
+            onChange={(e) => setQuery(e.target.value)}
           />
           <Body>
             <h2>Your playlists:</h2>
             <ListContainer>
-              {userPlaylists?.map((item) => (
+              {searchedPlaylists?.map((item) => (
                 <ListItem key={item.id} item={item} itemID={songID} />
               ))}
             </ListContainer>

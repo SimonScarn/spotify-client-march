@@ -14,26 +14,27 @@ import { apiRequest } from "./requests";
 function App() {
   const [code, setCode] = useState(null);
   const { userInfo, dispatch } = useContext(GlobalContext);
-
+/* 
   useEffect(() => {
-    console.log("preFIRE");
-
     apiRequest.get("/status").then((res) => {
-      console.log("gettin STATUS");
       dispatch({ type: "SET_APP_STATUS", payload: res.data.isRunning });
       if (res.data.isRunning === true) {
-        console.log("setting custom");
 
         setCode("custom");
         return;
       } else {
-        console.log("setting normal");
-
         setCode(new URLSearchParams(window.location.search).get("code"));
         return;
       }
     });
-  }, []);
+  }, []); */
+
+/*  */
+  //! to delete
+  useEffect(() => {
+    setCode(new URLSearchParams(window.location.search).get("code"));
+
+  }, [])
 
   return (
     <Router>

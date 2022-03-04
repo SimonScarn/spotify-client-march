@@ -9,7 +9,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 function FavoritesTracks() {
   const [offset, setOffset] = useState(0);
   const [checkedTracks, setCheckedTracks] = useState([]);
-  const { favoritesTracks, loading, setReload } = useFavoriteTracks(offset);
+  const { favoritesTracks, loading, setReload, reload } = useFavoriteTracks(offset);
 
   const observer = useRef();
   const lastTrackRef = useCallback(
@@ -35,10 +35,12 @@ function FavoritesTracks() {
   };
 
   function removeTracks() {
-    checkedTracks.forEach((e) => e);
-    spotifyAPI.removeFromMySavedTracks(checkedTracks);
-    setReload(true);
-    setCheckedTracks([]);
+    spotifyAPI
+      .removeFromMySavedTracks(checkedTracks)
+      .then(() => {
+        setReload(true)
+      })
+      .finally(() => setCheckedTracks([]));
   }
 
   return (
@@ -80,6 +82,8 @@ function FavoritesTracks() {
                   song={item.track}
                   checkboxState={checkedTracks.includes(item.track.id)}
                   checkboxOnChange={checkboxOnChange}
+                  view={"tracks"}
+                  setReload={setReload}
                 />
               );
             }

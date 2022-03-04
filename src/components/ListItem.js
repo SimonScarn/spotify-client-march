@@ -1,14 +1,9 @@
-import {
-  Container,
-Image,
-Title,
-} from "../styles/ListItem.styled.js"
+import { Container, Image, Title } from "../styles/ListItem.styled.js";
 import { useState, useEffect, useContext } from "react";
-import axios from "axios";
 import { spotifyAPI } from "../spotify";
 import { GlobalContext } from "./../GlobalContext";
 
-function ListItem({ item, itemID }) {
+function ListItem({ item, track }) {
   const { userInfo, dispatch } = useContext(GlobalContext);
   const [open, setOpen] = useState(false);
 
@@ -22,22 +17,10 @@ function ListItem({ item, itemID }) {
   }
 
   function addToPlaylist() {
-    console.log("coming soon with server", item.id, "tracki :", itemID);
-    /*
- axios.post("/playlist", {
-      refreshToken: userInfo.accessToken
-    })
-    .then(res => console.log('res from serwa: ', res))
-*/
-/* 
-    spotifyAPI
-      .addTracksToPlaylist("0XzyX3lmmcEpFRI9m7MAUs", [
-        "spotify:track:0iVh9CMOrKNobLkwHaxHCK",
-      ])
-
-      .then(() => {
-        console.log("coming soon with server");
-      })
+    console.log('coming soon')
+/*     spotifyAPI
+      .addTracksToPlaylist(item.id, [track])
+      .then(data => console.log(data))
       .catch((err) => console.error(err)); */
   }
 
@@ -47,12 +30,13 @@ function ListItem({ item, itemID }) {
       <div>
         <Title>{item.name}</Title>
         <p>
-          <span><strong>{item.tracks.total}</strong></span> tracks
+          <span>
+            <strong>{item.tracks.total}</strong>
+          </span>{" "}
+          tracks
         </p>
       </div>
-      <div>
-        length
-      </div>
+      <div>length</div>
     </Container>
   );
 }

@@ -23,7 +23,7 @@ const Wrapper = styled.div`
   width: 100%;
   max-width: 80vw;
   padding-bottom: 100px;
-  overflow-x: auto;
+  overflow-x: hidden;
   color: #fff;
   background-color: ${(props) => props.theme.colors.bgMain};
 `;

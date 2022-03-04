@@ -8,10 +8,8 @@ const addToPlaylist = (playlistId, songArr, setIsAdded) => {
 };
 
 const removeFromPlaylist = (playlistId, songArr) => {
-  console.log('still rollll in ', playlistId, songArr)
   spotifyAPI
     .removeTracksFromPlaylist(playlistId, songArr)
-    .then(() => console.log('remuvin : ', songArr))
     .catch((err) => console.error(err));
 }
 

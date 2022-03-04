@@ -27,7 +27,7 @@ import PlayCircleFilledIcon from "@mui/icons-material/PlayCircleFilled";
 function Playlist() {
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(true);
-  const [playlist, setPlaylist] = useState(null);
+  const [playlist, setPlaylist] = useState({});
   const [tracks, setTracks] = useState([]);
   const [recommendedTracks, setRecommendedTracks] = useState([]);
   const [initial, setInitial] = useState(false);
@@ -37,12 +37,13 @@ function Playlist() {
 
   useEffect(() => {
     setInitial(true);
-  });
+  }, []);
 
   useEffect(() => {
-    if (initial !== true) {
-      setIsLoading(true);
-    }
+    setIsLoading(true);
+  }, [location.pathname]);
+
+  useEffect(() => {
     const playlistID = location.pathname.split("/")[2];
     setTimeout(() => {
       getPlaylistData(playlistID).then((data) => {
@@ -60,7 +61,7 @@ function Playlist() {
     if (tracks && playlist) {
       refreshRecommendations(tracks);
     }
-  }, [location, playlist]);
+  }, [location.pathname, playlist.id]);
 
   function refreshRecommendations(tracks) {
     getRecommendations(tracks).then((data) => {
@@ -68,18 +69,19 @@ function Playlist() {
     });
   }
 
-  function checkFavorites(tracks) {
-    console.log('checkin for ', tracks)
+  /*  function checkFavorites(tracks) {
     spotifyAPI
       .containsMySavedTracks([tracks.map((e) => e.track.id)])
       .then((data) => {
         setFavoritesMap(data);
       });
-  }
+  }  */
 
-  useEffect(() => {
+/*   useEffect(() => {
     checkFavorites(tracks);
-  }, [tracks]);
+  }, [tracks]);  */
+
+
 
   return (
     <Container>
@@ -124,7 +126,7 @@ function Playlist() {
                     key={item.id}
                     id={item.id}
                     song={item.track}
-                    isFavorite={favoritesMap[item.id - 1]}
+       /*        isFavorite={favoritesMap[item.id - 1]}  */
                     playlistId={playlist.id}
                     removeFromPlaylist={removeFromPlaylist}
                     setCount={setCount}

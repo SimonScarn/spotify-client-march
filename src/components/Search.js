@@ -37,18 +37,12 @@ function Search() {
   //?-----------------------------
 
   useEffect(() => {
-    console.log("SEARCH ==== > ", pathname);
     if (pathname) {
-      console.log("splitttinh ", pathname.split("/"));
       setQuery(pathname.split("/")[2]);
     }
 
     spotifyAPI.getCategories().then((data) => {
       setCategories(data.categories.items);
-    });
-
-    spotifyAPI.getAvailableGenreSeeds().then((data) => {
-      console.log(data.genres.filter((e) => e.includes("hip")));
     });
   }, []);
 
@@ -76,7 +70,6 @@ function Search() {
     getAlbums(query).then((data) => setAlbums(filterAlbums(data)));
     getArtists(query).then((data) => setArtists(data));
     getPlaylists(query).then((data) => {
-      console.log(data);
       setPlaylists(data);
     });
     getShows(query).then((data) => setShows(data));

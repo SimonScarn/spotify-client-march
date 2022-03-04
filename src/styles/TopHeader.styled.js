@@ -12,7 +12,6 @@ const Container = styled.div`
   height: 7vh;
   padding: 10px 20px;
   padding-bottom: 0.5em;
-  border-bottom-left-radius: 1rem;
   background-color: #6b0f1a;
   background-image: linear-gradient(315deg, #6b0f1a 0%, #b91372 74%);
 `;

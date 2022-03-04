@@ -75,6 +75,12 @@ const Info = styled.div`
   & > p,
   & > h3 {
     margin: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 600px;
+    min-width: 200px;
+
   }
 `;
 

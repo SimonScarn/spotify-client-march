@@ -63,14 +63,14 @@ const getArtists = (artists) => {
 };
 
 const getDescription = (item, view) => {
-  console.log(item.type);
-
   switch (item.type) {
     case "album":
       return view === "artist"
         ? item["release_date"].substring(0, 4)
-        : /* getArtists(item.artists) */ "huuuuu";
+        : "";
     case "show":
+
+    
       return item?.publisher;
     case "artist":
       return item.type;

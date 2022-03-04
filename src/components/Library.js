@@ -35,7 +35,6 @@ function Library() {
       case "artists":
         setLoading(true);
         spotifyAPI.getFollowedArtists({ offset, limit: 50 }).then((data) => {
-          console.log("artists => ", data.artists);
           checkItems(data.artists.items, items, setItems);
           setLoading(false);
         });
@@ -59,24 +58,17 @@ function Library() {
       case "playlists":
         setLoading(true);
         spotifyAPI.getUserPlaylists({ offset, limit: 50 }).then((data) => {
-          checkItems(data.items, items, setItems);
+          const playlists = data.items;
+          checkItems(playlists, items, setItems);
           setLoading(false);
         });
         break;
       case "episodes":
-        spotifyAPI.getMySavedShows({ offset, limit: 50 }).then((data) => {
-          /*     console.log(data.items); */
-        });
         break;
       case "tracks":
         break;
       case undefined:
         navigate("/collection/playlists");
-        setLoading(true);
-        spotifyAPI.getUserPlaylists({ offset, limit: 50 }).then((data) => {
-          checkItems(data, items, setItems);
-          setLoading(false);
-        });
         break;
 
       default:
@@ -89,31 +81,26 @@ function Library() {
     setItems([]);
   }, [category]);
 
-  //? -----ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ-----------------
-  useEffect(() => {
-    console.log("library items : ", items);
-  }, [items]);
 
   function checkItems(data, items, setItems) {
+
     if (items[0] === undefined) {
       setItems(data);
       return;
     }
     if (data.length === 0) {
+      setItems([]);
       return;
     }
 
     //!artists
     if (category === "artists") {
       let last = items[offset - 1];
-      console.log("welkom to LS : ", last);
     }
 
     if (category.slice(0, -1) === items[0]?.type) {
-      console.log(category);
       setItems((prev) => [...prev, ...data]);
     } else {
-      console.log("else", category);
       setItems(data);
     }
   }
@@ -133,11 +120,11 @@ function Library() {
             <LibraryMusic /> Your {category}
           </HeaderTitle>
           <Grid>
-            {items?.map((item, idx) => {
+                 {items?.map((item, idx) => {
               if (items.length === idx + 1) {
                 return (
-                  <div ref={lastItemRef} style={{gridColumn: "1 / -1"}}>
-                    <Loader row/>
+                  <div ref={lastItemRef} style={{ gridColumn: "1 / -1" }}>
+                    <Loader row />
                   </div>
                 );
               } else {
@@ -145,7 +132,7 @@ function Library() {
                   <SearchResult key={item.id} item={item} view="collection" />
                 );
               }
-            })}
+            })} 
           </Grid>
         </>
       )}

@@ -29,7 +29,6 @@ export default function Sidebar() {
   const [playlists, setPlaylists] = useState([]);
 
   useEffect(() => {
-    console.log(userInfo.playlists);
     setPlaylists([...userInfo.playlists]);
     setSearchedPlaylists([...userInfo.playlists]);
   }, [userInfo.playlists]);
@@ -40,14 +39,15 @@ export default function Sidebar() {
     } else {
       const items = [...userInfo.playlists].filter((e) =>
         e.name.toLowerCase().includes(query)
-      );
+      
+        );
       setSearchedPlaylists(items);
     }
   }, [query]);
 
   function addSong(e) {
     e.preventDefault();
-    console.log("coming soon", e);
+    console.log("coming soon");
   }
 
   function togglePlaylist(e, id) {
@@ -56,7 +56,6 @@ export default function Sidebar() {
   }
 
   function refetchPlaylists() {
-    console.log(userInfo.playlists[0].name);
     setSearchedPlaylists(playlists);
     setQuery("");
   }
@@ -74,7 +73,7 @@ export default function Sidebar() {
         <SidebarOption title="Library" Icon={LibraryMusic} />
       </SidebarLink>
       <br />
-      <SidebarLink style={{pointerEvents: "none"}}> 
+      <SidebarLink to="/404" style={{ pointerEvents: "none" }}>
         <SidebarOption title="Create new playlist" Icon={AddBox} />
       </SidebarLink>
       <SidebarLink to="/collection/tracks">

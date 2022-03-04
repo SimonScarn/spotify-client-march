@@ -53,14 +53,14 @@ function Album() {
     spotifyAPI
       .addToMySavedAlbums([album.id])
       .then(() => setFavorite(true))
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
   }
 
   function removeFavorite() {
     spotifyAPI
       .removeFromMySavedAlbums([album.id])
       .then(() => setFavorite(false))
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
   }
 
   function playAlbum() {

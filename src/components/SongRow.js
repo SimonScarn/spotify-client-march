@@ -37,25 +37,28 @@ function SongRow({
   addToPlaylist,
   removeFromPlaylist,
   setCount,
+  view,
+  setReload,
 }) {
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
   const [favorite, setFavorite] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
+  const [remove, setRemove] = useState(false);
 
   useEffect(() => {
-    if (isFavorite === true) {
-      console.log("checking .... ", isFavorite, song.name);
+    if (view === "tracks") {
+      setFavorite(true);
+    } else {
+      /* setFavorite(isFavorite); */
+      spotifyAPI
+        .containsMySavedTracks([song.id])
+        .then((data) => {
+          setFavorite(data[0]);
+        })
+        .catch((err) => console.error(err));
     }
-    setFavorite(isFavorite);
-  }, []);
-  /*   useEffect(() => {
-    spotifyAPI.containsMySavedTracks([song.id]).then((res) => {
-      if (res[0] === true) {
-        setFavorite(true);
-      }
-    });
-  }, [checkboxState]); */
+  }, [song, id]);
 
   function showPlaylistModal() {
     setOpen(true);
@@ -66,15 +69,21 @@ function SongRow({
   }
 
   function playSong() {
-    console.log("playing...");
+    console.log("coming soon");
   }
 
   function removeFavorite() {
-    setFavorite(false);
-    spotifyAPI.removeFromMySavedTracks([song.id]);
+    spotifyAPI
+      .removeFromMySavedTracks([song.id])
+      .then(() => {
+        setFavorite(false);
+      })
+      .finally(() => {
+        setRemove(true);
+        setReload(true);
+      });
   }
 
-  //! ???
   function handleAddToPlaylist() {
     addToPlaylist(playlistId, [song.uri], setIsAdded);
     setCount((prev) => (prev += 1));
@@ -85,7 +94,7 @@ function SongRow({
     setCount((prev) => (prev += 1));
   }
 
-  if (isAdded) return null;
+  if (isAdded || (view == "tracks" && !favorite) || remove) return null;
 
   return (
     <Container>

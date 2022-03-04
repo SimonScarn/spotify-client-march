@@ -52,11 +52,14 @@ export default function Player({ code }) {
     }
   }, [userInfo.playlists]);
 
-  useEffect(() => {
+
+
+  //! ----------------ESSENTIAL---------------------
+/*   useEffect(() => {
     if (code !== "custom") {
       apiRequest.put("/status");
     }
-  }, []);
+  }, []); */
 
 
   

@@ -23,8 +23,6 @@ function Discography() {
   const [alignment, setAlignment] = useState("left");
 
   useEffect(() => {
-    console.log("wasap hołłłł", location);
-
     if (location.state.type == "related") {
       spotifyAPI
         .getArtistRelatedArtists(location.pathname.split("/")[2])
@@ -39,12 +37,19 @@ function Discography() {
         .then(({ name, id }) => {
           setArtistName(name);
           setPath("albums");
-          return spotifyAPI.getArtistAlbums(id);
+          return spotifyAPI.getArtistAlbums(id, {limit: 50});
         })
         .then(({ items }) => {
-          setArtistAlbums(
-            items.filter((e) => e["available_markets"].includes("PL"))
-          );
+          const unique = [];
+          let filtered = items.filter((e) => {
+            if (!unique.some((i) => i.name == e.name)) {
+              unique.push(e);
+            }
+          });
+          setArtistAlbums(unique)
+         /*  setArtistAlbums(
+            items.filter((e) => e["available_markets"].includes("PL")) 
+          ); */
         })
         .catch((err) => console.error(err));
     }

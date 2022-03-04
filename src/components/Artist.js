@@ -16,9 +16,9 @@ import Loader from "./Loader.js";
 import { IconButton } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
-
 function Artist() {
   const { pathname } = useLocation();
+  const [loading, setLoading] = useState(true);
   const [artist, setArtist] = useState(null);
   const [popularTracks, setPopularTracks] = useState([]);
   const [artistAlbums, setArtistAlbums] = useState([]);
@@ -27,10 +27,14 @@ function Artist() {
   const [isFollowing, setIsFollowing] = useState(false);
   const [hideTracks, setHideTracks] = useState(false);
 
+
+  useEffect(() => {
+    setLoading(true);
+  }, [pathname])
+
   useEffect(() => {
     setArtistID(pathname.split("/")[2]);
     document.querySelector(Wrapper).scrollTo(0, 0);
-
     spotifyAPI
       .getArtist(artistID)
       .then((data) => {
@@ -39,6 +43,7 @@ function Artist() {
       })
       .then((data) => {
         setPopularTracks(data.tracks);
+        setLoading(false);
       })
       .catch((err) => console.error(err));
 
@@ -69,7 +74,7 @@ function Artist() {
     spotifyAPI
       .isFollowingArtists([artistID])
       .then((data) => setIsFollowing(data[0]))
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err))
   }, [artistID, pathname]);
 
   function followArtist() {
@@ -90,7 +95,7 @@ function Artist() {
   return (
     <Wrapper>
       <TopHeader />
-      {popularTracks.length == 0 ? (
+      {loading || (popularTracks.length === 0)? (
         <Loader />
       ) : (
         <>

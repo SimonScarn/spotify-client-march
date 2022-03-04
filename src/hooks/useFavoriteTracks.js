@@ -7,22 +7,24 @@ export default function useFavoriteTracks(offset) {
   const [reload, setReload] = useState(false);
 
   useEffect(() => {
-    console.log('useFAV -----HOOOK------')
     setLoading(true);
     spotifyAPI
       .getMySavedTracks({ offset })
       .then((res) => {
-        if (reload === true) {
-          setFavoritesTracks(res.items)
+        if (offset < 20) {
+          setFavoritesTracks([...res.items])
         }
         else {
           setFavoritesTracks((prev) => [...prev, ...res.items]);
         }
+      })
+      .catch((err) => console.error(err))
+      .finally(() => {
         setReload(false);
         setLoading(false);
       })
-      .catch((err) => console.error(err));
-  }, [offset, spotifyAPI, reload]);
+  
+    }, [offset, reload]);
 
-  return { favoritesTracks, loading, setReload };
+  return { favoritesTracks, loading, setReload, reload };
 }
