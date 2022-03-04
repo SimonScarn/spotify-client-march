@@ -5,20 +5,24 @@ const Container = styled.div`
   display: grid;
   place-items: center;
   height: 100vh;
-  background: ${props => props.theme.colors.bgMain};
+  background: ${(props) => props.theme.colors.bgMain};
 
-  div {
+  > div {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 100px 120px;
     background: white;
     border-radius: 20px;
-    background: ${props => props.theme.colors.bgHeader};
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
-/*   box-shadow:
-    inset 60px 0 120px #f0f, 
-    inset -60px 0 120px #0ff;  */
+    background: ${(props) => props.theme.colors.bgHeader};
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
+      rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+
+    > div {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+    }
   }
 `;
 
@@ -27,8 +31,8 @@ const Image = styled.img`
   object-fit: contain;
   margin-bottom: 30px;
   padding: 5px;
-  background: ${props => props.theme.colors.colorSecondary};
-  outline: 5px solid ${props => props.theme.colors.colorSecondary};
+  background: ${(props) => props.theme.colors.colorSecondary};
+  outline: 5px solid ${(props) => props.theme.colors.colorSecondary};
   outline-offset: -7px;
   border-radius: 50%;
 `;
@@ -48,7 +52,7 @@ const BtnStyles = css`
   }
 
   &:hover {
-    transition: all .3s linear; 
+    transition: all 0.3s linear;
     background: whitesmoke;
     color: black;
   }
@@ -57,8 +61,7 @@ const BtnStyles = css`
 const LoginBtn = styled(Button)`
   && {
     ${BtnStyles}
-    background: ${props => props.theme.colors.bgMain};
-
+    background: ${(props) => props.theme.colors.bgMain};
   }
 `;
 
@@ -66,14 +69,8 @@ const CodeBtn = styled(Button)`
   && {
     ${BtnStyles}
     margin-top: 50px;
-    background: ${props => props.theme.colors.colorSecondary};
+    background: ${(props) => props.theme.colors.colorSecondary};
   }
 `;
 
-
-export {
-    Container,
-    Image,
-LoginBtn,
-CodeBtn,
-}
+export { Container, Image, LoginBtn, CodeBtn };
