@@ -11,14 +11,14 @@ export default function Login() {
 
         <h2>If you have a Spotify account</h2>
         <LoginBtn href={loginURL}>Login</LoginBtn>
-        <h2 style={{marginTop: "20px"}}>If you don't have a Spotify account</h2>
+        <hr/>
+        <h2 style={{marginTop: "60px"}}>If you don't have a Spotify account</h2>
         <LoginBtn
           href="https://spotify-customized-demo.netlify.app/"
           startIcon={<VisibilityIcon />}
         >
           DEMO VERSION
         </LoginBtn>
-
         <CodeBtn
           href="https://github.com/SimonScarn/spotify-customized"
           target="blank"
