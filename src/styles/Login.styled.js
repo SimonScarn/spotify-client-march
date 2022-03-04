@@ -4,7 +4,7 @@ import styled, { css } from "styled-components";
 const Container = styled.div`
   display: grid;
   place-items: center;
-  height: 100vh;
+  min-height: 100vh;
   background: ${(props) => props.theme.colors.bgMain};
 
   > div {
@@ -17,12 +17,10 @@ const Container = styled.div`
     background: ${(props) => props.theme.colors.bgHeader};
     box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
       rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+  }
 
-    > div {
-      display: flex;
-      flex-direction: row;
-      gap: 10px;
-    }
+  h2 {
+    color: whitesmoke;
   }
 `;
 
