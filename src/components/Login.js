@@ -19,7 +19,7 @@ export default function Login() {
           DEMO VERSION
         </LoginBtn>
         <CodeBtn
-          href="https://github.com/SimonScarn/spotify-customized"
+          href="https://github.com/SimonScarn/spotify-client"
           target="blank"
           startIcon={<GitHubIcon />}
         >
